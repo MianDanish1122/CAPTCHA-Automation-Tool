@@ -1,0 +1,69 @@
+{
+  "name": "ocr_synthetic_v1",
+  "generator": "synthetic-v1",
+  "description": "Owned synthetic text CAPTCHAs: 5 symbols from a 32-symbol alphabet, 240x80, rotated glyphs (+-18 deg), 3-5 noise lines, 100-180 noise dots, light random background.",
+  "alphabet": "ABCDEFGHJKLMNPQRSTUVWXYZ23456789",
+  "label_length": 5,
+  "splits": {
+    "train": {
+      "seeds": "0..",
+      "materialised": false,
+      "note": "generated on demand (deterministic); used only to train the custom model"
+    },
+    "dev": {
+      "seeds": "100000..100199",
+      "samples": 200,
+      "materialised": true,
+      "use": "experiments / configuration selection"
+    },
+    "test": {
+      "seeds": "900000..900299",
+      "samples": 300,
+      "materialised": true,
+      "use": "HELD OUT. Evaluated by the v1 pipeline; its error list was then inspected, so it is reported but not used for the final claim"
+    },
+    "test2": {
+      "seeds": "950000..950299",
+      "samples": 300,
+      "materialised": true,
+      "use": "HELD OUT, never inspected before the final configuration was frozen: final results"
+    }
+  },
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "2.5.4",
+    "opencv": "5.0.0",
+    "pillow": "13.0.0",
+    "tesseract": "5.5.0.20241111",
+    "font_used": "arial",
+    "generator": "synthetic-v1",
+    "utc": "2026-11-07T12:12:41.263736+00:00"
+  },
+  "files": [
+    {
+      "split": "dev",
+      "samples": 200,
+      "seed_range": [
+        100000,
+        100199
+      ]
+    },
+    {
+      "split": "test",
+      "samples": 300,
+      "seed_range": [
+        900000,
+        900299
+      ]
+    },
+    {
+      "split": "test2",
+      "samples": 300,
+      "seed_range": [
+        950000,
+        950299
+      ]
+    }
+  ]
+}

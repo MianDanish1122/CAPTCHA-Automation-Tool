@@ -1,0 +1,24 @@
+{
+  "model": "glyph_mlp_v1",
+  "architecture": "HOG(32x32, 324) + 3 geometry features -> 256 ReLU -> 32 softmax",
+  "framework": "NumPy (implemented from scratch)",
+  "train_split": "train (seeds 0..2999), fonts: arial (2/3) + pillow-default (1/3)",
+  "train_stats": {
+    "images": 3000,
+    "images_used": 2982,
+    "images_skipped_bad_segmentation": 18,
+    "glyphs": 14910
+  },
+  "epochs": 60,
+  "train_glyph_accuracy_pct": 100.0,
+  "dev_glyph_accuracy_pct": 99.95,
+  "dev_stats": {
+    "images": 400,
+    "images_used": 400,
+    "images_skipped_bad_segmentation": 0,
+    "glyphs": 2000
+  },
+  "weights_sha256_16": "e830723ec64c3ec2",
+  "train_seconds": 54.8,
+  "note": "dev accuracy is on perfectly-segmented dev images only; end-to-end results are in the benchmark"
+}

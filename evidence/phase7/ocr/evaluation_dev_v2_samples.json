@@ -1,0 +1,4006 @@
+{
+  "custom_mlp": [
+    {
+      "file": "dev/dev_100000.png",
+      "truth": "F9B3Y",
+      "pred": "F9B3Y",
+      "latency_ms": 28.54,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100001.png",
+      "truth": "TL8N5",
+      "pred": "TL8N5",
+      "latency_ms": 7.8,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100002.png",
+      "truth": "5VFQV",
+      "pred": "5VFQV",
+      "latency_ms": 3.71,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100003.png",
+      "truth": "ZMBDB",
+      "pred": "ZMBDB",
+      "latency_ms": 4.4,
+      "failed": false,
+      "confidence": 99.71,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100004.png",
+      "truth": "CXAVM",
+      "pred": "CXAVM",
+      "latency_ms": 6.59,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100005.png",
+      "truth": "Y4ESS",
+      "pred": "Y4ESS",
+      "latency_ms": 3.9,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100006.png",
+      "truth": "D8DWN",
+      "pred": "D8DWN",
+      "latency_ms": 3.78,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100007.png",
+      "truth": "GVEGW",
+      "pred": "GVEGW",
+      "latency_ms": 3.83,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100008.png",
+      "truth": "LRQUB",
+      "pred": "LRQUB",
+      "latency_ms": 6.14,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100009.png",
+      "truth": "LD25V",
+      "pred": "LD25V",
+      "latency_ms": 3.63,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100010.png",
+      "truth": "7H7LQ",
+      "pred": "7H7LQ",
+      "latency_ms": 3.67,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100011.png",
+      "truth": "THTJA",
+      "pred": "THTJA",
+      "latency_ms": 5.84,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100012.png",
+      "truth": "CPLE7",
+      "pred": "CPLE7",
+      "latency_ms": 3.69,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100013.png",
+      "truth": "K7RX7",
+      "pred": "K7RX7",
+      "latency_ms": 3.61,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100014.png",
+      "truth": "KZ4HZ",
+      "pred": "KZ4HZ",
+      "latency_ms": 5.04,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100015.png",
+      "truth": "3FVDR",
+      "pred": "3FVDR",
+      "latency_ms": 7.67,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100016.png",
+      "truth": "TQ2Y7",
+      "pred": "TQ2Y7",
+      "latency_ms": 5.6,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100017.png",
+      "truth": "JRFPX",
+      "pred": "JRFPX",
+      "latency_ms": 8.54,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100018.png",
+      "truth": "KYSAR",
+      "pred": "KYSAR",
+      "latency_ms": 6.61,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100019.png",
+      "truth": "C6TUU",
+      "pred": "C6TUU",
+      "latency_ms": 9.5,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100020.png",
+      "truth": "CYQS2",
+      "pred": "CYQS2",
+      "latency_ms": 6.2,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100021.png",
+      "truth": "E2PFD",
+      "pred": "E2PFD",
+      "latency_ms": 4.76,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100022.png",
+      "truth": "32MKH",
+      "pred": "32MKH",
+      "latency_ms": 6.63,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100023.png",
+      "truth": "EQ2KT",
+      "pred": "EQ2KT",
+      "latency_ms": 6.13,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100024.png",
+      "truth": "F9RX3",
+      "pred": "F9RX3",
+      "latency_ms": 9.69,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100025.png",
+      "truth": "YU25E",
+      "pred": "YU25E",
+      "latency_ms": 17.26,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100026.png",
+      "truth": "YWTZB",
+      "pred": "YWTZB",
+      "latency_ms": 5.05,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100027.png",
+      "truth": "BM9SD",
+      "pred": "BM9SD",
+      "latency_ms": 3.81,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100028.png",
+      "truth": "8576U",
+      "pred": "8576U",
+      "latency_ms": 5.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100029.png",
+      "truth": "J6UK5",
+      "pred": "J6UK5",
+      "latency_ms": 4.62,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100030.png",
+      "truth": "KT2TD",
+      "pred": "KT2TD",
+      "latency_ms": 3.81,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100031.png",
+      "truth": "XHAMK",
+      "pred": "XHAMK",
+      "latency_ms": 3.73,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100032.png",
+      "truth": "RZH9X",
+      "pred": "RZH9X",
+      "latency_ms": 6.91,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100033.png",
+      "truth": "CTB5H",
+      "pred": "CTB5H",
+      "latency_ms": 3.82,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100034.png",
+      "truth": "2ZJVV",
+      "pred": "2ZJVV",
+      "latency_ms": 3.75,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100035.png",
+      "truth": "47BUG",
+      "pred": "47BUG",
+      "latency_ms": 4.04,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100036.png",
+      "truth": "UUJGJ",
+      "pred": "UUJGJ",
+      "latency_ms": 8.7,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100037.png",
+      "truth": "XC5MU",
+      "pred": "XC5MU",
+      "latency_ms": 5.39,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100038.png",
+      "truth": "UAR6V",
+      "pred": "UAR6V",
+      "latency_ms": 6.82,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100039.png",
+      "truth": "5JHQ6",
+      "pred": "5JHQ6",
+      "latency_ms": 6.32,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100040.png",
+      "truth": "RAX68",
+      "pred": "RAX68",
+      "latency_ms": 9.39,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100041.png",
+      "truth": "QZA3U",
+      "pred": "QZA3U",
+      "latency_ms": 6.49,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100042.png",
+      "truth": "GKLPL",
+      "pred": "GKLPL",
+      "latency_ms": 4.84,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100043.png",
+      "truth": "27KVM",
+      "pred": "27KVM",
+      "latency_ms": 11.36,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100044.png",
+      "truth": "B9BDW",
+      "pred": "B9BDW",
+      "latency_ms": 7.08,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100045.png",
+      "truth": "UVRSY",
+      "pred": "UVRSY",
+      "latency_ms": 6.14,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100046.png",
+      "truth": "ZPFM8",
+      "pred": "ZPFM8",
+      "latency_ms": 4.86,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100047.png",
+      "truth": "9G59H",
+      "pred": "9G59H",
+      "latency_ms": 4.07,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100048.png",
+      "truth": "9C7WC",
+      "pred": "9C7WC",
+      "latency_ms": 7.58,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100049.png",
+      "truth": "8FWJJ",
+      "pred": "8FW4J",
+      "latency_ms": 5.76,
+      "failed": false,
+      "confidence": 86.53,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100050.png",
+      "truth": "C67WZ",
+      "pred": "C67WZ",
+      "latency_ms": 4.71,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100051.png",
+      "truth": "HFKQ7",
+      "pred": "HFKQ7",
+      "latency_ms": 5.03,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100052.png",
+      "truth": "FJKRL",
+      "pred": "FJKRL",
+      "latency_ms": 4.01,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100053.png",
+      "truth": "UAKAJ",
+      "pred": "UAKAJ",
+      "latency_ms": 3.68,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100054.png",
+      "truth": "WBZDZ",
+      "pred": "WBZDZ",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100055.png",
+      "truth": "MD5WQ",
+      "pred": "MD5WQ",
+      "latency_ms": 5.14,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100056.png",
+      "truth": "S5M6S",
+      "pred": "S5M6S",
+      "latency_ms": 3.61,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100057.png",
+      "truth": "48GWZ",
+      "pred": "48GWZ",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100058.png",
+      "truth": "DG43M",
+      "pred": "DG43M",
+      "latency_ms": 3.67,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100059.png",
+      "truth": "FGJ7Q",
+      "pred": "FGJ7Q",
+      "latency_ms": 5.67,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100060.png",
+      "truth": "ZW26A",
+      "pred": "ZW26A",
+      "latency_ms": 3.51,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100061.png",
+      "truth": "LLY23",
+      "pred": "LLY23",
+      "latency_ms": 3.43,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100062.png",
+      "truth": "QN7FA",
+      "pred": "QN7FA",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100063.png",
+      "truth": "X5RSG",
+      "pred": "X5RSG",
+      "latency_ms": 5.55,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100064.png",
+      "truth": "PNZ7Y",
+      "pred": "PNZ7Y",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100065.png",
+      "truth": "WPXSN",
+      "pred": "WPXSN",
+      "latency_ms": 3.45,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100066.png",
+      "truth": "H765U",
+      "pred": "H765U",
+      "latency_ms": 3.46,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100067.png",
+      "truth": "THGZ6",
+      "pred": "THGZ6",
+      "latency_ms": 6.18,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100068.png",
+      "truth": "EWBKE",
+      "pred": "EWBKE",
+      "latency_ms": 3.64,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100069.png",
+      "truth": "4B6NH",
+      "pred": "4B6NH",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100070.png",
+      "truth": "BQRLT",
+      "pred": "BQRLT",
+      "latency_ms": 3.62,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100071.png",
+      "truth": "5XVJ8",
+      "pred": "5XVJ8",
+      "latency_ms": 5.86,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100072.png",
+      "truth": "XHCRE",
+      "pred": "XHCRE",
+      "latency_ms": 4.42,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100073.png",
+      "truth": "AXRLB",
+      "pred": "AXRLB",
+      "latency_ms": 3.66,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100074.png",
+      "truth": "4HJZT",
+      "pred": "4HJZT",
+      "latency_ms": 3.59,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100075.png",
+      "truth": "KK89E",
+      "pred": "KK89E",
+      "latency_ms": 5.55,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100076.png",
+      "truth": "JBJ5U",
+      "pred": "JBJ5U",
+      "latency_ms": 3.85,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100077.png",
+      "truth": "TYF6N",
+      "pred": "TYF6N",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100078.png",
+      "truth": "8E5VJ",
+      "pred": "8E5VJ",
+      "latency_ms": 3.7,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100079.png",
+      "truth": "9TYCJ",
+      "pred": "9TYCJ",
+      "latency_ms": 5.53,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100080.png",
+      "truth": "KR8FM",
+      "pred": "KR8FM",
+      "latency_ms": 4.73,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100081.png",
+      "truth": "Y53UJ",
+      "pred": "Y53UJ",
+      "latency_ms": 3.67,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100082.png",
+      "truth": "X8GEX",
+      "pred": "X8GEX",
+      "latency_ms": 3.58,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100083.png",
+      "truth": "M2P2B",
+      "pred": "M2P2B",
+      "latency_ms": 4.97,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100084.png",
+      "truth": "PQ97W",
+      "pred": "PQ97W",
+      "latency_ms": 3.68,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100085.png",
+      "truth": "8SXYH",
+      "pred": "8SXYH",
+      "latency_ms": 4.27,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100086.png",
+      "truth": "T988B",
+      "pred": "T988B",
+      "latency_ms": 3.9,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100087.png",
+      "truth": "SKZEZ",
+      "pred": "SKZEZ",
+      "latency_ms": 4.93,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100088.png",
+      "truth": "4RMV7",
+      "pred": "4RMV7",
+      "latency_ms": 3.88,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100089.png",
+      "truth": "B597L",
+      "pred": "B597L",
+      "latency_ms": 3.86,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100090.png",
+      "truth": "EYBY4",
+      "pred": "EYBY4",
+      "latency_ms": 4.02,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100091.png",
+      "truth": "8BGYK",
+      "pred": "8BGYK",
+      "latency_ms": 5.38,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100092.png",
+      "truth": "VNRLJ",
+      "pred": "VNRLJ",
+      "latency_ms": 3.86,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100093.png",
+      "truth": "LMPFQ",
+      "pred": "LMPFQ",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100094.png",
+      "truth": "2FVSJ",
+      "pred": "2FVSJ",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100095.png",
+      "truth": "9W3YL",
+      "pred": "9W3YL",
+      "latency_ms": 4.83,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100096.png",
+      "truth": "VS45B",
+      "pred": "VS45B",
+      "latency_ms": 4.95,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100097.png",
+      "truth": "XYAK9",
+      "pred": "XYAK9",
+      "latency_ms": 4.93,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100098.png",
+      "truth": "3ATXK",
+      "pred": "3ATXK",
+      "latency_ms": 7.67,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100099.png",
+      "truth": "BYN4U",
+      "pred": "BYN4U",
+      "latency_ms": 5.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100100.png",
+      "truth": "W6S4F",
+      "pred": "W6S4F",
+      "latency_ms": 8.98,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100101.png",
+      "truth": "W28HT",
+      "pred": "W28HT",
+      "latency_ms": 5.76,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100102.png",
+      "truth": "B5736",
+      "pred": "B5736",
+      "latency_ms": 5.08,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100103.png",
+      "truth": "MBEJR",
+      "pred": "MBEJR",
+      "latency_ms": 5.85,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100104.png",
+      "truth": "UPLR7",
+      "pred": "UPLR7",
+      "latency_ms": 3.57,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100105.png",
+      "truth": "48N46",
+      "pred": "48N46",
+      "latency_ms": 3.4,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100106.png",
+      "truth": "28JKA",
+      "pred": "28JKA",
+      "latency_ms": 3.42,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100107.png",
+      "truth": "HSGVA",
+      "pred": "HSGVA",
+      "latency_ms": 5.23,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100108.png",
+      "truth": "8HKK4",
+      "pred": "8HKK4",
+      "latency_ms": 3.78,
+      "failed": false,
+      "confidence": 99.8,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100109.png",
+      "truth": "45K8R",
+      "pred": "45K8R",
+      "latency_ms": 3.5,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100110.png",
+      "truth": "4APK7",
+      "pred": "4APK7",
+      "latency_ms": 3.6,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100111.png",
+      "truth": "VUBDA",
+      "pred": "VUBDA",
+      "latency_ms": 3.57,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100112.png",
+      "truth": "8K8PH",
+      "pred": "8K8PH",
+      "latency_ms": 6.2,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100113.png",
+      "truth": "TBWZL",
+      "pred": "TBWZL",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100114.png",
+      "truth": "QZG6V",
+      "pred": "QZG6V",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100115.png",
+      "truth": "3D4EA",
+      "pred": "3D4EA",
+      "latency_ms": 5.39,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100116.png",
+      "truth": "J3SRD",
+      "pred": "J3SRD",
+      "latency_ms": 3.77,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100117.png",
+      "truth": "9NFTW",
+      "pred": "9NFTW",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100118.png",
+      "truth": "7AZGV",
+      "pred": "7AZGV",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100119.png",
+      "truth": "8CBJL",
+      "pred": "8CBJL",
+      "latency_ms": 3.69,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100120.png",
+      "truth": "2UHJ2",
+      "pred": "2UHJ2",
+      "latency_ms": 4.64,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100121.png",
+      "truth": "E4HN8",
+      "pred": "E4HN8",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100122.png",
+      "truth": "N93LN",
+      "pred": "N93LN",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100123.png",
+      "truth": "GQMW5",
+      "pred": "GQMW5",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100124.png",
+      "truth": "3AF55",
+      "pred": "3AF55",
+      "latency_ms": 5.45,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100125.png",
+      "truth": "NEJ2L",
+      "pred": "NEJ2L",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100126.png",
+      "truth": "5RSD2",
+      "pred": "5RSD2",
+      "latency_ms": 3.49,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100127.png",
+      "truth": "8V337",
+      "pred": "8V337",
+      "latency_ms": 3.62,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100128.png",
+      "truth": "LSBF7",
+      "pred": "LSBF7",
+      "latency_ms": 5.37,
+      "failed": false,
+      "confidence": 99.84,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100129.png",
+      "truth": "HQ43J",
+      "pred": "HQ43J",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100130.png",
+      "truth": "5KUS8",
+      "pred": "5KUS8",
+      "latency_ms": 3.6,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100131.png",
+      "truth": "GXM3R",
+      "pred": "GXM3R",
+      "latency_ms": 3.81,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100132.png",
+      "truth": "M26SZ",
+      "pred": "M26SZ",
+      "latency_ms": 5.17,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100133.png",
+      "truth": "JBA9K",
+      "pred": "JBA9K",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100134.png",
+      "truth": "DRUDH",
+      "pred": "DRUDH",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100135.png",
+      "truth": "AH8DC",
+      "pred": "AH8DC",
+      "latency_ms": 3.83,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100136.png",
+      "truth": "D9HK6",
+      "pred": "D9HK6",
+      "latency_ms": 5.07,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100137.png",
+      "truth": "56VWV",
+      "pred": "56VWV",
+      "latency_ms": 3.58,
+      "failed": false,
+      "confidence": 97.14,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100138.png",
+      "truth": "KWZFV",
+      "pred": "KWZFV",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100139.png",
+      "truth": "NHZGX",
+      "pred": "NHZGX",
+      "latency_ms": 4.31,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100140.png",
+      "truth": "5CDFR",
+      "pred": "5CDFR",
+      "latency_ms": 4.58,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100141.png",
+      "truth": "KWCYC",
+      "pred": "KWCYC",
+      "latency_ms": 3.98,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100142.png",
+      "truth": "GYM9Q",
+      "pred": "GYM9Q",
+      "latency_ms": 3.51,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100143.png",
+      "truth": "2SYP6",
+      "pred": "2SYP6",
+      "latency_ms": 3.57,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100144.png",
+      "truth": "B4X7H",
+      "pred": "B4X7H",
+      "latency_ms": 3.7,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100145.png",
+      "truth": "E3L2T",
+      "pred": "E3L2T",
+      "latency_ms": 5.01,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100146.png",
+      "truth": "VHQG9",
+      "pred": "VHQG9",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100147.png",
+      "truth": "8MMSN",
+      "pred": "8MMSN",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100148.png",
+      "truth": "D83QY",
+      "pred": "D83QY",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100149.png",
+      "truth": "FTH8E",
+      "pred": "FTH8E",
+      "latency_ms": 4.99,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100150.png",
+      "truth": "UUKKM",
+      "pred": "UUKKM",
+      "latency_ms": 3.63,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100151.png",
+      "truth": "4PBMC",
+      "pred": "4PBMC",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100152.png",
+      "truth": "7ZPP4",
+      "pred": "7ZPP4",
+      "latency_ms": 3.65,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100153.png",
+      "truth": "KT48H",
+      "pred": "KT48H",
+      "latency_ms": 5.58,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100154.png",
+      "truth": "QQ9PW",
+      "pred": "QQ9PW",
+      "latency_ms": 3.82,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100155.png",
+      "truth": "QK6C2",
+      "pred": "QK6C2",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100156.png",
+      "truth": "YA5DX",
+      "pred": "YA5DX",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100157.png",
+      "truth": "BHCA5",
+      "pred": "BHCA5",
+      "latency_ms": 5.53,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100158.png",
+      "truth": "SDB4E",
+      "pred": "SDB4E",
+      "latency_ms": 3.5,
+      "failed": false,
+      "confidence": 99.79,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100159.png",
+      "truth": "V7TPR",
+      "pred": "V7TPR",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100160.png",
+      "truth": "EYE9Z",
+      "pred": "EYE9Z",
+      "latency_ms": 3.66,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100161.png",
+      "truth": "V8HT9",
+      "pred": "V8HT9",
+      "latency_ms": 5.44,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100162.png",
+      "truth": "AK2TL",
+      "pred": "AK2TL",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100163.png",
+      "truth": "HNQBG",
+      "pred": "HNQBG",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100164.png",
+      "truth": "BJET9",
+      "pred": "BJET9",
+      "latency_ms": 3.5,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100165.png",
+      "truth": "S6GLV",
+      "pred": "S6GLV",
+      "latency_ms": 4.53,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100166.png",
+      "truth": "D9K4Q",
+      "pred": "D9K4Q",
+      "latency_ms": 4.08,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100167.png",
+      "truth": "QD4KR",
+      "pred": "QD4KR",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100168.png",
+      "truth": "95UZD",
+      "pred": "95UZD",
+      "latency_ms": 3.38,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100169.png",
+      "truth": "2DJET",
+      "pred": "2DJET",
+      "latency_ms": 3.83,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100170.png",
+      "truth": "RCGWJ",
+      "pred": "RCGWJ",
+      "latency_ms": 4.98,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100171.png",
+      "truth": "QBKRT",
+      "pred": "QBKRT",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100172.png",
+      "truth": "SGHEE",
+      "pred": "SGHEE",
+      "latency_ms": 3.72,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100173.png",
+      "truth": "GBUWD",
+      "pred": "GBUWD",
+      "latency_ms": 3.59,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100174.png",
+      "truth": "TAMDC",
+      "pred": "TAMDC",
+      "latency_ms": 5.49,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100175.png",
+      "truth": "Y3KNG",
+      "pred": "Y3KNG",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100176.png",
+      "truth": "FHQSN",
+      "pred": "FHQSN",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100177.png",
+      "truth": "FCPP3",
+      "pred": "FCPP3",
+      "latency_ms": 3.59,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100178.png",
+      "truth": "QF3ZU",
+      "pred": "QF3ZU",
+      "latency_ms": 5.34,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100179.png",
+      "truth": "ASV29",
+      "pred": "ASV29",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100180.png",
+      "truth": "AKWJH",
+      "pred": "AKWJH",
+      "latency_ms": 3.61,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100181.png",
+      "truth": "VZ58W",
+      "pred": "VZ58W",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100182.png",
+      "truth": "JYHCX",
+      "pred": "JYHCX",
+      "latency_ms": 6.77,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100183.png",
+      "truth": "4RAS4",
+      "pred": "4RAS4",
+      "latency_ms": 6.92,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100184.png",
+      "truth": "B56R8",
+      "pred": "B56R8",
+      "latency_ms": 10.02,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100185.png",
+      "truth": "VZ389",
+      "pred": "VZ389",
+      "latency_ms": 5.86,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100186.png",
+      "truth": "8VFBK",
+      "pred": "8VFBK",
+      "latency_ms": 4.66,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100187.png",
+      "truth": "ZERVM",
+      "pred": "ZERVM",
+      "latency_ms": 5.65,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100188.png",
+      "truth": "CR5PC",
+      "pred": "CR5PC",
+      "latency_ms": 3.83,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100189.png",
+      "truth": "A7TBB",
+      "pred": "A7TBB",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100190.png",
+      "truth": "DBUGS",
+      "pred": "DBUGS",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100191.png",
+      "truth": "8C5CM",
+      "pred": "8C5CM",
+      "latency_ms": 6.16,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100192.png",
+      "truth": "BCWSJ",
+      "pred": "BCWSJ",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100193.png",
+      "truth": "DJRHN",
+      "pred": "DJRHN",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100194.png",
+      "truth": "TK4KL",
+      "pred": "TK4KL",
+      "latency_ms": 3.45,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100195.png",
+      "truth": "LE74B",
+      "pred": "LE74B",
+      "latency_ms": 5.16,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100196.png",
+      "truth": "ZL2WN",
+      "pred": "ZL2WN",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100197.png",
+      "truth": "9P6HC",
+      "pred": "9P6HC",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100198.png",
+      "truth": "NNK4S",
+      "pred": "NNK4S",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "dev/dev_100199.png",
+      "truth": "KS4G8",
+      "pred": "KS4G8",
+      "latency_ms": 6.03,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    }
+  ],
+  "hybrid": [
+    {
+      "file": "dev/dev_100000.png",
+      "truth": "F9B3Y",
+      "pred": "F9B3Y",
+      "latency_ms": 11.77,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100001.png",
+      "truth": "TL8N5",
+      "pred": "TL8N5",
+      "latency_ms": 7.88,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100002.png",
+      "truth": "5VFQV",
+      "pred": "5VFQV",
+      "latency_ms": 7.0,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100003.png",
+      "truth": "ZMBDB",
+      "pred": "ZMBDB",
+      "latency_ms": 4.24,
+      "failed": false,
+      "confidence": 99.71,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100004.png",
+      "truth": "CXAVM",
+      "pred": "CXAVM",
+      "latency_ms": 3.66,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100005.png",
+      "truth": "Y4ESS",
+      "pred": "Y4ESS",
+      "latency_ms": 5.38,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100006.png",
+      "truth": "D8DWN",
+      "pred": "D8DWN",
+      "latency_ms": 4.55,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100007.png",
+      "truth": "GVEGW",
+      "pred": "GVEGW",
+      "latency_ms": 3.62,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100008.png",
+      "truth": "LRQUB",
+      "pred": "LRQUB",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100009.png",
+      "truth": "LD25V",
+      "pred": "LD25V",
+      "latency_ms": 5.1,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100010.png",
+      "truth": "7H7LQ",
+      "pred": "7H7LQ",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100011.png",
+      "truth": "THTJA",
+      "pred": "THTJA",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100012.png",
+      "truth": "CPLE7",
+      "pred": "CPLE7",
+      "latency_ms": 3.45,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100013.png",
+      "truth": "K7RX7",
+      "pred": "K7RX7",
+      "latency_ms": 5.53,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100014.png",
+      "truth": "KZ4HZ",
+      "pred": "KZ4HZ",
+      "latency_ms": 3.93,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100015.png",
+      "truth": "3FVDR",
+      "pred": "3FVDR",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100016.png",
+      "truth": "TQ2Y7",
+      "pred": "TQ2Y7",
+      "latency_ms": 3.41,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100017.png",
+      "truth": "JRFPX",
+      "pred": "JRFPX",
+      "latency_ms": 4.92,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100018.png",
+      "truth": "KYSAR",
+      "pred": "KYSAR",
+      "latency_ms": 3.99,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100019.png",
+      "truth": "C6TUU",
+      "pred": "C6TUU",
+      "latency_ms": 3.71,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100020.png",
+      "truth": "CYQS2",
+      "pred": "CYQS2",
+      "latency_ms": 3.5,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100021.png",
+      "truth": "E2PFD",
+      "pred": "E2PFD",
+      "latency_ms": 4.28,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100022.png",
+      "truth": "32MKH",
+      "pred": "32MKH",
+      "latency_ms": 4.49,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100023.png",
+      "truth": "EQ2KT",
+      "pred": "EQ2KT",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100024.png",
+      "truth": "F9RX3",
+      "pred": "F9RX3",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100025.png",
+      "truth": "YU25E",
+      "pred": "YU25E",
+      "latency_ms": 4.24,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100026.png",
+      "truth": "YWTZB",
+      "pred": "YWTZB",
+      "latency_ms": 6.91,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100027.png",
+      "truth": "BM9SD",
+      "pred": "BM9SD",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100028.png",
+      "truth": "8576U",
+      "pred": "8576U",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100029.png",
+      "truth": "J6UK5",
+      "pred": "J6UK5",
+      "latency_ms": 4.51,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100030.png",
+      "truth": "KT2TD",
+      "pred": "KT2TD",
+      "latency_ms": 4.1,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100031.png",
+      "truth": "XHAMK",
+      "pred": "XHAMK",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100032.png",
+      "truth": "RZH9X",
+      "pred": "RZH9X",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100033.png",
+      "truth": "CTB5H",
+      "pred": "CTB5H",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100034.png",
+      "truth": "2ZJVV",
+      "pred": "2ZJVV",
+      "latency_ms": 5.18,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100035.png",
+      "truth": "47BUG",
+      "pred": "47BUG",
+      "latency_ms": 3.43,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100036.png",
+      "truth": "UUJGJ",
+      "pred": "UUJGJ",
+      "latency_ms": 3.45,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100037.png",
+      "truth": "XC5MU",
+      "pred": "XC5MU",
+      "latency_ms": 3.69,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100038.png",
+      "truth": "UAR6V",
+      "pred": "UAR6V",
+      "latency_ms": 6.3,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100039.png",
+      "truth": "5JHQ6",
+      "pred": "5JHQ6",
+      "latency_ms": 3.61,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100040.png",
+      "truth": "RAX68",
+      "pred": "RAX68",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100041.png",
+      "truth": "QZA3U",
+      "pred": "QZA3U",
+      "latency_ms": 3.45,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100042.png",
+      "truth": "GKLPL",
+      "pred": "GKLPL",
+      "latency_ms": 7.38,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100043.png",
+      "truth": "27KVM",
+      "pred": "27KVM",
+      "latency_ms": 3.94,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100044.png",
+      "truth": "B9BDW",
+      "pred": "B9BDW",
+      "latency_ms": 3.87,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100045.png",
+      "truth": "UVRSY",
+      "pred": "UVRSY",
+      "latency_ms": 6.83,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100046.png",
+      "truth": "ZPFM8",
+      "pred": "ZPFM8",
+      "latency_ms": 3.92,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100047.png",
+      "truth": "9G59H",
+      "pred": "9G59H",
+      "latency_ms": 3.93,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100048.png",
+      "truth": "9C7WC",
+      "pred": "9C7WC",
+      "latency_ms": 3.72,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100049.png",
+      "truth": "8FWJJ",
+      "pred": "FY",
+      "latency_ms": 623.72,
+      "failed": false,
+      "confidence": 0.0,
+      "error": null,
+      "route": "tesseract_tuned (fallback)"
+    },
+    {
+      "file": "dev/dev_100050.png",
+      "truth": "C67WZ",
+      "pred": "C67WZ",
+      "latency_ms": 20.52,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100051.png",
+      "truth": "HFKQ7",
+      "pred": "HFKQ7",
+      "latency_ms": 13.55,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100052.png",
+      "truth": "FJKRL",
+      "pred": "FJKRL",
+      "latency_ms": 6.76,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100053.png",
+      "truth": "UAKAJ",
+      "pred": "UAKAJ",
+      "latency_ms": 10.48,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100054.png",
+      "truth": "WBZDZ",
+      "pred": "WBZDZ",
+      "latency_ms": 16.15,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100055.png",
+      "truth": "MD5WQ",
+      "pred": "MD5WQ",
+      "latency_ms": 7.9,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100056.png",
+      "truth": "S5M6S",
+      "pred": "S5M6S",
+      "latency_ms": 10.43,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100057.png",
+      "truth": "48GWZ",
+      "pred": "48GWZ",
+      "latency_ms": 11.53,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100058.png",
+      "truth": "DG43M",
+      "pred": "DG43M",
+      "latency_ms": 7.02,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100059.png",
+      "truth": "FGJ7Q",
+      "pred": "FGJ7Q",
+      "latency_ms": 9.87,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100060.png",
+      "truth": "ZW26A",
+      "pred": "ZW26A",
+      "latency_ms": 5.23,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100061.png",
+      "truth": "LLY23",
+      "pred": "LLY23",
+      "latency_ms": 5.85,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100062.png",
+      "truth": "QN7FA",
+      "pred": "QN7FA",
+      "latency_ms": 7.91,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100063.png",
+      "truth": "X5RSG",
+      "pred": "X5RSG",
+      "latency_ms": 5.72,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100064.png",
+      "truth": "PNZ7Y",
+      "pred": "PNZ7Y",
+      "latency_ms": 7.75,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100065.png",
+      "truth": "WPXSN",
+      "pred": "WPXSN",
+      "latency_ms": 6.85,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100066.png",
+      "truth": "H765U",
+      "pred": "H765U",
+      "latency_ms": 9.69,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100067.png",
+      "truth": "THGZ6",
+      "pred": "THGZ6",
+      "latency_ms": 4.71,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100068.png",
+      "truth": "EWBKE",
+      "pred": "EWBKE",
+      "latency_ms": 4.53,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100069.png",
+      "truth": "4B6NH",
+      "pred": "4B6NH",
+      "latency_ms": 4.03,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100070.png",
+      "truth": "BQRLT",
+      "pred": "BQRLT",
+      "latency_ms": 5.79,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100071.png",
+      "truth": "5XVJ8",
+      "pred": "5XVJ8",
+      "latency_ms": 4.22,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100072.png",
+      "truth": "XHCRE",
+      "pred": "XHCRE",
+      "latency_ms": 7.14,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100073.png",
+      "truth": "AXRLB",
+      "pred": "AXRLB",
+      "latency_ms": 8.93,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100074.png",
+      "truth": "4HJZT",
+      "pred": "4HJZT",
+      "latency_ms": 6.4,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100075.png",
+      "truth": "KK89E",
+      "pred": "KK89E",
+      "latency_ms": 16.31,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100076.png",
+      "truth": "JBJ5U",
+      "pred": "JBJ5U",
+      "latency_ms": 9.63,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100077.png",
+      "truth": "TYF6N",
+      "pred": "TYF6N",
+      "latency_ms": 4.76,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100078.png",
+      "truth": "8E5VJ",
+      "pred": "8E5VJ",
+      "latency_ms": 9.45,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100079.png",
+      "truth": "9TYCJ",
+      "pred": "9TYCJ",
+      "latency_ms": 6.76,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100080.png",
+      "truth": "KR8FM",
+      "pred": "KR8FM",
+      "latency_ms": 9.21,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100081.png",
+      "truth": "Y53UJ",
+      "pred": "Y53UJ",
+      "latency_ms": 9.16,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100082.png",
+      "truth": "X8GEX",
+      "pred": "X8GEX",
+      "latency_ms": 11.05,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100083.png",
+      "truth": "M2P2B",
+      "pred": "M2P2B",
+      "latency_ms": 9.57,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100084.png",
+      "truth": "PQ97W",
+      "pred": "PQ97W",
+      "latency_ms": 10.93,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100085.png",
+      "truth": "8SXYH",
+      "pred": "8SXYH",
+      "latency_ms": 10.62,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100086.png",
+      "truth": "T988B",
+      "pred": "T988B",
+      "latency_ms": 6.68,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100087.png",
+      "truth": "SKZEZ",
+      "pred": "SKZEZ",
+      "latency_ms": 13.26,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100088.png",
+      "truth": "4RMV7",
+      "pred": "4RMV7",
+      "latency_ms": 26.06,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100089.png",
+      "truth": "B597L",
+      "pred": "B597L",
+      "latency_ms": 8.15,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100090.png",
+      "truth": "EYBY4",
+      "pred": "EYBY4",
+      "latency_ms": 6.08,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100091.png",
+      "truth": "8BGYK",
+      "pred": "8BGYK",
+      "latency_ms": 8.07,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100092.png",
+      "truth": "VNRLJ",
+      "pred": "VNRLJ",
+      "latency_ms": 6.99,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100093.png",
+      "truth": "LMPFQ",
+      "pred": "LMPFQ",
+      "latency_ms": 9.66,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100094.png",
+      "truth": "2FVSJ",
+      "pred": "2FVSJ",
+      "latency_ms": 8.04,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100095.png",
+      "truth": "9W3YL",
+      "pred": "9W3YL",
+      "latency_ms": 13.97,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100096.png",
+      "truth": "VS45B",
+      "pred": "VS45B",
+      "latency_ms": 10.85,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100097.png",
+      "truth": "XYAK9",
+      "pred": "XYAK9",
+      "latency_ms": 13.58,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100098.png",
+      "truth": "3ATXK",
+      "pred": "3ATXK",
+      "latency_ms": 8.13,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100099.png",
+      "truth": "BYN4U",
+      "pred": "BYN4U",
+      "latency_ms": 11.33,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100100.png",
+      "truth": "W6S4F",
+      "pred": "W6S4F",
+      "latency_ms": 15.19,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100101.png",
+      "truth": "W28HT",
+      "pred": "W28HT",
+      "latency_ms": 9.29,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100102.png",
+      "truth": "B5736",
+      "pred": "B5736",
+      "latency_ms": 9.9,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100103.png",
+      "truth": "MBEJR",
+      "pred": "MBEJR",
+      "latency_ms": 7.59,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100104.png",
+      "truth": "UPLR7",
+      "pred": "UPLR7",
+      "latency_ms": 11.92,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100105.png",
+      "truth": "48N46",
+      "pred": "48N46",
+      "latency_ms": 9.75,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100106.png",
+      "truth": "28JKA",
+      "pred": "28JKA",
+      "latency_ms": 7.84,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100107.png",
+      "truth": "HSGVA",
+      "pred": "HSGVA",
+      "latency_ms": 10.5,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100108.png",
+      "truth": "8HKK4",
+      "pred": "8HKK4",
+      "latency_ms": 7.96,
+      "failed": false,
+      "confidence": 99.8,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100109.png",
+      "truth": "45K8R",
+      "pred": "45K8R",
+      "latency_ms": 10.04,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100110.png",
+      "truth": "4APK7",
+      "pred": "4APK7",
+      "latency_ms": 86.49,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100111.png",
+      "truth": "VUBDA",
+      "pred": "VUBDA",
+      "latency_ms": 64.4,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100112.png",
+      "truth": "8K8PH",
+      "pred": "8K8PH",
+      "latency_ms": 12.13,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100113.png",
+      "truth": "TBWZL",
+      "pred": "TBWZL",
+      "latency_ms": 7.36,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100114.png",
+      "truth": "QZG6V",
+      "pred": "QZG6V",
+      "latency_ms": 3.91,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100115.png",
+      "truth": "3D4EA",
+      "pred": "3D4EA",
+      "latency_ms": 5.23,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100116.png",
+      "truth": "J3SRD",
+      "pred": "J3SRD",
+      "latency_ms": 3.62,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100117.png",
+      "truth": "9NFTW",
+      "pred": "9NFTW",
+      "latency_ms": 4.0,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100118.png",
+      "truth": "7AZGV",
+      "pred": "7AZGV",
+      "latency_ms": 5.18,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100119.png",
+      "truth": "8CBJL",
+      "pred": "8CBJL",
+      "latency_ms": 5.63,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100120.png",
+      "truth": "2UHJ2",
+      "pred": "2UHJ2",
+      "latency_ms": 3.6,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100121.png",
+      "truth": "E4HN8",
+      "pred": "E4HN8",
+      "latency_ms": 3.5,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100122.png",
+      "truth": "N93LN",
+      "pred": "N93LN",
+      "latency_ms": 3.64,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100123.png",
+      "truth": "GQMW5",
+      "pred": "GQMW5",
+      "latency_ms": 4.97,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100124.png",
+      "truth": "3AF55",
+      "pred": "3AF55",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100125.png",
+      "truth": "NEJ2L",
+      "pred": "NEJ2L",
+      "latency_ms": 3.49,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100126.png",
+      "truth": "5RSD2",
+      "pred": "5RSD2",
+      "latency_ms": 3.51,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100127.png",
+      "truth": "8V337",
+      "pred": "8V337",
+      "latency_ms": 5.17,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100128.png",
+      "truth": "LSBF7",
+      "pred": "LSBF7",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.84,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100129.png",
+      "truth": "HQ43J",
+      "pred": "HQ43J",
+      "latency_ms": 3.7,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100130.png",
+      "truth": "5KUS8",
+      "pred": "5KUS8",
+      "latency_ms": 3.62,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100131.png",
+      "truth": "GXM3R",
+      "pred": "GXM3R",
+      "latency_ms": 5.66,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100132.png",
+      "truth": "M26SZ",
+      "pred": "M26SZ",
+      "latency_ms": 3.61,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100133.png",
+      "truth": "JBA9K",
+      "pred": "JBA9K",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100134.png",
+      "truth": "DRUDH",
+      "pred": "DRUDH",
+      "latency_ms": 3.57,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100135.png",
+      "truth": "AH8DC",
+      "pred": "AH8DC",
+      "latency_ms": 5.09,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100136.png",
+      "truth": "D9HK6",
+      "pred": "D9HK6",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100137.png",
+      "truth": "56VWV",
+      "pred": "56VWV",
+      "latency_ms": 3.58,
+      "failed": false,
+      "confidence": 97.14,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100138.png",
+      "truth": "KWZFV",
+      "pred": "KWZFV",
+      "latency_ms": 3.91,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100139.png",
+      "truth": "NHZGX",
+      "pred": "NHZGX",
+      "latency_ms": 5.94,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100140.png",
+      "truth": "5CDFR",
+      "pred": "5CDFR",
+      "latency_ms": 3.88,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100141.png",
+      "truth": "KWCYC",
+      "pred": "KWCYC",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100142.png",
+      "truth": "GYM9Q",
+      "pred": "GYM9Q",
+      "latency_ms": 3.9,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100143.png",
+      "truth": "2SYP6",
+      "pred": "2SYP6",
+      "latency_ms": 4.85,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100144.png",
+      "truth": "B4X7H",
+      "pred": "B4X7H",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100145.png",
+      "truth": "E3L2T",
+      "pred": "E3L2T",
+      "latency_ms": 3.5,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100146.png",
+      "truth": "VHQG9",
+      "pred": "VHQG9",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100147.png",
+      "truth": "8MMSN",
+      "pred": "8MMSN",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100148.png",
+      "truth": "D83QY",
+      "pred": "D83QY",
+      "latency_ms": 4.74,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100149.png",
+      "truth": "FTH8E",
+      "pred": "FTH8E",
+      "latency_ms": 3.5,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100150.png",
+      "truth": "UUKKM",
+      "pred": "UUKKM",
+      "latency_ms": 3.89,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100151.png",
+      "truth": "4PBMC",
+      "pred": "4PBMC",
+      "latency_ms": 3.58,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100152.png",
+      "truth": "7ZPP4",
+      "pred": "7ZPP4",
+      "latency_ms": 4.76,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100153.png",
+      "truth": "KT48H",
+      "pred": "KT48H",
+      "latency_ms": 3.42,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100154.png",
+      "truth": "QQ9PW",
+      "pred": "QQ9PW",
+      "latency_ms": 3.78,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100155.png",
+      "truth": "QK6C2",
+      "pred": "QK6C2",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100156.png",
+      "truth": "YA5DX",
+      "pred": "YA5DX",
+      "latency_ms": 4.63,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100157.png",
+      "truth": "BHCA5",
+      "pred": "BHCA5",
+      "latency_ms": 3.59,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100158.png",
+      "truth": "SDB4E",
+      "pred": "SDB4E",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.79,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100159.png",
+      "truth": "V7TPR",
+      "pred": "V7TPR",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100160.png",
+      "truth": "EYE9Z",
+      "pred": "EYE9Z",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100161.png",
+      "truth": "V8HT9",
+      "pred": "V8HT9",
+      "latency_ms": 6.54,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100162.png",
+      "truth": "AK2TL",
+      "pred": "AK2TL",
+      "latency_ms": 4.04,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100163.png",
+      "truth": "HNQBG",
+      "pred": "HNQBG",
+      "latency_ms": 5.19,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100164.png",
+      "truth": "BJET9",
+      "pred": "BJET9",
+      "latency_ms": 9.12,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100165.png",
+      "truth": "S6GLV",
+      "pred": "S6GLV",
+      "latency_ms": 7.32,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100166.png",
+      "truth": "D9K4Q",
+      "pred": "D9K4Q",
+      "latency_ms": 8.43,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100167.png",
+      "truth": "QD4KR",
+      "pred": "QD4KR",
+      "latency_ms": 5.91,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100168.png",
+      "truth": "95UZD",
+      "pred": "95UZD",
+      "latency_ms": 9.15,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100169.png",
+      "truth": "2DJET",
+      "pred": "2DJET",
+      "latency_ms": 4.9,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100170.png",
+      "truth": "RCGWJ",
+      "pred": "RCGWJ",
+      "latency_ms": 7.7,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100171.png",
+      "truth": "QBKRT",
+      "pred": "QBKRT",
+      "latency_ms": 5.39,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100172.png",
+      "truth": "SGHEE",
+      "pred": "SGHEE",
+      "latency_ms": 5.8,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100173.png",
+      "truth": "GBUWD",
+      "pred": "GBUWD",
+      "latency_ms": 5.83,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100174.png",
+      "truth": "TAMDC",
+      "pred": "TAMDC",
+      "latency_ms": 6.95,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100175.png",
+      "truth": "Y3KNG",
+      "pred": "Y3KNG",
+      "latency_ms": 10.33,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100176.png",
+      "truth": "FHQSN",
+      "pred": "FHQSN",
+      "latency_ms": 5.81,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100177.png",
+      "truth": "FCPP3",
+      "pred": "FCPP3",
+      "latency_ms": 4.62,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100178.png",
+      "truth": "QF3ZU",
+      "pred": "QF3ZU",
+      "latency_ms": 5.63,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100179.png",
+      "truth": "ASV29",
+      "pred": "ASV29",
+      "latency_ms": 4.52,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100180.png",
+      "truth": "AKWJH",
+      "pred": "AKWJH",
+      "latency_ms": 7.09,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100181.png",
+      "truth": "VZ58W",
+      "pred": "VZ58W",
+      "latency_ms": 5.94,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100182.png",
+      "truth": "JYHCX",
+      "pred": "JYHCX",
+      "latency_ms": 3.9,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100183.png",
+      "truth": "4RAS4",
+      "pred": "4RAS4",
+      "latency_ms": 3.53,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100184.png",
+      "truth": "B56R8",
+      "pred": "B56R8",
+      "latency_ms": 3.51,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100185.png",
+      "truth": "VZ389",
+      "pred": "VZ389",
+      "latency_ms": 5.21,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100186.png",
+      "truth": "8VFBK",
+      "pred": "8VFBK",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100187.png",
+      "truth": "ZERVM",
+      "pred": "ZERVM",
+      "latency_ms": 3.46,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100188.png",
+      "truth": "CR5PC",
+      "pred": "CR5PC",
+      "latency_ms": 3.85,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100189.png",
+      "truth": "A7TBB",
+      "pred": "A7TBB",
+      "latency_ms": 4.64,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100190.png",
+      "truth": "DBUGS",
+      "pred": "DBUGS",
+      "latency_ms": 4.11,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100191.png",
+      "truth": "8C5CM",
+      "pred": "8C5CM",
+      "latency_ms": 3.51,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100192.png",
+      "truth": "BCWSJ",
+      "pred": "BCWSJ",
+      "latency_ms": 3.58,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100193.png",
+      "truth": "DJRHN",
+      "pred": "DJRHN",
+      "latency_ms": 3.51,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100194.png",
+      "truth": "TK4KL",
+      "pred": "TK4KL",
+      "latency_ms": 4.91,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100195.png",
+      "truth": "LE74B",
+      "pred": "LE74B",
+      "latency_ms": 3.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100196.png",
+      "truth": "ZL2WN",
+      "pred": "ZL2WN",
+      "latency_ms": 4.48,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100197.png",
+      "truth": "9P6HC",
+      "pred": "9P6HC",
+      "latency_ms": 3.89,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100198.png",
+      "truth": "NNK4S",
+      "pred": "NNK4S",
+      "latency_ms": 9.08,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "dev/dev_100199.png",
+      "truth": "KS4G8",
+      "pred": "KS4G8",
+      "latency_ms": 3.76,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    }
+  ]
+}

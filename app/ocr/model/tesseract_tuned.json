@@ -1,0 +1,9 @@
+{
+  "preprocess": "legacy",
+  "psm": 7,
+  "oem": 1,
+  "whitelist": true,
+  "selected_on": "dev",
+  "dev_samples": 100,
+  "dev_exact_match_pct": 33.0
+}

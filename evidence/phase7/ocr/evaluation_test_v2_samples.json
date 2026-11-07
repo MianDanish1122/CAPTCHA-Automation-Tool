@@ -1,0 +1,6006 @@
+{
+  "custom_mlp": [
+    {
+      "file": "test/test_900000.png",
+      "truth": "AZVA9",
+      "pred": "AZVA9",
+      "latency_ms": 33.9,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900001.png",
+      "truth": "T8HK5",
+      "pred": "T8HK5",
+      "latency_ms": 8.82,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900002.png",
+      "truth": "XJQL9",
+      "pred": "XJQL9",
+      "latency_ms": 6.06,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900003.png",
+      "truth": "H7AY2",
+      "pred": "H7AY2",
+      "latency_ms": 5.93,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900004.png",
+      "truth": "BQJPT",
+      "pred": "BQJPT",
+      "latency_ms": 8.39,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900005.png",
+      "truth": "WKMMT",
+      "pred": "WKMMT",
+      "latency_ms": 7.51,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900006.png",
+      "truth": "PZ8X8",
+      "pred": "PZ8X8",
+      "latency_ms": 11.23,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900007.png",
+      "truth": "D5YPD",
+      "pred": "D5YPD",
+      "latency_ms": 5.79,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900008.png",
+      "truth": "HPNTC",
+      "pred": "HPNTC",
+      "latency_ms": 40.74,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900009.png",
+      "truth": "7AX5K",
+      "pred": "7AX5K",
+      "latency_ms": 20.7,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900010.png",
+      "truth": "Q8JDL",
+      "pred": "Q8JDL",
+      "latency_ms": 61.09,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900011.png",
+      "truth": "44HHG",
+      "pred": "44HHG",
+      "latency_ms": 5.94,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900012.png",
+      "truth": "XQUHW",
+      "pred": "XQUHW",
+      "latency_ms": 16.94,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900013.png",
+      "truth": "3CQTK",
+      "pred": "3CQTK",
+      "latency_ms": 16.86,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900014.png",
+      "truth": "NDAYE",
+      "pred": "NDAYE",
+      "latency_ms": 10.72,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900015.png",
+      "truth": "L3XQU",
+      "pred": "L3XQU",
+      "latency_ms": 33.42,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900016.png",
+      "truth": "MRQ36",
+      "pred": "MRQ36",
+      "latency_ms": 24.03,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900017.png",
+      "truth": "YTS7J",
+      "pred": "YTS7J",
+      "latency_ms": 42.18,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900018.png",
+      "truth": "QU4T7",
+      "pred": "QU4T7",
+      "latency_ms": 9.71,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900019.png",
+      "truth": "EQCCS",
+      "pred": "EQCCS",
+      "latency_ms": 14.59,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900020.png",
+      "truth": "38NU5",
+      "pred": "38NU5",
+      "latency_ms": 20.29,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900021.png",
+      "truth": "UWH9X",
+      "pred": "UWH9X",
+      "latency_ms": 7.41,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900022.png",
+      "truth": "CK3JJ",
+      "pred": "CK3JJ",
+      "latency_ms": 11.0,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900023.png",
+      "truth": "EXZ82",
+      "pred": "EXZ82",
+      "latency_ms": 6.65,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900024.png",
+      "truth": "NHKBW",
+      "pred": "NHKBW",
+      "latency_ms": 30.91,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900025.png",
+      "truth": "TYAG5",
+      "pred": "TYAG5",
+      "latency_ms": 12.24,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900026.png",
+      "truth": "SU9NZ",
+      "pred": "SU9NZ",
+      "latency_ms": 6.99,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900027.png",
+      "truth": "2JCX6",
+      "pred": "2JCX6",
+      "latency_ms": 10.55,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900028.png",
+      "truth": "C3Z6K",
+      "pred": "C3Z6K",
+      "latency_ms": 7.79,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900029.png",
+      "truth": "4TXSG",
+      "pred": "4TXSG",
+      "latency_ms": 26.75,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900030.png",
+      "truth": "4JK4H",
+      "pred": "4JK4H",
+      "latency_ms": 12.35,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900031.png",
+      "truth": "MRSX9",
+      "pred": "MRSX9",
+      "latency_ms": 7.35,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900032.png",
+      "truth": "A35GK",
+      "pred": "A35GK",
+      "latency_ms": 9.9,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900033.png",
+      "truth": "R7QQP",
+      "pred": "R7QQP",
+      "latency_ms": 5.59,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900034.png",
+      "truth": "VYDDM",
+      "pred": "VYDDM",
+      "latency_ms": 5.72,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900035.png",
+      "truth": "TXF3A",
+      "pred": "TXF3A",
+      "latency_ms": 13.32,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900036.png",
+      "truth": "PP24G",
+      "pred": "PP24G",
+      "latency_ms": 7.49,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900037.png",
+      "truth": "PB58B",
+      "pred": "PB58B",
+      "latency_ms": 5.65,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900038.png",
+      "truth": "63PUF",
+      "pred": "63PUF",
+      "latency_ms": 5.66,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900039.png",
+      "truth": "2MGN6",
+      "pred": "2MGN6",
+      "latency_ms": 9.8,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900040.png",
+      "truth": "LT4FA",
+      "pred": "LT4FA",
+      "latency_ms": 17.54,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900041.png",
+      "truth": "W6MPS",
+      "pred": "W6MPS",
+      "latency_ms": 7.35,
+      "failed": false,
+      "confidence": 99.79,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900042.png",
+      "truth": "F48HY",
+      "pred": "F48HY",
+      "latency_ms": 16.95,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900043.png",
+      "truth": "JZMA5",
+      "pred": "JZMA5",
+      "latency_ms": 26.66,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900044.png",
+      "truth": "LE2BU",
+      "pred": "LE2BU",
+      "latency_ms": 11.77,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900045.png",
+      "truth": "Q86CT",
+      "pred": "Q86CT",
+      "latency_ms": 25.8,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900046.png",
+      "truth": "PYDGF",
+      "pred": "PYDGF",
+      "latency_ms": 31.98,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900047.png",
+      "truth": "CJENW",
+      "pred": "CJENW",
+      "latency_ms": 12.04,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900048.png",
+      "truth": "BLL9W",
+      "pred": "BLL9W",
+      "latency_ms": 5.65,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900049.png",
+      "truth": "BTAB7",
+      "pred": "BTAB7",
+      "latency_ms": 7.7,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900050.png",
+      "truth": "B6Z7E",
+      "pred": "B6Z7E",
+      "latency_ms": 6.21,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900051.png",
+      "truth": "7JJPG",
+      "pred": "7JJPG",
+      "latency_ms": 5.51,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900052.png",
+      "truth": "HBCX5",
+      "pred": "HBCX5",
+      "latency_ms": 10.33,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900053.png",
+      "truth": "FEE9W",
+      "pred": "FEE9W",
+      "latency_ms": 15.54,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900054.png",
+      "truth": "8VC5M",
+      "pred": "8VC5M",
+      "latency_ms": 12.87,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900055.png",
+      "truth": "LH5BG",
+      "pred": "LH5BG",
+      "latency_ms": 8.39,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900056.png",
+      "truth": "AMMKH",
+      "pred": "AMMKH",
+      "latency_ms": 7.46,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900057.png",
+      "truth": "68A9N",
+      "pred": "68A9N",
+      "latency_ms": 5.24,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900058.png",
+      "truth": "WJQYU",
+      "pred": "WJQYU",
+      "latency_ms": 5.5,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900059.png",
+      "truth": "XW5Y7",
+      "pred": "XW5Y7",
+      "latency_ms": 7.92,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900060.png",
+      "truth": "X2PA9",
+      "pred": "X2PA9",
+      "latency_ms": 5.48,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900061.png",
+      "truth": "AXS4F",
+      "pred": "AXS4F",
+      "latency_ms": 9.69,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900062.png",
+      "truth": "BDU77",
+      "pred": "BDU77",
+      "latency_ms": 5.39,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900063.png",
+      "truth": "NBNLS",
+      "pred": "NBNLS",
+      "latency_ms": 5.29,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900064.png",
+      "truth": "YFHWS",
+      "pred": "YFHWS",
+      "latency_ms": 9.38,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900065.png",
+      "truth": "Z2DQ9",
+      "pred": "Z2DQ9",
+      "latency_ms": 5.51,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900066.png",
+      "truth": "3BV4T",
+      "pred": "3BV4T",
+      "latency_ms": 11.06,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900067.png",
+      "truth": "7V8C6",
+      "pred": "7V8C6",
+      "latency_ms": 5.85,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900068.png",
+      "truth": "KURPT",
+      "pred": "KURPT",
+      "latency_ms": 14.85,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900069.png",
+      "truth": "DTWCU",
+      "pred": "DTWCU",
+      "latency_ms": 12.23,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900070.png",
+      "truth": "MLZBE",
+      "pred": "MLZBE",
+      "latency_ms": 5.39,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900071.png",
+      "truth": "2JA9L",
+      "pred": "2JA9L",
+      "latency_ms": 8.86,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900072.png",
+      "truth": "5YC28",
+      "pred": "5YC28",
+      "latency_ms": 5.79,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900073.png",
+      "truth": "BT2EW",
+      "pred": "BT2EW",
+      "latency_ms": 10.86,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900074.png",
+      "truth": "27GYR",
+      "pred": "27GYR",
+      "latency_ms": 3.8,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900075.png",
+      "truth": "PSPZ7",
+      "pred": "PSPZ7",
+      "latency_ms": 3.86,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900076.png",
+      "truth": "K5XDT",
+      "pred": "K5XDT",
+      "latency_ms": 7.66,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900077.png",
+      "truth": "TXEWN",
+      "pred": "TXEWN",
+      "latency_ms": 5.82,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900078.png",
+      "truth": "CSBGQ",
+      "pred": "CSBGQ",
+      "latency_ms": 5.41,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900079.png",
+      "truth": "2R9UP",
+      "pred": "2R9UP",
+      "latency_ms": 7.76,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900080.png",
+      "truth": "MELDG",
+      "pred": "MELDG",
+      "latency_ms": 8.25,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900081.png",
+      "truth": "X6JCF",
+      "pred": "X6JCF",
+      "latency_ms": 54.36,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900082.png",
+      "truth": "F6PJY",
+      "pred": "F6PJY",
+      "latency_ms": 5.56,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900083.png",
+      "truth": "7VQFN",
+      "pred": "7VQFN",
+      "latency_ms": 5.44,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900084.png",
+      "truth": "UGRPJ",
+      "pred": "UGRPJ",
+      "latency_ms": 42.89,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900085.png",
+      "truth": "QBUY8",
+      "pred": "QBUY8",
+      "latency_ms": 5.19,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900086.png",
+      "truth": "HV6XX",
+      "pred": "HV6XX",
+      "latency_ms": 9.76,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900087.png",
+      "truth": "LFMD2",
+      "pred": "LFMD2",
+      "latency_ms": 6.26,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900088.png",
+      "truth": "BHUMQ",
+      "pred": "BHUMQ",
+      "latency_ms": 5.91,
+      "failed": false,
+      "confidence": 99.85,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900089.png",
+      "truth": "ACM6P",
+      "pred": "ACM6P",
+      "latency_ms": 5.62,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900090.png",
+      "truth": "BUS8Y",
+      "pred": "BUS8Y",
+      "latency_ms": 36.72,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900091.png",
+      "truth": "V57Z3",
+      "pred": "V57Z3",
+      "latency_ms": 6.55,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900092.png",
+      "truth": "S5C26",
+      "pred": "S5C26",
+      "latency_ms": 8.54,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900093.png",
+      "truth": "GJGRG",
+      "pred": "GJGRG",
+      "latency_ms": 6.3,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900094.png",
+      "truth": "5HBYC",
+      "pred": "5HBYC",
+      "latency_ms": 5.58,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900095.png",
+      "truth": "CAYQG",
+      "pred": "CAYQG",
+      "latency_ms": 4.29,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900096.png",
+      "truth": "UWDRW",
+      "pred": "UWDRW",
+      "latency_ms": 3.64,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900097.png",
+      "truth": "UPMHM",
+      "pred": "UPMHM",
+      "latency_ms": 3.67,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900098.png",
+      "truth": "VR3VT",
+      "pred": "VR3VT",
+      "latency_ms": 5.78,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900099.png",
+      "truth": "SFDSC",
+      "pred": "SFDSC",
+      "latency_ms": 3.85,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900100.png",
+      "truth": "BPKVZ",
+      "pred": "BPKVZ",
+      "latency_ms": 3.58,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900101.png",
+      "truth": "S6637",
+      "pred": "S6637",
+      "latency_ms": 3.46,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900102.png",
+      "truth": "Y7CK8",
+      "pred": "Y7CK8",
+      "latency_ms": 5.27,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900103.png",
+      "truth": "3EK6H",
+      "pred": "3EK6H",
+      "latency_ms": 3.77,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900104.png",
+      "truth": "VL35G",
+      "pred": "VL35G",
+      "latency_ms": 3.77,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900105.png",
+      "truth": "44BGL",
+      "pred": "44BGL",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900106.png",
+      "truth": "QNT22",
+      "pred": "QNT22",
+      "latency_ms": 5.16,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900107.png",
+      "truth": "PHUL6",
+      "pred": "PHUL6",
+      "latency_ms": 3.64,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900108.png",
+      "truth": "7FVRM",
+      "pred": "7FVRM",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900109.png",
+      "truth": "D38JD",
+      "pred": "D38JD",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900110.png",
+      "truth": "DFLME",
+      "pred": "DFLME",
+      "latency_ms": 6.37,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900111.png",
+      "truth": "ND93D",
+      "pred": "ND93D",
+      "latency_ms": 9.12,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900112.png",
+      "truth": "BDSF6",
+      "pred": "BDSF6",
+      "latency_ms": 9.37,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900113.png",
+      "truth": "8KBBK",
+      "pred": "8KBBK",
+      "latency_ms": 10.34,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900114.png",
+      "truth": "BCTBC",
+      "pred": "BCTBC",
+      "latency_ms": 9.38,
+      "failed": false,
+      "confidence": 99.41,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900115.png",
+      "truth": "39WS9",
+      "pred": "39WS9",
+      "latency_ms": 10.84,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900116.png",
+      "truth": "NDS48",
+      "pred": "NDS48",
+      "latency_ms": 6.83,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900117.png",
+      "truth": "8TVA3",
+      "pred": "8TVA3",
+      "latency_ms": 5.66,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900118.png",
+      "truth": "8J39V",
+      "pred": "8J39V",
+      "latency_ms": 6.93,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900119.png",
+      "truth": "Z5FFL",
+      "pred": "Z5FFL",
+      "latency_ms": 4.41,
+      "failed": false,
+      "confidence": 99.85,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900120.png",
+      "truth": "BBQVN",
+      "pred": "BBQVN",
+      "latency_ms": 5.43,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900121.png",
+      "truth": "S5A6W",
+      "pred": "S5A6W",
+      "latency_ms": 7.5,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900122.png",
+      "truth": "6UAQP",
+      "pred": "6UAQP",
+      "latency_ms": 7.96,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900123.png",
+      "truth": "S9S8V",
+      "pred": "S9S8V",
+      "latency_ms": 7.95,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900124.png",
+      "truth": "MJVFE",
+      "pred": "MJVFE",
+      "latency_ms": 7.56,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900125.png",
+      "truth": "9TRZR",
+      "pred": "9TRZR",
+      "latency_ms": 8.6,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900126.png",
+      "truth": "D6EP7",
+      "pred": "D6EP7",
+      "latency_ms": 7.52,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900127.png",
+      "truth": "WDGTN",
+      "pred": "WDGTN",
+      "latency_ms": 8.04,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900128.png",
+      "truth": "9CUSQ",
+      "pred": "9CUSQ",
+      "latency_ms": 6.4,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900129.png",
+      "truth": "U7RET",
+      "pred": "U7RET",
+      "latency_ms": 8.51,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900130.png",
+      "truth": "HGQPU",
+      "pred": "HGQPU",
+      "latency_ms": 5.68,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900131.png",
+      "truth": "8YDLG",
+      "pred": "8YDLG",
+      "latency_ms": 5.84,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900132.png",
+      "truth": "DUPCS",
+      "pred": "DUPCS",
+      "latency_ms": 10.69,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900133.png",
+      "truth": "5YWA8",
+      "pred": "5YWA8",
+      "latency_ms": 6.38,
+      "failed": false,
+      "confidence": 99.77,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900134.png",
+      "truth": "LYCLK",
+      "pred": "LYCLK",
+      "latency_ms": 9.01,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900135.png",
+      "truth": "4N33H",
+      "pred": "4N33H",
+      "latency_ms": 6.19,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900136.png",
+      "truth": "QPW2C",
+      "pred": "QPW2C",
+      "latency_ms": 7.57,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900137.png",
+      "truth": "C3QVG",
+      "pred": "C3QVG",
+      "latency_ms": 4.56,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900138.png",
+      "truth": "49XJR",
+      "pred": "49XJR",
+      "latency_ms": 4.73,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900139.png",
+      "truth": "JPXWC",
+      "pred": "JPXWC",
+      "latency_ms": 8.45,
+      "failed": false,
+      "confidence": 99.79,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900140.png",
+      "truth": "NMUA9",
+      "pred": "NMUA9",
+      "latency_ms": 5.2,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900141.png",
+      "truth": "FACQV",
+      "pred": "FACQN7",
+      "latency_ms": 5.09,
+      "failed": false,
+      "confidence": 85.09,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900142.png",
+      "truth": "V2HU9",
+      "pred": "V2HU9",
+      "latency_ms": 6.92,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900143.png",
+      "truth": "E4S82",
+      "pred": "E4S82",
+      "latency_ms": 8.4,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900144.png",
+      "truth": "2JBLZ",
+      "pred": "2JBLZ",
+      "latency_ms": 8.06,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900145.png",
+      "truth": "JHQ8F",
+      "pred": "JHQ8F",
+      "latency_ms": 5.6,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900146.png",
+      "truth": "FMMEB",
+      "pred": "FMMEB",
+      "latency_ms": 8.07,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900147.png",
+      "truth": "VR5FB",
+      "pred": "VR5FB",
+      "latency_ms": 5.08,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900148.png",
+      "truth": "V9HVS",
+      "pred": "V9HVS",
+      "latency_ms": 5.08,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900149.png",
+      "truth": "P89UC",
+      "pred": "P89UC",
+      "latency_ms": 7.49,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900150.png",
+      "truth": "8Z8JW",
+      "pred": "8Z8JW",
+      "latency_ms": 5.92,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900151.png",
+      "truth": "6KQUZ",
+      "pred": "6KQUZ",
+      "latency_ms": 6.17,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900152.png",
+      "truth": "DJEG9",
+      "pred": "DJEG9",
+      "latency_ms": 8.04,
+      "failed": false,
+      "confidence": 99.88,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900153.png",
+      "truth": "6PBFD",
+      "pred": "6PBFD",
+      "latency_ms": 5.83,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900154.png",
+      "truth": "TSVJC",
+      "pred": "TSVJC",
+      "latency_ms": 16.21,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900155.png",
+      "truth": "2B4X3",
+      "pred": "2B4X3",
+      "latency_ms": 10.72,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900156.png",
+      "truth": "TK6AW",
+      "pred": "TK6AW",
+      "latency_ms": 6.12,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900157.png",
+      "truth": "KANWJ",
+      "pred": "KANW",
+      "latency_ms": 7.35,
+      "failed": false,
+      "confidence": 94.64,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900158.png",
+      "truth": "Q4AN5",
+      "pred": "Q4AN5",
+      "latency_ms": 6.63,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900159.png",
+      "truth": "2QDLJ",
+      "pred": "2QDLJ",
+      "latency_ms": 11.16,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900160.png",
+      "truth": "BDHFN",
+      "pred": "BDHFN",
+      "latency_ms": 5.99,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900161.png",
+      "truth": "RA9Q4",
+      "pred": "RA9Q4",
+      "latency_ms": 8.57,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900162.png",
+      "truth": "GSF3M",
+      "pred": "GSF3M",
+      "latency_ms": 7.04,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900163.png",
+      "truth": "BTQSY",
+      "pred": "BTQSY",
+      "latency_ms": 10.54,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900164.png",
+      "truth": "LN84V",
+      "pred": "LN84V",
+      "latency_ms": 5.79,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900165.png",
+      "truth": "2U7JN",
+      "pred": "2U7JN",
+      "latency_ms": 5.65,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900166.png",
+      "truth": "HGB6E",
+      "pred": "HGB6E",
+      "latency_ms": 8.58,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900167.png",
+      "truth": "WKR3S",
+      "pred": "WKR3S",
+      "latency_ms": 6.17,
+      "failed": false,
+      "confidence": 99.73,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900168.png",
+      "truth": "H7Y69",
+      "pred": "H7Y69",
+      "latency_ms": 8.26,
+      "failed": false,
+      "confidence": 99.74,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900169.png",
+      "truth": "7NV3M",
+      "pred": "7NV3M",
+      "latency_ms": 7.89,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900170.png",
+      "truth": "R9LFE",
+      "pred": "R9LFE",
+      "latency_ms": 6.91,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900171.png",
+      "truth": "XTKKY",
+      "pred": "XTKKY",
+      "latency_ms": 5.3,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900172.png",
+      "truth": "AN4UZ",
+      "pred": "AN4UZ",
+      "latency_ms": 10.72,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900173.png",
+      "truth": "HN99E",
+      "pred": "HN99E",
+      "latency_ms": 6.5,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900174.png",
+      "truth": "J44MV",
+      "pred": "J44MV",
+      "latency_ms": 6.4,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900175.png",
+      "truth": "ZEADL",
+      "pred": "ZEADL",
+      "latency_ms": 8.51,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900176.png",
+      "truth": "6XQMC",
+      "pred": "6XQMC",
+      "latency_ms": 5.84,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900177.png",
+      "truth": "NERRP",
+      "pred": "NERRP",
+      "latency_ms": 9.2,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900178.png",
+      "truth": "CR6DC",
+      "pred": "CR6DC",
+      "latency_ms": 9.68,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900179.png",
+      "truth": "TNYF2",
+      "pred": "TNYF2",
+      "latency_ms": 9.8,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900180.png",
+      "truth": "QCGGS",
+      "pred": "QCGGS",
+      "latency_ms": 11.07,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900181.png",
+      "truth": "GMDYB",
+      "pred": "GMDYB",
+      "latency_ms": 8.08,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900182.png",
+      "truth": "3QCRB",
+      "pred": "3QCRB",
+      "latency_ms": 8.56,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900183.png",
+      "truth": "DTK8L",
+      "pred": "DTK8L",
+      "latency_ms": 9.17,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900184.png",
+      "truth": "UFUWB",
+      "pred": "UFUWB",
+      "latency_ms": 10.19,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900185.png",
+      "truth": "RBK68",
+      "pred": "RBK68",
+      "latency_ms": 7.22,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900186.png",
+      "truth": "2BAVQ",
+      "pred": "2BAVQ",
+      "latency_ms": 8.07,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900187.png",
+      "truth": "HK8R2",
+      "pred": "HK8R2",
+      "latency_ms": 4.49,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900188.png",
+      "truth": "R4Z53",
+      "pred": "R4Z53",
+      "latency_ms": 5.37,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900189.png",
+      "truth": "UD2SL",
+      "pred": "UD2SL",
+      "latency_ms": 7.47,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900190.png",
+      "truth": "78T8R",
+      "pred": "78T8R",
+      "latency_ms": 7.78,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900191.png",
+      "truth": "484A7",
+      "pred": "484A7",
+      "latency_ms": 8.49,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900192.png",
+      "truth": "9ZJ67",
+      "pred": "9ZJ67",
+      "latency_ms": 6.95,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900193.png",
+      "truth": "WZMCD",
+      "pred": "WZMCD",
+      "latency_ms": 10.26,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900194.png",
+      "truth": "RL8CJ",
+      "pred": "RL8CJ",
+      "latency_ms": 5.97,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900195.png",
+      "truth": "ZDQKT",
+      "pred": "ZDQKT",
+      "latency_ms": 8.08,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900196.png",
+      "truth": "YNV9B",
+      "pred": "YNV9B",
+      "latency_ms": 6.02,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900197.png",
+      "truth": "YLX9T",
+      "pred": "YLX9T",
+      "latency_ms": 5.79,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900198.png",
+      "truth": "KTF8D",
+      "pred": "KTF8D",
+      "latency_ms": 6.33,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900199.png",
+      "truth": "5LWVC",
+      "pred": "5LWVC",
+      "latency_ms": 3.56,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900200.png",
+      "truth": "UABPT",
+      "pred": "UABPT",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900201.png",
+      "truth": "UE9PY",
+      "pred": "UE9PY",
+      "latency_ms": 3.68,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900202.png",
+      "truth": "3LCLZ",
+      "pred": "3LCLZ",
+      "latency_ms": 5.56,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900203.png",
+      "truth": "CUYUF",
+      "pred": "CUYUF",
+      "latency_ms": 3.44,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900204.png",
+      "truth": "JECVF",
+      "pred": "JECVF",
+      "latency_ms": 3.47,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900205.png",
+      "truth": "FFP5S",
+      "pred": "FFP5S",
+      "latency_ms": 3.46,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900206.png",
+      "truth": "MXK8W",
+      "pred": "MXK8W",
+      "latency_ms": 5.55,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900207.png",
+      "truth": "JRD5D",
+      "pred": "JRD5D",
+      "latency_ms": 4.06,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900208.png",
+      "truth": "DHB96",
+      "pred": "DHB96",
+      "latency_ms": 3.86,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900209.png",
+      "truth": "RHWBD",
+      "pred": "RHWBD",
+      "latency_ms": 3.88,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900210.png",
+      "truth": "WHKEA",
+      "pred": "WHKEA",
+      "latency_ms": 5.97,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900211.png",
+      "truth": "HZS9R",
+      "pred": "HZS9R",
+      "latency_ms": 3.73,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900212.png",
+      "truth": "HVRUD",
+      "pred": "HVRUD",
+      "latency_ms": 6.22,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900213.png",
+      "truth": "5ANUC",
+      "pred": "5ANUC",
+      "latency_ms": 28.71,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900214.png",
+      "truth": "AR6WR",
+      "pred": "AR6WR",
+      "latency_ms": 5.81,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900215.png",
+      "truth": "K6P93",
+      "pred": "K6P93",
+      "latency_ms": 9.0,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900216.png",
+      "truth": "KCSHT",
+      "pred": "KCSHT",
+      "latency_ms": 5.48,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900217.png",
+      "truth": "65E3R",
+      "pred": "65E3R",
+      "latency_ms": 9.26,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900218.png",
+      "truth": "2WKX9",
+      "pred": "2WKX9",
+      "latency_ms": 5.8,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900219.png",
+      "truth": "3UMZQ",
+      "pred": "3UMZQ",
+      "latency_ms": 8.95,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900220.png",
+      "truth": "DKUX7",
+      "pred": "DKUX7",
+      "latency_ms": 5.65,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900221.png",
+      "truth": "P8QX5",
+      "pred": "P8QX5",
+      "latency_ms": 7.54,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900222.png",
+      "truth": "Q28N4",
+      "pred": "Q28N4",
+      "latency_ms": 6.16,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900223.png",
+      "truth": "F4TGL",
+      "pred": "F4TGL",
+      "latency_ms": 5.53,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900224.png",
+      "truth": "3GYUX",
+      "pred": "3GYUX",
+      "latency_ms": 9.69,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900225.png",
+      "truth": "VBZBV",
+      "pred": "VBZBV",
+      "latency_ms": 6.11,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900226.png",
+      "truth": "AWMNX",
+      "pred": "AWMNX",
+      "latency_ms": 9.51,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900227.png",
+      "truth": "RJ6KL",
+      "pred": "RJ6KL",
+      "latency_ms": 8.19,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900228.png",
+      "truth": "E539W",
+      "pred": "E539W",
+      "latency_ms": 9.35,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900229.png",
+      "truth": "J89HL",
+      "pred": "J89HL",
+      "latency_ms": 7.17,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900230.png",
+      "truth": "XJ4UV",
+      "pred": "XJ4UV",
+      "latency_ms": 9.41,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900231.png",
+      "truth": "3VKV4",
+      "pred": "3VKV4",
+      "latency_ms": 4.9,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900232.png",
+      "truth": "3Z8HQ",
+      "pred": "3Z8HQ",
+      "latency_ms": 5.84,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900233.png",
+      "truth": "PGKY7",
+      "pred": "PGKY7",
+      "latency_ms": 6.4,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900234.png",
+      "truth": "AQV8W",
+      "pred": "AQV8W",
+      "latency_ms": 6.38,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900235.png",
+      "truth": "VW5DU",
+      "pred": "VW5DU",
+      "latency_ms": 11.2,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900236.png",
+      "truth": "BZXAQ",
+      "pred": "BZXAQ",
+      "latency_ms": 5.0,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900237.png",
+      "truth": "KST2D",
+      "pred": "KST2D",
+      "latency_ms": 8.99,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900238.png",
+      "truth": "DP78L",
+      "pred": "DP78L",
+      "latency_ms": 5.93,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900239.png",
+      "truth": "Q95RW",
+      "pred": "Q95RW",
+      "latency_ms": 9.78,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900240.png",
+      "truth": "F53Z9",
+      "pred": "F53Z9",
+      "latency_ms": 4.75,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900241.png",
+      "truth": "DB7X3",
+      "pred": "DB7X3",
+      "latency_ms": 6.37,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900242.png",
+      "truth": "BHWX3",
+      "pred": "BHWX3",
+      "latency_ms": 11.1,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900243.png",
+      "truth": "9XMSK",
+      "pred": "9XMSK",
+      "latency_ms": 9.96,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900244.png",
+      "truth": "SCXEH",
+      "pred": "SCXEH",
+      "latency_ms": 6.78,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900245.png",
+      "truth": "FXF77",
+      "pred": "FXF77",
+      "latency_ms": 11.39,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900246.png",
+      "truth": "6GQQQ",
+      "pred": "6GQQQ",
+      "latency_ms": 10.07,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900247.png",
+      "truth": "VVY6V",
+      "pred": "VVY6V",
+      "latency_ms": 12.24,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900248.png",
+      "truth": "HPNZU",
+      "pred": "HPNZU",
+      "latency_ms": 11.29,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900249.png",
+      "truth": "QM5TJ",
+      "pred": "QM5TJ",
+      "latency_ms": 6.19,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900250.png",
+      "truth": "8DFXH",
+      "pred": "8DFXH",
+      "latency_ms": 7.08,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900251.png",
+      "truth": "KGZ22",
+      "pred": "KGZ22",
+      "latency_ms": 4.6,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900252.png",
+      "truth": "Q9YZ8",
+      "pred": "Q9YZ8",
+      "latency_ms": 3.98,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900253.png",
+      "truth": "JEGKC",
+      "pred": "JEGKC",
+      "latency_ms": 3.95,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900254.png",
+      "truth": "HY5U9",
+      "pred": "HY5U9",
+      "latency_ms": 7.5,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900255.png",
+      "truth": "BEE9V",
+      "pred": "BEE9V",
+      "latency_ms": 3.99,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900256.png",
+      "truth": "ESP76",
+      "pred": "ESP76",
+      "latency_ms": 3.62,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900257.png",
+      "truth": "4TVAJ",
+      "pred": "4TVAJ",
+      "latency_ms": 4.04,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900258.png",
+      "truth": "JCG3S",
+      "pred": "JCG3S",
+      "latency_ms": 8.3,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900259.png",
+      "truth": "Z7BVS",
+      "pred": "Z7BVS",
+      "latency_ms": 3.65,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900260.png",
+      "truth": "T3C2Y",
+      "pred": "T3C2Y",
+      "latency_ms": 3.42,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900261.png",
+      "truth": "8P6T8",
+      "pred": "8P6T8",
+      "latency_ms": 5.43,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900262.png",
+      "truth": "YY8S9",
+      "pred": "YY8S9",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900263.png",
+      "truth": "5RBCZ",
+      "pred": "5RBCZ",
+      "latency_ms": 6.08,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900264.png",
+      "truth": "JAZXS",
+      "pred": "JAZXS",
+      "latency_ms": 14.41,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900265.png",
+      "truth": "RSFUJ",
+      "pred": "RSFUJ",
+      "latency_ms": 10.1,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900266.png",
+      "truth": "57HSE",
+      "pred": "57HSE",
+      "latency_ms": 6.39,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900267.png",
+      "truth": "2TJQV",
+      "pred": "2TJQV",
+      "latency_ms": 8.37,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900268.png",
+      "truth": "M89NP",
+      "pred": "NT89NP",
+      "latency_ms": 6.66,
+      "failed": false,
+      "confidence": 95.54,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900269.png",
+      "truth": "GBC3S",
+      "pred": "GBC3S",
+      "latency_ms": 8.26,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900270.png",
+      "truth": "SEBWF",
+      "pred": "SEBWF",
+      "latency_ms": 7.31,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900271.png",
+      "truth": "R3XSJ",
+      "pred": "R3XSJ",
+      "latency_ms": 12.58,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900272.png",
+      "truth": "8BR6V",
+      "pred": "8BR6V",
+      "latency_ms": 5.96,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900273.png",
+      "truth": "A4LBV",
+      "pred": "A4LBV",
+      "latency_ms": 9.29,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900274.png",
+      "truth": "ZA7JE",
+      "pred": "ZA7JE",
+      "latency_ms": 5.63,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900275.png",
+      "truth": "CVPZ8",
+      "pred": "CVPZ8",
+      "latency_ms": 11.14,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900276.png",
+      "truth": "8XDMS",
+      "pred": "8XDMS",
+      "latency_ms": 5.99,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900277.png",
+      "truth": "W9N4C",
+      "pred": "W9N4C",
+      "latency_ms": 8.93,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900278.png",
+      "truth": "YWUBN",
+      "pred": "YWUBN",
+      "latency_ms": 6.66,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900279.png",
+      "truth": "C83WP",
+      "pred": "C83WP",
+      "latency_ms": 6.42,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900280.png",
+      "truth": "3DA5Y",
+      "pred": "3DA5Y",
+      "latency_ms": 20.16,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900281.png",
+      "truth": "PF6ZA",
+      "pred": "PF6ZA",
+      "latency_ms": 7.52,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900282.png",
+      "truth": "B73KZ",
+      "pred": "B73KZ",
+      "latency_ms": 6.0,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900283.png",
+      "truth": "V2BKU",
+      "pred": "V2BKU",
+      "latency_ms": 8.52,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900284.png",
+      "truth": "TVSHQ",
+      "pred": "TVSHQ",
+      "latency_ms": 6.18,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900285.png",
+      "truth": "BJV3B",
+      "pred": "BJV3B",
+      "latency_ms": 7.55,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900286.png",
+      "truth": "88DDG",
+      "pred": "88DDG",
+      "latency_ms": 6.95,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900287.png",
+      "truth": "UXUVE",
+      "pred": "UXUVE",
+      "latency_ms": 8.13,
+      "failed": false,
+      "confidence": 99.85,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900288.png",
+      "truth": "52Q9N",
+      "pred": "52Q9N",
+      "latency_ms": 7.92,
+      "failed": false,
+      "confidence": 99.84,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900289.png",
+      "truth": "T8CBJ",
+      "pred": "T8CBJ",
+      "latency_ms": 8.97,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900290.png",
+      "truth": "6NY6K",
+      "pred": "6NY6K",
+      "latency_ms": 4.86,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900291.png",
+      "truth": "89ZYS",
+      "pred": "89ZYS",
+      "latency_ms": 3.81,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900292.png",
+      "truth": "NYVCE",
+      "pred": "NYVCE",
+      "latency_ms": 4.89,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900293.png",
+      "truth": "YWJ9Q",
+      "pred": "YWJ9Q",
+      "latency_ms": 4.45,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900294.png",
+      "truth": "5EG8H",
+      "pred": "5EG8H",
+      "latency_ms": 3.91,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900295.png",
+      "truth": "JTGVJ",
+      "pred": "JTGVJ",
+      "latency_ms": 3.82,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900296.png",
+      "truth": "PADNW",
+      "pred": "PADNW",
+      "latency_ms": 6.31,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900297.png",
+      "truth": "SWZW5",
+      "pred": "SWZW5",
+      "latency_ms": 5.31,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900298.png",
+      "truth": "TKGCG",
+      "pred": "TKGCG",
+      "latency_ms": 4.02,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": null
+    },
+    {
+      "file": "test/test_900299.png",
+      "truth": "ZA2CK",
+      "pred": "ZA2CK",
+      "latency_ms": 3.95,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": null
+    }
+  ],
+  "hybrid": [
+    {
+      "file": "test/test_900000.png",
+      "truth": "AZVA9",
+      "pred": "AZVA9",
+      "latency_ms": 4.6,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900001.png",
+      "truth": "T8HK5",
+      "pred": "T8HK5",
+      "latency_ms": 5.64,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900002.png",
+      "truth": "XJQL9",
+      "pred": "XJQL9",
+      "latency_ms": 4.07,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900003.png",
+      "truth": "H7AY2",
+      "pred": "H7AY2",
+      "latency_ms": 4.94,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900004.png",
+      "truth": "BQJPT",
+      "pred": "BQJPT",
+      "latency_ms": 5.03,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900005.png",
+      "truth": "WKMMT",
+      "pred": "WKMMT",
+      "latency_ms": 5.06,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900006.png",
+      "truth": "PZ8X8",
+      "pred": "PZ8X8",
+      "latency_ms": 11.47,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900007.png",
+      "truth": "D5YPD",
+      "pred": "D5YPD",
+      "latency_ms": 6.5,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900008.png",
+      "truth": "HPNTC",
+      "pred": "HPNTC",
+      "latency_ms": 10.37,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900009.png",
+      "truth": "7AX5K",
+      "pred": "7AX5K",
+      "latency_ms": 7.77,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900010.png",
+      "truth": "Q8JDL",
+      "pred": "Q8JDL",
+      "latency_ms": 8.33,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900011.png",
+      "truth": "44HHG",
+      "pred": "44HHG",
+      "latency_ms": 11.35,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900012.png",
+      "truth": "XQUHW",
+      "pred": "XQUHW",
+      "latency_ms": 5.74,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900013.png",
+      "truth": "3CQTK",
+      "pred": "3CQTK",
+      "latency_ms": 6.29,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900014.png",
+      "truth": "NDAYE",
+      "pred": "NDAYE",
+      "latency_ms": 9.62,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900015.png",
+      "truth": "L3XQU",
+      "pred": "L3XQU",
+      "latency_ms": 5.79,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900016.png",
+      "truth": "MRQ36",
+      "pred": "MRQ36",
+      "latency_ms": 13.65,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900017.png",
+      "truth": "YTS7J",
+      "pred": "YTS7J",
+      "latency_ms": 6.43,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900018.png",
+      "truth": "QU4T7",
+      "pred": "QU4T7",
+      "latency_ms": 4.91,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900019.png",
+      "truth": "EQCCS",
+      "pred": "EQCCS",
+      "latency_ms": 3.97,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900020.png",
+      "truth": "38NU5",
+      "pred": "38NU5",
+      "latency_ms": 6.02,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900021.png",
+      "truth": "UWH9X",
+      "pred": "UWH9X",
+      "latency_ms": 9.06,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900022.png",
+      "truth": "CK3JJ",
+      "pred": "CK3JJ",
+      "latency_ms": 6.37,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900023.png",
+      "truth": "EXZ82",
+      "pred": "EXZ82",
+      "latency_ms": 10.1,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900024.png",
+      "truth": "NHKBW",
+      "pred": "NHKBW",
+      "latency_ms": 15.01,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900025.png",
+      "truth": "TYAG5",
+      "pred": "TYAG5",
+      "latency_ms": 6.1,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900026.png",
+      "truth": "SU9NZ",
+      "pred": "SU9NZ",
+      "latency_ms": 10.0,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900027.png",
+      "truth": "2JCX6",
+      "pred": "2JCX6",
+      "latency_ms": 6.52,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900028.png",
+      "truth": "C3Z6K",
+      "pred": "C3Z6K",
+      "latency_ms": 8.2,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900029.png",
+      "truth": "4TXSG",
+      "pred": "4TXSG",
+      "latency_ms": 6.48,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900030.png",
+      "truth": "4JK4H",
+      "pred": "4JK4H",
+      "latency_ms": 9.24,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900031.png",
+      "truth": "MRSX9",
+      "pred": "MRSX9",
+      "latency_ms": 7.13,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900032.png",
+      "truth": "A35GK",
+      "pred": "A35GK",
+      "latency_ms": 8.3,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900033.png",
+      "truth": "R7QQP",
+      "pred": "R7QQP",
+      "latency_ms": 9.75,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900034.png",
+      "truth": "VYDDM",
+      "pred": "VYDDM",
+      "latency_ms": 8.93,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900035.png",
+      "truth": "TXF3A",
+      "pred": "TXF3A",
+      "latency_ms": 7.21,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900036.png",
+      "truth": "PP24G",
+      "pred": "PP24G",
+      "latency_ms": 7.79,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900037.png",
+      "truth": "PB58B",
+      "pred": "PB58B",
+      "latency_ms": 5.92,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900038.png",
+      "truth": "63PUF",
+      "pred": "63PUF",
+      "latency_ms": 5.96,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900039.png",
+      "truth": "2MGN6",
+      "pred": "2MGN6",
+      "latency_ms": 19.55,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900040.png",
+      "truth": "LT4FA",
+      "pred": "LT4FA",
+      "latency_ms": 7.92,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900041.png",
+      "truth": "W6MPS",
+      "pred": "W6MPS",
+      "latency_ms": 5.57,
+      "failed": false,
+      "confidence": 99.79,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900042.png",
+      "truth": "F48HY",
+      "pred": "F48HY",
+      "latency_ms": 6.19,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900043.png",
+      "truth": "JZMA5",
+      "pred": "JZMA5",
+      "latency_ms": 11.28,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900044.png",
+      "truth": "LE2BU",
+      "pred": "LE2BU",
+      "latency_ms": 8.53,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900045.png",
+      "truth": "Q86CT",
+      "pred": "Q86CT",
+      "latency_ms": 24.78,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900046.png",
+      "truth": "PYDGF",
+      "pred": "PYDGF",
+      "latency_ms": 16.5,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900047.png",
+      "truth": "CJENW",
+      "pred": "CJENW",
+      "latency_ms": 9.02,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900048.png",
+      "truth": "BLL9W",
+      "pred": "BLL9W",
+      "latency_ms": 5.85,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900049.png",
+      "truth": "BTAB7",
+      "pred": "BTAB7",
+      "latency_ms": 7.43,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900050.png",
+      "truth": "B6Z7E",
+      "pred": "B6Z7E",
+      "latency_ms": 15.31,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900051.png",
+      "truth": "7JJPG",
+      "pred": "7JJPG",
+      "latency_ms": 6.74,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900052.png",
+      "truth": "HBCX5",
+      "pred": "HBCX5",
+      "latency_ms": 5.42,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900053.png",
+      "truth": "FEE9W",
+      "pred": "FEE9W",
+      "latency_ms": 8.83,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900054.png",
+      "truth": "8VC5M",
+      "pred": "8VC5M",
+      "latency_ms": 5.99,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900055.png",
+      "truth": "LH5BG",
+      "pred": "LH5BG",
+      "latency_ms": 8.78,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900056.png",
+      "truth": "AMMKH",
+      "pred": "AMMKH",
+      "latency_ms": 8.66,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900057.png",
+      "truth": "68A9N",
+      "pred": "68A9N",
+      "latency_ms": 7.66,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900058.png",
+      "truth": "WJQYU",
+      "pred": "WJQYU",
+      "latency_ms": 6.46,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900059.png",
+      "truth": "XW5Y7",
+      "pred": "XW5Y7",
+      "latency_ms": 27.04,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900060.png",
+      "truth": "X2PA9",
+      "pred": "X2PA9",
+      "latency_ms": 8.85,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900061.png",
+      "truth": "AXS4F",
+      "pred": "AXS4F",
+      "latency_ms": 9.88,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900062.png",
+      "truth": "BDU77",
+      "pred": "BDU77",
+      "latency_ms": 5.33,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900063.png",
+      "truth": "NBNLS",
+      "pred": "NBNLS",
+      "latency_ms": 4.2,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900064.png",
+      "truth": "YFHWS",
+      "pred": "YFHWS",
+      "latency_ms": 9.44,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900065.png",
+      "truth": "Z2DQ9",
+      "pred": "Z2DQ9",
+      "latency_ms": 4.37,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900066.png",
+      "truth": "3BV4T",
+      "pred": "3BV4T",
+      "latency_ms": 6.57,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900067.png",
+      "truth": "7V8C6",
+      "pred": "7V8C6",
+      "latency_ms": 4.04,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900068.png",
+      "truth": "KURPT",
+      "pred": "KURPT",
+      "latency_ms": 3.97,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900069.png",
+      "truth": "DTWCU",
+      "pred": "DTWCU",
+      "latency_ms": 4.0,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900070.png",
+      "truth": "MLZBE",
+      "pred": "MLZBE",
+      "latency_ms": 4.97,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900071.png",
+      "truth": "2JA9L",
+      "pred": "2JA9L",
+      "latency_ms": 4.09,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900072.png",
+      "truth": "5YC28",
+      "pred": "5YC28",
+      "latency_ms": 3.92,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900073.png",
+      "truth": "BT2EW",
+      "pred": "BT2EW",
+      "latency_ms": 4.03,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900074.png",
+      "truth": "27GYR",
+      "pred": "27GYR",
+      "latency_ms": 11.24,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900075.png",
+      "truth": "PSPZ7",
+      "pred": "PSPZ7",
+      "latency_ms": 9.98,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900076.png",
+      "truth": "K5XDT",
+      "pred": "K5XDT",
+      "latency_ms": 7.03,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900077.png",
+      "truth": "TXEWN",
+      "pred": "TXEWN",
+      "latency_ms": 9.83,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900078.png",
+      "truth": "CSBGQ",
+      "pred": "CSBGQ",
+      "latency_ms": 11.26,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900079.png",
+      "truth": "2R9UP",
+      "pred": "2R9UP",
+      "latency_ms": 9.78,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900080.png",
+      "truth": "MELDG",
+      "pred": "MELDG",
+      "latency_ms": 7.3,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900081.png",
+      "truth": "X6JCF",
+      "pred": "X6JCF",
+      "latency_ms": 8.06,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900082.png",
+      "truth": "F6PJY",
+      "pred": "F6PJY",
+      "latency_ms": 7.43,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900083.png",
+      "truth": "7VQFN",
+      "pred": "7VQFN",
+      "latency_ms": 8.99,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900084.png",
+      "truth": "UGRPJ",
+      "pred": "UGRPJ",
+      "latency_ms": 8.62,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900085.png",
+      "truth": "QBUY8",
+      "pred": "QBUY8",
+      "latency_ms": 8.77,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900086.png",
+      "truth": "HV6XX",
+      "pred": "HV6XX",
+      "latency_ms": 10.44,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900087.png",
+      "truth": "LFMD2",
+      "pred": "LFMD2",
+      "latency_ms": 13.54,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900088.png",
+      "truth": "BHUMQ",
+      "pred": "BHUMQ",
+      "latency_ms": 8.41,
+      "failed": false,
+      "confidence": 99.85,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900089.png",
+      "truth": "ACM6P",
+      "pred": "ACM6P",
+      "latency_ms": 6.86,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900090.png",
+      "truth": "BUS8Y",
+      "pred": "BUS8Y",
+      "latency_ms": 11.72,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900091.png",
+      "truth": "V57Z3",
+      "pred": "V57Z3",
+      "latency_ms": 6.03,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900092.png",
+      "truth": "S5C26",
+      "pred": "S5C26",
+      "latency_ms": 9.78,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900093.png",
+      "truth": "GJGRG",
+      "pred": "GJGRG",
+      "latency_ms": 15.22,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900094.png",
+      "truth": "5HBYC",
+      "pred": "5HBYC",
+      "latency_ms": 8.19,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900095.png",
+      "truth": "CAYQG",
+      "pred": "CAYQG",
+      "latency_ms": 8.16,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900096.png",
+      "truth": "UWDRW",
+      "pred": "UWDRW",
+      "latency_ms": 5.58,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900097.png",
+      "truth": "UPMHM",
+      "pred": "UPMHM",
+      "latency_ms": 8.04,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900098.png",
+      "truth": "VR3VT",
+      "pred": "VR3VT",
+      "latency_ms": 6.18,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900099.png",
+      "truth": "SFDSC",
+      "pred": "SFDSC",
+      "latency_ms": 7.88,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900100.png",
+      "truth": "BPKVZ",
+      "pred": "BPKVZ",
+      "latency_ms": 10.33,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900101.png",
+      "truth": "S6637",
+      "pred": "S6637",
+      "latency_ms": 9.56,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900102.png",
+      "truth": "Y7CK8",
+      "pred": "Y7CK8",
+      "latency_ms": 6.11,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900103.png",
+      "truth": "3EK6H",
+      "pred": "3EK6H",
+      "latency_ms": 11.05,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900104.png",
+      "truth": "VL35G",
+      "pred": "VL35G",
+      "latency_ms": 7.95,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900105.png",
+      "truth": "44BGL",
+      "pred": "44BGL",
+      "latency_ms": 8.84,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900106.png",
+      "truth": "QNT22",
+      "pred": "QNT22",
+      "latency_ms": 6.87,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900107.png",
+      "truth": "PHUL6",
+      "pred": "PHUL6",
+      "latency_ms": 23.09,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900108.png",
+      "truth": "7FVRM",
+      "pred": "7FVRM",
+      "latency_ms": 7.6,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900109.png",
+      "truth": "D38JD",
+      "pred": "D38JD",
+      "latency_ms": 10.8,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900110.png",
+      "truth": "DFLME",
+      "pred": "DFLME",
+      "latency_ms": 7.47,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900111.png",
+      "truth": "ND93D",
+      "pred": "ND93D",
+      "latency_ms": 9.48,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900112.png",
+      "truth": "BDSF6",
+      "pred": "BDSF6",
+      "latency_ms": 9.72,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900113.png",
+      "truth": "8KBBK",
+      "pred": "8KBBK",
+      "latency_ms": 9.38,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900114.png",
+      "truth": "BCTBC",
+      "pred": "BCTBC",
+      "latency_ms": 6.72,
+      "failed": false,
+      "confidence": 99.41,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900115.png",
+      "truth": "39WS9",
+      "pred": "39WS9",
+      "latency_ms": 10.51,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900116.png",
+      "truth": "NDS48",
+      "pred": "NDS48",
+      "latency_ms": 8.23,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900117.png",
+      "truth": "8TVA3",
+      "pred": "8TVA3",
+      "latency_ms": 9.77,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900118.png",
+      "truth": "8J39V",
+      "pred": "8J39V",
+      "latency_ms": 6.58,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900119.png",
+      "truth": "Z5FFL",
+      "pred": "Z5FFL",
+      "latency_ms": 11.17,
+      "failed": false,
+      "confidence": 99.85,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900120.png",
+      "truth": "BBQVN",
+      "pred": "BBQVN",
+      "latency_ms": 14.96,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900121.png",
+      "truth": "S5A6W",
+      "pred": "S5A6W",
+      "latency_ms": 7.29,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900122.png",
+      "truth": "6UAQP",
+      "pred": "6UAQP",
+      "latency_ms": 16.53,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900123.png",
+      "truth": "S9S8V",
+      "pred": "S9S8V",
+      "latency_ms": 10.92,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900124.png",
+      "truth": "MJVFE",
+      "pred": "MJVFE",
+      "latency_ms": 9.88,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900125.png",
+      "truth": "9TRZR",
+      "pred": "9TRZR",
+      "latency_ms": 6.78,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900126.png",
+      "truth": "D6EP7",
+      "pred": "D6EP7",
+      "latency_ms": 6.57,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900127.png",
+      "truth": "WDGTN",
+      "pred": "WDGTN",
+      "latency_ms": 9.44,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900128.png",
+      "truth": "9CUSQ",
+      "pred": "9CUSQ",
+      "latency_ms": 6.74,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900129.png",
+      "truth": "U7RET",
+      "pred": "U7RET",
+      "latency_ms": 8.46,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900130.png",
+      "truth": "HGQPU",
+      "pred": "HGQPU",
+      "latency_ms": 6.35,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900131.png",
+      "truth": "8YDLG",
+      "pred": "8YDLG",
+      "latency_ms": 8.44,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900132.png",
+      "truth": "DUPCS",
+      "pred": "DUPCS",
+      "latency_ms": 5.91,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900133.png",
+      "truth": "5YWA8",
+      "pred": "5YWA8",
+      "latency_ms": 8.75,
+      "failed": false,
+      "confidence": 99.77,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900134.png",
+      "truth": "LYCLK",
+      "pred": "LYCLK",
+      "latency_ms": 5.89,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900135.png",
+      "truth": "4N33H",
+      "pred": "4N33H",
+      "latency_ms": 5.97,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900136.png",
+      "truth": "QPW2C",
+      "pred": "QPW2C",
+      "latency_ms": 7.55,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900137.png",
+      "truth": "C3QVG",
+      "pred": "C3QVG",
+      "latency_ms": 5.69,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900138.png",
+      "truth": "49XJR",
+      "pred": "49XJR",
+      "latency_ms": 7.27,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900139.png",
+      "truth": "JPXWC",
+      "pred": "JPXWC",
+      "latency_ms": 5.58,
+      "failed": false,
+      "confidence": 99.79,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900140.png",
+      "truth": "NMUA9",
+      "pred": "NMUA9",
+      "latency_ms": 5.43,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900141.png",
+      "truth": "FACQV",
+      "pred": "FACQY",
+      "latency_ms": 510.99,
+      "failed": false,
+      "confidence": 0.0,
+      "error": null,
+      "route": "tesseract_tuned (fallback)"
+    },
+    {
+      "file": "test/test_900142.png",
+      "truth": "V2HU9",
+      "pred": "V2HU9",
+      "latency_ms": 6.82,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900143.png",
+      "truth": "E4S82",
+      "pred": "E4S82",
+      "latency_ms": 7.63,
+      "failed": false,
+      "confidence": 99.86,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900144.png",
+      "truth": "2JBLZ",
+      "pred": "2JBLZ",
+      "latency_ms": 5.52,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900145.png",
+      "truth": "JHQ8F",
+      "pred": "JHQ8F",
+      "latency_ms": 6.67,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900146.png",
+      "truth": "FMMEB",
+      "pred": "FMMEB",
+      "latency_ms": 6.36,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900147.png",
+      "truth": "VR5FB",
+      "pred": "VR5FB",
+      "latency_ms": 5.9,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900148.png",
+      "truth": "V9HVS",
+      "pred": "V9HVS",
+      "latency_ms": 7.18,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900149.png",
+      "truth": "P89UC",
+      "pred": "P89UC",
+      "latency_ms": 4.22,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900150.png",
+      "truth": "8Z8JW",
+      "pred": "8Z8JW",
+      "latency_ms": 7.49,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900151.png",
+      "truth": "6KQUZ",
+      "pred": "6KQUZ",
+      "latency_ms": 8.27,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900152.png",
+      "truth": "DJEG9",
+      "pred": "DJEG9",
+      "latency_ms": 5.98,
+      "failed": false,
+      "confidence": 99.88,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900153.png",
+      "truth": "6PBFD",
+      "pred": "6PBFD",
+      "latency_ms": 7.57,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900154.png",
+      "truth": "TSVJC",
+      "pred": "TSVJC",
+      "latency_ms": 6.15,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900155.png",
+      "truth": "2B4X3",
+      "pred": "2B4X3",
+      "latency_ms": 5.7,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900156.png",
+      "truth": "TK6AW",
+      "pred": "TK6AW",
+      "latency_ms": 8.63,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900157.png",
+      "truth": "KANWJ",
+      "pred": "KANW",
+      "latency_ms": 4.07,
+      "failed": false,
+      "confidence": 94.64,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900158.png",
+      "truth": "Q4AN5",
+      "pred": "Q4AN5",
+      "latency_ms": 5.02,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900159.png",
+      "truth": "2QDLJ",
+      "pred": "2QDLJ",
+      "latency_ms": 4.09,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900160.png",
+      "truth": "BDHFN",
+      "pred": "BDHFN",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900161.png",
+      "truth": "RA9Q4",
+      "pred": "RA9Q4",
+      "latency_ms": 3.54,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900162.png",
+      "truth": "GSF3M",
+      "pred": "GSF3M",
+      "latency_ms": 4.32,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900163.png",
+      "truth": "BTQSY",
+      "pred": "BTQSY",
+      "latency_ms": 5.32,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900164.png",
+      "truth": "LN84V",
+      "pred": "LN84V",
+      "latency_ms": 3.57,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900165.png",
+      "truth": "2U7JN",
+      "pred": "2U7JN",
+      "latency_ms": 3.42,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900166.png",
+      "truth": "HGB6E",
+      "pred": "HGB6E",
+      "latency_ms": 5.22,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900167.png",
+      "truth": "WKR3S",
+      "pred": "WKR3S",
+      "latency_ms": 4.74,
+      "failed": false,
+      "confidence": 99.73,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900168.png",
+      "truth": "H7Y69",
+      "pred": "H7Y69",
+      "latency_ms": 3.45,
+      "failed": false,
+      "confidence": 99.74,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900169.png",
+      "truth": "7NV3M",
+      "pred": "7NV3M",
+      "latency_ms": 3.43,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900170.png",
+      "truth": "R9LFE",
+      "pred": "R9LFE",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900171.png",
+      "truth": "XTKKY",
+      "pred": "XTKKY",
+      "latency_ms": 5.41,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900172.png",
+      "truth": "AN4UZ",
+      "pred": "AN4UZ",
+      "latency_ms": 3.52,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900173.png",
+      "truth": "HN99E",
+      "pred": "HN99E",
+      "latency_ms": 3.59,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900174.png",
+      "truth": "J44MV",
+      "pred": "J44MV",
+      "latency_ms": 3.55,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900175.png",
+      "truth": "ZEADL",
+      "pred": "ZEADL",
+      "latency_ms": 5.81,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900176.png",
+      "truth": "6XQMC",
+      "pred": "6XQMC",
+      "latency_ms": 6.64,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900177.png",
+      "truth": "NERRP",
+      "pred": "NERRP",
+      "latency_ms": 8.66,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900178.png",
+      "truth": "CR6DC",
+      "pred": "CR6DC",
+      "latency_ms": 9.13,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900179.png",
+      "truth": "TNYF2",
+      "pred": "TNYF2",
+      "latency_ms": 12.39,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900180.png",
+      "truth": "QCGGS",
+      "pred": "QCGGS",
+      "latency_ms": 4.44,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900181.png",
+      "truth": "GMDYB",
+      "pred": "GMDYB",
+      "latency_ms": 8.06,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900182.png",
+      "truth": "3QCRB",
+      "pred": "3QCRB",
+      "latency_ms": 6.09,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900183.png",
+      "truth": "DTK8L",
+      "pred": "DTK8L",
+      "latency_ms": 5.54,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900184.png",
+      "truth": "UFUWB",
+      "pred": "UFUWB",
+      "latency_ms": 9.43,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900185.png",
+      "truth": "RBK68",
+      "pred": "RBK68",
+      "latency_ms": 5.38,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900186.png",
+      "truth": "2BAVQ",
+      "pred": "2BAVQ",
+      "latency_ms": 7.52,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900187.png",
+      "truth": "HK8R2",
+      "pred": "HK8R2",
+      "latency_ms": 5.33,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900188.png",
+      "truth": "R4Z53",
+      "pred": "R4Z53",
+      "latency_ms": 6.28,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900189.png",
+      "truth": "UD2SL",
+      "pred": "UD2SL",
+      "latency_ms": 7.9,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900190.png",
+      "truth": "78T8R",
+      "pred": "78T8R",
+      "latency_ms": 5.88,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900191.png",
+      "truth": "484A7",
+      "pred": "484A7",
+      "latency_ms": 18.32,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900192.png",
+      "truth": "9ZJ67",
+      "pred": "9ZJ67",
+      "latency_ms": 8.8,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900193.png",
+      "truth": "WZMCD",
+      "pred": "WZMCD",
+      "latency_ms": 6.07,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900194.png",
+      "truth": "RL8CJ",
+      "pred": "RL8CJ",
+      "latency_ms": 8.75,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900195.png",
+      "truth": "ZDQKT",
+      "pred": "ZDQKT",
+      "latency_ms": 7.32,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900196.png",
+      "truth": "YNV9B",
+      "pred": "YNV9B",
+      "latency_ms": 10.01,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900197.png",
+      "truth": "YLX9T",
+      "pred": "YLX9T",
+      "latency_ms": 6.59,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900198.png",
+      "truth": "KTF8D",
+      "pred": "KTF8D",
+      "latency_ms": 8.34,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900199.png",
+      "truth": "5LWVC",
+      "pred": "5LWVC",
+      "latency_ms": 5.96,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900200.png",
+      "truth": "UABPT",
+      "pred": "UABPT",
+      "latency_ms": 6.02,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900201.png",
+      "truth": "UE9PY",
+      "pred": "UE9PY",
+      "latency_ms": 10.03,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900202.png",
+      "truth": "3LCLZ",
+      "pred": "3LCLZ",
+      "latency_ms": 5.68,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900203.png",
+      "truth": "CUYUF",
+      "pred": "CUYUF",
+      "latency_ms": 9.01,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900204.png",
+      "truth": "JECVF",
+      "pred": "JECVF",
+      "latency_ms": 5.43,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900205.png",
+      "truth": "FFP5S",
+      "pred": "FFP5S",
+      "latency_ms": 7.51,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900206.png",
+      "truth": "MXK8W",
+      "pred": "MXK8W",
+      "latency_ms": 5.36,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900207.png",
+      "truth": "JRD5D",
+      "pred": "JRD5D",
+      "latency_ms": 5.69,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900208.png",
+      "truth": "DHB96",
+      "pred": "DHB96",
+      "latency_ms": 9.08,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900209.png",
+      "truth": "RHWBD",
+      "pred": "RHWBD",
+      "latency_ms": 5.03,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900210.png",
+      "truth": "WHKEA",
+      "pred": "WHKEA",
+      "latency_ms": 7.75,
+      "failed": false,
+      "confidence": 99.92,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900211.png",
+      "truth": "HZS9R",
+      "pred": "HZS9R",
+      "latency_ms": 5.86,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900212.png",
+      "truth": "HVRUD",
+      "pred": "HVRUD",
+      "latency_ms": 6.46,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900213.png",
+      "truth": "5ANUC",
+      "pred": "5ANUC",
+      "latency_ms": 8.14,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900214.png",
+      "truth": "AR6WR",
+      "pred": "AR6WR",
+      "latency_ms": 6.02,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900215.png",
+      "truth": "K6P93",
+      "pred": "K6P93",
+      "latency_ms": 8.05,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900216.png",
+      "truth": "KCSHT",
+      "pred": "KCSHT",
+      "latency_ms": 5.38,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900217.png",
+      "truth": "65E3R",
+      "pred": "65E3R",
+      "latency_ms": 5.98,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900218.png",
+      "truth": "2WKX9",
+      "pred": "2WKX9",
+      "latency_ms": 8.31,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900219.png",
+      "truth": "3UMZQ",
+      "pred": "3UMZQ",
+      "latency_ms": 4.72,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900220.png",
+      "truth": "DKUX7",
+      "pred": "DKUX7",
+      "latency_ms": 9.44,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900221.png",
+      "truth": "P8QX5",
+      "pred": "P8QX5",
+      "latency_ms": 5.83,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900222.png",
+      "truth": "Q28N4",
+      "pred": "Q28N4",
+      "latency_ms": 7.73,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900223.png",
+      "truth": "F4TGL",
+      "pred": "F4TGL",
+      "latency_ms": 5.98,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900224.png",
+      "truth": "3GYUX",
+      "pred": "3GYUX",
+      "latency_ms": 4.78,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900225.png",
+      "truth": "VBZBV",
+      "pred": "VBZBV",
+      "latency_ms": 9.7,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900226.png",
+      "truth": "AWMNX",
+      "pred": "AWMNX",
+      "latency_ms": 6.66,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900227.png",
+      "truth": "RJ6KL",
+      "pred": "RJ6KL",
+      "latency_ms": 13.6,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900228.png",
+      "truth": "E539W",
+      "pred": "E539W",
+      "latency_ms": 13.68,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900229.png",
+      "truth": "J89HL",
+      "pred": "J89HL",
+      "latency_ms": 6.76,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900230.png",
+      "truth": "XJ4UV",
+      "pred": "XJ4UV",
+      "latency_ms": 9.78,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900231.png",
+      "truth": "3VKV4",
+      "pred": "3VKV4",
+      "latency_ms": 7.53,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900232.png",
+      "truth": "3Z8HQ",
+      "pred": "3Z8HQ",
+      "latency_ms": 8.74,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900233.png",
+      "truth": "PGKY7",
+      "pred": "PGKY7",
+      "latency_ms": 16.99,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900234.png",
+      "truth": "AQV8W",
+      "pred": "AQV8W",
+      "latency_ms": 6.16,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900235.png",
+      "truth": "VW5DU",
+      "pred": "VW5DU",
+      "latency_ms": 9.69,
+      "failed": false,
+      "confidence": 99.9,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900236.png",
+      "truth": "BZXAQ",
+      "pred": "BZXAQ",
+      "latency_ms": 6.21,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900237.png",
+      "truth": "KST2D",
+      "pred": "KST2D",
+      "latency_ms": 8.61,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900238.png",
+      "truth": "DP78L",
+      "pred": "DP78L",
+      "latency_ms": 7.58,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900239.png",
+      "truth": "Q95RW",
+      "pred": "Q95RW",
+      "latency_ms": 8.95,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900240.png",
+      "truth": "F53Z9",
+      "pred": "F53Z9",
+      "latency_ms": 6.6,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900241.png",
+      "truth": "DB7X3",
+      "pred": "DB7X3",
+      "latency_ms": 12.41,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900242.png",
+      "truth": "BHWX3",
+      "pred": "BHWX3",
+      "latency_ms": 6.19,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900243.png",
+      "truth": "9XMSK",
+      "pred": "9XMSK",
+      "latency_ms": 8.94,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900244.png",
+      "truth": "SCXEH",
+      "pred": "SCXEH",
+      "latency_ms": 5.93,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900245.png",
+      "truth": "FXF77",
+      "pred": "FXF77",
+      "latency_ms": 11.15,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900246.png",
+      "truth": "6GQQQ",
+      "pred": "6GQQQ",
+      "latency_ms": 4.53,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900247.png",
+      "truth": "VVY6V",
+      "pred": "VVY6V",
+      "latency_ms": 4.07,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900248.png",
+      "truth": "HPNZU",
+      "pred": "HPNZU",
+      "latency_ms": 8.65,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900249.png",
+      "truth": "QM5TJ",
+      "pred": "QM5TJ",
+      "latency_ms": 4.31,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900250.png",
+      "truth": "8DFXH",
+      "pred": "8DFXH",
+      "latency_ms": 3.87,
+      "failed": false,
+      "confidence": 99.94,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900251.png",
+      "truth": "KGZ22",
+      "pred": "KGZ22",
+      "latency_ms": 6.48,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900252.png",
+      "truth": "Q9YZ8",
+      "pred": "Q9YZ8",
+      "latency_ms": 3.75,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900253.png",
+      "truth": "JEGKC",
+      "pred": "JEGKC",
+      "latency_ms": 3.72,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900254.png",
+      "truth": "HY5U9",
+      "pred": "HY5U9",
+      "latency_ms": 3.72,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900255.png",
+      "truth": "BEE9V",
+      "pred": "BEE9V",
+      "latency_ms": 6.18,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900256.png",
+      "truth": "ESP76",
+      "pred": "ESP76",
+      "latency_ms": 3.73,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900257.png",
+      "truth": "4TVAJ",
+      "pred": "4TVAJ",
+      "latency_ms": 3.69,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900258.png",
+      "truth": "JCG3S",
+      "pred": "JCG3S",
+      "latency_ms": 3.7,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900259.png",
+      "truth": "Z7BVS",
+      "pred": "Z7BVS",
+      "latency_ms": 13.22,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900260.png",
+      "truth": "T3C2Y",
+      "pred": "T3C2Y",
+      "latency_ms": 34.01,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900261.png",
+      "truth": "8P6T8",
+      "pred": "8P6T8",
+      "latency_ms": 8.72,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900262.png",
+      "truth": "YY8S9",
+      "pred": "YY8S9",
+      "latency_ms": 5.73,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900263.png",
+      "truth": "5RBCZ",
+      "pred": "5RBCZ",
+      "latency_ms": 5.65,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900264.png",
+      "truth": "JAZXS",
+      "pred": "JAZXS",
+      "latency_ms": 7.8,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900265.png",
+      "truth": "RSFUJ",
+      "pred": "RSFUJ",
+      "latency_ms": 12.11,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900266.png",
+      "truth": "57HSE",
+      "pred": "57HSE",
+      "latency_ms": 5.9,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900267.png",
+      "truth": "2TJQV",
+      "pred": "2TJQV",
+      "latency_ms": 5.63,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900268.png",
+      "truth": "M89NP",
+      "pred": "NT89NP",
+      "latency_ms": 9.22,
+      "failed": false,
+      "confidence": 95.54,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900269.png",
+      "truth": "GBC3S",
+      "pred": "GBC3S",
+      "latency_ms": 5.53,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900270.png",
+      "truth": "SEBWF",
+      "pred": "SEBWF",
+      "latency_ms": 8.64,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900271.png",
+      "truth": "R3XSJ",
+      "pred": "R3XSJ",
+      "latency_ms": 5.43,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900272.png",
+      "truth": "8BR6V",
+      "pred": "8BR6V",
+      "latency_ms": 4.14,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900273.png",
+      "truth": "A4LBV",
+      "pred": "A4LBV",
+      "latency_ms": 8.65,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900274.png",
+      "truth": "ZA7JE",
+      "pred": "ZA7JE",
+      "latency_ms": 5.58,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900275.png",
+      "truth": "CVPZ8",
+      "pred": "CVPZ8",
+      "latency_ms": 8.72,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900276.png",
+      "truth": "8XDMS",
+      "pred": "8XDMS",
+      "latency_ms": 7.71,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900277.png",
+      "truth": "W9N4C",
+      "pred": "W9N4C",
+      "latency_ms": 7.72,
+      "failed": false,
+      "confidence": 99.97,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900278.png",
+      "truth": "YWUBN",
+      "pred": "YWUBN",
+      "latency_ms": 7.76,
+      "failed": false,
+      "confidence": 99.91,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900279.png",
+      "truth": "C83WP",
+      "pred": "C83WP",
+      "latency_ms": 9.5,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900280.png",
+      "truth": "3DA5Y",
+      "pred": "3DA5Y",
+      "latency_ms": 12.56,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900281.png",
+      "truth": "PF6ZA",
+      "pred": "PF6ZA",
+      "latency_ms": 8.59,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900282.png",
+      "truth": "B73KZ",
+      "pred": "B73KZ",
+      "latency_ms": 4.41,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900283.png",
+      "truth": "V2BKU",
+      "pred": "V2BKU",
+      "latency_ms": 4.19,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900284.png",
+      "truth": "TVSHQ",
+      "pred": "TVSHQ",
+      "latency_ms": 7.0,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900285.png",
+      "truth": "BJV3B",
+      "pred": "BJV3B",
+      "latency_ms": 5.55,
+      "failed": false,
+      "confidence": 99.93,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900286.png",
+      "truth": "88DDG",
+      "pred": "88DDG",
+      "latency_ms": 7.1,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900287.png",
+      "truth": "UXUVE",
+      "pred": "UXUVE",
+      "latency_ms": 4.22,
+      "failed": false,
+      "confidence": 99.85,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900288.png",
+      "truth": "52Q9N",
+      "pred": "52Q9N",
+      "latency_ms": 4.16,
+      "failed": false,
+      "confidence": 99.84,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900289.png",
+      "truth": "T8CBJ",
+      "pred": "T8CBJ",
+      "latency_ms": 4.6,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900290.png",
+      "truth": "6NY6K",
+      "pred": "6NY6K",
+      "latency_ms": 9.59,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900291.png",
+      "truth": "89ZYS",
+      "pred": "89ZYS",
+      "latency_ms": 7.49,
+      "failed": false,
+      "confidence": 99.95,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900292.png",
+      "truth": "NYVCE",
+      "pred": "NYVCE",
+      "latency_ms": 7.29,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900293.png",
+      "truth": "YWJ9Q",
+      "pred": "YWJ9Q",
+      "latency_ms": 7.2,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900294.png",
+      "truth": "5EG8H",
+      "pred": "5EG8H",
+      "latency_ms": 7.96,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900295.png",
+      "truth": "JTGVJ",
+      "pred": "JTGVJ",
+      "latency_ms": 4.72,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900296.png",
+      "truth": "PADNW",
+      "pred": "PADNW",
+      "latency_ms": 8.81,
+      "failed": false,
+      "confidence": 99.96,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900297.png",
+      "truth": "SWZW5",
+      "pred": "SWZW5",
+      "latency_ms": 6.63,
+      "failed": false,
+      "confidence": 99.98,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900298.png",
+      "truth": "TKGCG",
+      "pred": "TKGCG",
+      "latency_ms": 4.12,
+      "failed": false,
+      "confidence": 99.89,
+      "error": null,
+      "route": "custom_mlp"
+    },
+    {
+      "file": "test/test_900299.png",
+      "truth": "ZA2CK",
+      "pred": "ZA2CK",
+      "latency_ms": 5.94,
+      "failed": false,
+      "confidence": 99.99,
+      "error": null,
+      "route": "custom_mlp"
+    }
+  ]
+}

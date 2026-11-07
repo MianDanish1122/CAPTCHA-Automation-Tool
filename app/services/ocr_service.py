@@ -36,58 +36,19 @@ def generate_synthetic_captcha(
     text: Optional[str] = None,
     length: int = 5,
     width: int = 240,
-    height: int = 80
+    height: int = 80,
+    seed: Optional[int] = None,
 ) -> tuple[bytes, str]:
     """
-    Generate a synthetic text CAPTCHA image with geometric noise, lines, and distortion.
-    Returns (png_bytes, ground_truth_text).
+    Generate an OWNED synthetic text CAPTCHA. Returns (png_bytes, ground_truth_text).
+    Pass `seed` for a reproducible image; without it a fresh random one is produced.
+    (Implementation lives in app.ocr.dataset so the benchmark and the app share one generator.)
     """
+    from app.ocr.dataset import ALPHABET, render_captcha
+    rng = random.Random(seed)
     if not text:
-        alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
-        text = "".join(random.choice(alphabet) for _ in range(length))
-
-    font = _get_captcha_font(size=34)
-
-    # Light background
-    bg_color = (random.randint(235, 255), random.randint(235, 255), random.randint(235, 255))
-    image = Image.new("RGB", (width, height), color=bg_color)
-    draw = ImageDraw.Draw(image)
-
-    # 1. Background noise lines
-    for _ in range(random.randint(3, 5)):
-        line_color = (random.randint(140, 200), random.randint(140, 200), random.randint(140, 200))
-        x1 = random.randint(0, width)
-        y1 = random.randint(0, height)
-        x2 = random.randint(0, width)
-        y2 = random.randint(0, height)
-        draw.line([(x1, y1), (x2, y2)], fill=line_color, width=random.randint(1, 2))
-
-    # 2. Render characters with rotation
-    char_spacing = (width - 40) // len(text)
-    for i, char in enumerate(text):
-        char_img = Image.new("RGBA", (50, 60), (255, 255, 255, 0))
-        char_draw = ImageDraw.Draw(char_img)
-        char_color = (random.randint(20, 90), random.randint(20, 90), random.randint(20, 90), 255)
-
-        char_draw.text((8, 6), char, font=font, fill=char_color)
-
-        angle = random.randint(-18, 18)
-        rotated_char = char_img.rotate(angle, expand=True, resample=Image.Resampling.BILINEAR)
-
-        x_pos = 15 + i * char_spacing + random.randint(-2, 2)
-        y_pos = random.randint(8, 18)
-        image.paste(rotated_char, (x_pos, y_pos), rotated_char)
-
-    # 3. Add salt-and-pepper noise dots
-    for _ in range(random.randint(100, 180)):
-        dot_color = (random.randint(80, 180), random.randint(80, 180), random.randint(80, 180))
-        dx = random.randint(0, width - 1)
-        dy = random.randint(0, height - 1)
-        draw.point((dx, dy), fill=dot_color)
-
-    buffer = io.BytesIO()
-    image.save(buffer, format="PNG")
-    return buffer.getvalue(), text
+        text = "".join(rng.choice(ALPHABET) for _ in range(length))
+    return render_captcha(text, rng, width=width, height=height), text
 
 
 def preprocess_captcha_image(image_bytes: bytes) -> tuple[np.ndarray, bytes]:
@@ -169,9 +130,8 @@ def benchmark_synthetic_ocr(samples: int = 5) -> dict[str, Any]:
         if is_exact:
             exact_matches += 1
 
-        min_len = min(len(pred), len(ground_truth))
-        sample_correct_chars = sum(1 for c1, c2 in zip(pred[:min_len], ground_truth[:min_len]) if c1 == c2)
-        correct_chars += sample_correct_chars
+        from app.ocr.metrics import char_accuracy
+        correct_chars += char_accuracy(pred, ground_truth) * max(len(pred), len(ground_truth))  # edit-distance based
         total_chars += max(len(pred), len(ground_truth))
 
         duration = ocr_result.get("ocr_duration_ms", 0.0)

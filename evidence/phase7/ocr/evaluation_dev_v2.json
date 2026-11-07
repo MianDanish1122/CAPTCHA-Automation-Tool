@@ -1,0 +1,79 @@
+{
+  "split": "dev",
+  "samples": 200,
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "2.5.4",
+    "opencv": "5.0.0",
+    "pillow": "13.0.0",
+    "tesseract": "5.5.0.20241111",
+    "font_used": "arial",
+    "generator": "synthetic-v1",
+    "utc": "2026-11-07T12:13:54.028652+00:00"
+  },
+  "model": {
+    "model": "glyph_mlp_v1",
+    "architecture": "HOG(32x32, 324) + 3 geometry features -> 256 ReLU -> 32 softmax",
+    "framework": "NumPy (implemented from scratch)",
+    "train_split": "train (seeds 0..2999), fonts: arial (2/3) + pillow-default (1/3)",
+    "train_stats": {
+      "images": 3000,
+      "images_used": 2982,
+      "images_skipped_bad_segmentation": 18,
+      "glyphs": 14910
+    },
+    "epochs": 60,
+    "train_glyph_accuracy_pct": 100.0,
+    "dev_glyph_accuracy_pct": 99.95,
+    "dev_stats": {
+      "images": 400,
+      "images_used": 400,
+      "images_skipped_bad_segmentation": 0,
+      "glyphs": 2000
+    },
+    "weights_sha256_16": "e830723ec64c3ec2",
+    "train_seconds": 54.8,
+    "note": "dev accuracy is on perfectly-segmented dev images only; end-to-end results are in the benchmark"
+  },
+  "tesseract_tuned_config": {
+    "preprocess": "legacy",
+    "psm": 7,
+    "oem": 1,
+    "whitelist": true
+  },
+  "engines": {
+    "custom_mlp": {
+      "samples": 200,
+      "exact_matches": 199,
+      "exact_match_pct": 99.5,
+      "exact_match_ci95_pct": [
+        97.22,
+        99.91
+      ],
+      "char_accuracy_pct": 99.9,
+      "position_accuracy_pct": 99.9,
+      "failures": 0,
+      "failure_rate_pct": 0.0,
+      "latency_ms_mean": 4.81,
+      "latency_ms_p50": 3.83,
+      "latency_ms_p95": 7.84
+    },
+    "hybrid": {
+      "samples": 200,
+      "exact_matches": 199,
+      "exact_match_pct": 99.5,
+      "exact_match_ci95_pct": [
+        97.22,
+        99.91
+      ],
+      "char_accuracy_pct": 99.6,
+      "position_accuracy_pct": 99.5,
+      "failures": 0,
+      "failure_rate_pct": 0.0,
+      "latency_ms_mean": 9.9,
+      "latency_ms_p50": 4.91,
+      "latency_ms_p95": 13.55
+    }
+  }
+}
