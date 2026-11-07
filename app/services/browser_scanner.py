@@ -7,6 +7,7 @@ from playwright.async_api import async_playwright, Browser, Playwright
 
 from app.config import settings
 from app.services.security_guard import SecurityGuard
+from app.services.network_guard import NetworkGuard, new_guarded_context
 
 # Reusable browser singleton reference
 _shared_playwright: Optional[Playwright] = None
@@ -207,7 +208,10 @@ async def inspect_local_demo(html: str) -> dict:
     """
     start_time = time.perf_counter()
     browser = await get_shared_browser()
-    context = await browser.new_context()
+    # Supplied HTML is untrusted: its scripts/subresources must never reach the network
+    # (otherwise a demo page could probe internal services). All egress is blocked.
+    guard = NetworkGuard(block_all_network=True, label="inspect-demo")
+    context = await new_guarded_context(browser, guard)
 
     try:
         page = await context.new_page()
@@ -244,9 +248,14 @@ async def inspect_local_demo(html: str) -> dict:
 
     finally:
         await context.close()
+        await guard.close()
 
 
-async def inspect_website(url: str, check_security: bool = True) -> dict[str, Any]:
+async def inspect_website(
+    url: str,
+    check_security: bool = True,
+    allow_loopback: bool = False,
+) -> dict[str, Any]:
     """
     Safely inspect a website URL using Playwright.
     Enforces SSRF protections, navigation timeouts, and contact discovery.
@@ -255,7 +264,9 @@ async def inspect_website(url: str, check_security: bool = True) -> dict[str, An
 
     # 1. Security & Authorization Pre-Check
     if check_security:
-        allowed, reason = SecurityGuard.validate_target_url(url, enforce_live_scan=True)
+        allowed, reason = SecurityGuard.validate_target_url(
+            url, enforce_live_scan=True, allow_loopback=allow_loopback
+        )
         if not allowed:
             duration_ms = (time.perf_counter() - start_time) * 1000
             return {
@@ -275,9 +286,13 @@ async def inspect_website(url: str, check_security: bool = True) -> dict[str, An
             }
 
     browser = await get_shared_browser()
-    context = await browser.new_context(
+    # Every navigation, redirect hop and subresource goes through the egress guard
+    # (SSRF validation + DNS-pinned fetch). TLS certificate validation stays enabled.
+    guard = NetworkGuard(allow_loopback=allow_loopback, label="batch-scan")
+    context = await new_guarded_context(
+        browser,
+        guard,
         user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        ignore_https_errors=True,
     )
 
     try:
@@ -300,6 +315,7 @@ async def inspect_website(url: str, check_security: bool = True) -> dict[str, An
                 "captcha_detected": False,
                 "captcha_provider": None,
                 "detection_method": "navigation_failure",
+                "network_guard": guard.summary(),
                 "is_active_challenge": False,
                 "human_review_required": False,
                 "inspection_duration_ms": round(duration_ms, 2),
@@ -317,7 +333,8 @@ async def inspect_website(url: str, check_security: bool = True) -> dict[str, An
                     "a[href]",
                     "elements => elements.map(el => ({href: el.getAttribute('href'), text: el.innerText.trim()}))"
                 )
-                base_domain = urlparse(url).netloc.lower()
+                landing_url = guard.effective_url(page.url)
+                base_domain = urlparse(landing_url).netloc.lower()
 
                 for link in links:
                     href = link.get("href") or ""
@@ -329,7 +346,7 @@ async def inspect_website(url: str, check_security: bool = True) -> dict[str, An
                     )
 
                     if is_contact_link:
-                        resolved_url = urljoin(url, href)
+                        resolved_url = urljoin(landing_url, href)
                         resolved_domain = urlparse(resolved_url).netloc.lower()
 
                         if resolved_domain == base_domain:
@@ -365,6 +382,7 @@ async def inspect_website(url: str, check_security: bool = True) -> dict[str, An
             "is_active_challenge": detection["is_active_challenge"],
             "human_review_required": detection["human_review_required"],
             "error_details": None,
+            "network_guard": guard.summary(),
             "inspection_duration_ms": round(duration_ms, 2),
         }
 
@@ -387,3 +405,4 @@ async def inspect_website(url: str, check_security: bool = True) -> dict[str, An
 
     finally:
         await context.close()
+        await guard.close()

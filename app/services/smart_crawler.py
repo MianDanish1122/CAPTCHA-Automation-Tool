@@ -17,6 +17,7 @@ from app.database import SessionLocal
 from app.models import UrlScan, DiscoveredPage
 from app.services.browser_scanner import get_shared_browser, detect_captcha_in_html
 from app.services.security_guard import SecurityGuard
+from app.services.network_guard import NetworkGuard, new_guarded_context
 
 logger = logging.getLogger(__name__)
 
@@ -384,9 +385,13 @@ class SmartCrawler:
         ]
 
         browser = await get_shared_browser()
-        context = await browser.new_context(
+        # All crawler egress (navigations, redirects, subresources) is routed through the
+        # shared DNS-pinned SSRF guard. TLS certificate validation stays enabled.
+        net_guard = NetworkGuard(allow_loopback=self.allow_loopback, label=f"crawl:{scan_id[:8]}")
+        context = await new_guarded_context(
+            browser,
+            net_guard,
             user_agent=settings.CRAWLER_USER_AGENT,
-            ignore_https_errors=True,
             viewport={"width": 1280, "height": 800},
         )
 
@@ -397,50 +402,6 @@ class SmartCrawler:
             page = await context.new_page()
             page.set_default_navigation_timeout(settings.CRAWLER_PAGE_TIMEOUT_MS)
 
-            # Pre-request SSRF & Redirect Interceptor
-            async def intercept_route(route):
-                req = route.request
-                target_url = req.url
-
-                try:
-                    parsed_target = urlparse(target_url)
-                    if parsed_target.scheme.lower() not in ("http", "https"):
-                        logger.warning(f"SSRF Interceptor: Aborting non-http request {target_url}")
-                        await route.abort("blockedbyclient")
-                        return
-
-                    # Pre-request validation before Chromium issues network request
-                    allowed, reason = SecurityGuard.validate_target_url(
-                        target_url,
-                        enforce_live_scan=False,
-                        allow_loopback=self.allow_loopback,
-                    )
-                    if not allowed:
-                        logger.warning(f"SSRF Interceptor: Blocked pre-request to {target_url}: {reason}")
-                        await route.abort("blockedbyclient")
-                        return
-
-                    # Redirect inspection: If this request is an HTTP redirect
-                    if req.redirected_from:
-                        from_url = req.redirected_from.url
-                        redir_allowed, redir_reason = SecurityGuard.validate_redirect_url(
-                            target_url,
-                            from_url,
-                            enforce_live_scan=False,
-                            allow_loopback=self.allow_loopback,
-                            require_same_domain=True,
-                        )
-                        if not redir_allowed:
-                            logger.warning(f"SSRF Interceptor: Blocked redirect from {from_url} to {target_url}: {redir_reason}")
-                            await route.abort("blockedbyclient")
-                            return
-
-                    await route.continue_()
-                except Exception as ex:
-                    logger.error(f"Error in SSRF request interceptor for {target_url}: {ex}")
-                    await route.abort("blockedbyclient")
-
-            await page.route("**/*", intercept_route)
 
             while queue and len(self.visited_urls) < self.max_pages:
                 # Sort queue so highest priority candidate runs next
@@ -474,7 +435,8 @@ class SmartCrawler:
                     http_status = response.status if response else 200
 
                     # Validate final URL in case of HTTP redirects
-                    final_url = page.url
+                    # Redirects are followed (and validated) by the guard, not by Chromium.
+                    final_url = net_guard.effective_url(page.url)
                     redir_allowed, redir_reason = SecurityGuard.validate_redirect_url(
                         final_url,
                         current_url,
@@ -690,6 +652,7 @@ class SmartCrawler:
 
         finally:
             await context.close()
+            await net_guard.close()
             db.close()
 
 

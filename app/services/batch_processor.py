@@ -8,6 +8,12 @@ from app.config import settings, BASE_DIR
 from app.database import SessionLocal
 from app.models import BatchJob, WebsiteInspection
 from app.services.browser_scanner import inspect_website, inspect_local_demo
+from app.services.fixture_loader import (
+    FixtureError,
+    extract_fixture_name,
+    is_fixture_reference,
+    load_fixture_html,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -30,11 +36,15 @@ async def process_single_website(
             url = inspection.website_url.strip()
 
             # Check if this is a local test fixture reference
-            if url.startswith("fixture://"):
-                fixture_name = url.replace("fixture://", "")
-                fixture_path = settings.BASE_DIR / "tests" / "fixtures" / fixture_name
-                if fixture_path.exists():
-                    html_content = fixture_path.read_text(encoding="utf-8")
+            if is_fixture_reference(url):
+                fixture_name = extract_fixture_name(url)
+                try:
+                    html_content = load_fixture_html(url)
+                except FixtureError as fx_err:
+                    logger.warning("Rejected fixture reference %r: %s", fixture_name[:80], fx_err)
+                    html_content = None
+                    fixture_error = str(fx_err)
+                if html_content is not None:
                     result = await inspect_local_demo(html_content)
                     
                     provider_str = ", ".join(result.get("detected_providers", [])) or None
@@ -52,7 +62,7 @@ async def process_single_website(
                     inspection.error_details = result.get("error")
                 else:
                     inspection.scan_status = "failed"
-                    inspection.error_details = f"Fixture file not found: {fixture_name}"
+                    inspection.error_details = f"Fixture rejected: {fixture_error}"
             else:
                 # Live or external website inspection
                 result = await inspect_website(url, check_security=True)

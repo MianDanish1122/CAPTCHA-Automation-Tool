@@ -37,6 +37,27 @@ class Settings:
         """Returns True ONLY if explicitly enabled AND running in dev/test."""
         return self.ALLOW_DEV_LOOPBACK and (self.APP_ENV in ("development", "test"))
 
+    # Local `fixture://` demo pages. Only ever honored in development/test environments;
+    # staging/production ignore this flag entirely.
+    ALLOW_FIXTURES: bool = get_bool_env("ALLOW_FIXTURES", True)
+
+    @property
+    def fixtures_enabled(self) -> bool:
+        """Fixtures are available ONLY in development/test, regardless of ALLOW_FIXTURES."""
+        return self.ALLOW_FIXTURES and (self.APP_ENV in ("development", "test"))
+
+    # Proxy trust: forwarding headers (X-Forwarded-For) are honored ONLY when the direct
+    # TCP peer is one of these IPs/CIDRs. Empty (default) = never trust forwarding headers.
+    TRUSTED_PROXIES: list[str] = [
+        p.strip() for p in os.getenv("TRUSTED_PROXIES", "").split(",") if p.strip()
+    ]
+
+    # TLS: certificate validation is ON by default. Disabling is a development-only opt-in.
+    SCAN_ALLOW_INVALID_CERTS: bool = get_bool_env("SCAN_ALLOW_INVALID_CERTS", False)
+
+    # Upper bound for any single proxied response body during guarded browsing.
+    GUARD_MAX_RESPONSE_BYTES: int = int(os.getenv("GUARD_MAX_RESPONSE_BYTES", str(10 * 1024 * 1024)))
+
     ENABLE_LIVE_SCAN: bool = get_bool_env("ENABLE_LIVE_SCAN", False)
     _allowed = os.getenv("ALLOWED_DOMAINS", "example.com,demo.com,localhost")
     ALLOWED_DOMAINS: list[str] = [d.strip().lower() for d in _allowed.split(",") if d.strip()]
@@ -111,6 +132,8 @@ class Settings:
                 raise ValueError(
                     "Production requires a cryptographically strong JWT_SECRET_KEY of at least 32 characters."
                 )
+            if self.SCAN_ALLOW_INVALID_CERTS:
+                raise ValueError("SCAN_ALLOW_INVALID_CERTS cannot be enabled in production/staging.")
             if "*" in self.CORS_ALLOWED_ORIGINS:
                 raise ValueError("Wildcard '*' is prohibited in CORS_ALLOWED_ORIGINS in production/staging.")
 

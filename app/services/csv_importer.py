@@ -3,6 +3,14 @@ import io
 from typing import Any
 from urllib.parse import urlparse
 
+from app.config import settings
+from app.services.fixture_loader import (
+    FixtureError,
+    extract_fixture_name,
+    is_fixture_reference,
+    validate_fixture_name,
+)
+
 ALIASES = {
     "company_name": ["company_name", "company", "name"],
     "website_url": ["website_url", "website", "url"],
@@ -77,7 +85,16 @@ def import_websites(file_content: bytes) -> dict[str, Any]:
 
         parsed = urlparse(website_url)
 
-        is_fixture = parsed.scheme == "fixture" and bool(parsed.netloc or parsed.path)
+        is_fixture = False
+        if is_fixture_reference(website_url):
+            try:
+                if not settings.fixtures_enabled:
+                    raise FixtureError("Fixture URLs are disabled in this environment.")
+                validate_fixture_name(extract_fixture_name(website_url))
+                is_fixture = True
+            except FixtureError as fx_err:
+                errors.append({"row": row_number, "reason": f"Invalid fixture reference: {fx_err}"})
+                continue
         is_web = parsed.scheme in ("http", "https") and bool(parsed.hostname)
 
         if (

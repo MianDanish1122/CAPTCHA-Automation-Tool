@@ -9,6 +9,36 @@ CLOUD_METADATA_IPS = {
     "fd00:ec2::254",
 }
 
+# Special-purpose ranges that must never be reachable, independent of stdlib classification.
+_BLOCKED_NETWORKS = [
+    (ipaddress.ip_network("0.0.0.0/8"), "'This network'"),
+    (ipaddress.ip_network("10.0.0.0/8"), "Private RFC 1918"),
+    (ipaddress.ip_network("100.64.0.0/10"), "Carrier-grade NAT (CGNAT, RFC 6598)"),
+    (ipaddress.ip_network("127.0.0.0/8"), "Loopback"),
+    (ipaddress.ip_network("169.254.0.0/16"), "Link-local"),
+    (ipaddress.ip_network("172.16.0.0/12"), "Private RFC 1918"),
+    (ipaddress.ip_network("192.0.0.0/24"), "IETF protocol assignment"),
+    (ipaddress.ip_network("192.0.2.0/24"), "Documentation (TEST-NET-1)"),
+    (ipaddress.ip_network("192.88.99.0/24"), "6to4 relay anycast"),
+    (ipaddress.ip_network("192.168.0.0/16"), "Private RFC 1918"),
+    (ipaddress.ip_network("198.18.0.0/15"), "Benchmarking"),
+    (ipaddress.ip_network("198.51.100.0/24"), "Documentation (TEST-NET-2)"),
+    (ipaddress.ip_network("203.0.113.0/24"), "Documentation (TEST-NET-3)"),
+    (ipaddress.ip_network("224.0.0.0/4"), "Multicast"),
+    (ipaddress.ip_network("240.0.0.0/4"), "Reserved (Class E / broadcast)"),
+    (ipaddress.ip_network("::/128"), "Unspecified"),
+    (ipaddress.ip_network("::1/128"), "Loopback"),
+    (ipaddress.ip_network("64:ff9b:1::/48"), "Local-use NAT64"),
+    (ipaddress.ip_network("100::/64"), "Discard-only"),
+    (ipaddress.ip_network("2001::/23"), "IETF protocol assignment / Teredo"),
+    (ipaddress.ip_network("2001:db8::/32"), "Documentation"),
+    (ipaddress.ip_network("fc00::/7"), "Unique local (ULA)"),
+    (ipaddress.ip_network("fe80::/10"), "IPv6 link-local"),
+    (ipaddress.ip_network("fec0::/10"), "Deprecated site-local"),
+    (ipaddress.ip_network("ff00::/8"), "IPv6 multicast"),
+]
+_NAT64_NETWORK = ipaddress.ip_network("64:ff9b::/96")
+
 # Approved ports for HTTP/HTTPS web traffic
 APPROVED_PORTS = {80, 443, 8080, 8443, 8888}
 
@@ -21,32 +51,112 @@ class SecurityException(Exception):
 class SecurityGuard:
     @staticmethod
     def is_ip_allowed(ip_str: str) -> tuple[bool, str]:
-        """Check if an IP address is safe for automated inspection."""
+        """
+        Check whether an IP address is a safe, publicly routable destination.
+
+        Policy: only *globally routable* unicast addresses are allowed. In addition to the
+        stdlib `is_global` check, well-known special-purpose ranges are blocked explicitly
+        (so the decision never depends on stdlib classification quirks), and IPv6 forms that
+        embed an IPv4 address (IPv4-mapped, NAT64, 6to4, Teredo) are unwrapped and re-checked.
+        """
         if not ip_str:
             return False, "IP address is empty."
 
         clean_ip = ip_str.strip().strip("[]")
-
-        if clean_ip in CLOUD_METADATA_IPS:
-            return False, f"Access to cloud metadata IP ({clean_ip}) is prohibited."
+        clean_ip = clean_ip.split("%", 1)[0]  # drop IPv6 zone id (fe80::1%eth0)
 
         try:
             ip = ipaddress.ip_address(clean_ip)
         except ValueError:
             return False, f"Invalid IP address format: {clean_ip}"
 
+        return SecurityGuard._check_ip_object(ip, clean_ip, depth=0)
+
+    @staticmethod
+    def _check_ip_object(ip, label: str, depth: int) -> tuple[bool, str]:
+        if depth > 2:
+            return False, f"Address ({label}) embeds nested IP encodings and is prohibited."
+
+        if str(ip) in CLOUD_METADATA_IPS:
+            return False, f"Access to cloud metadata IP ({label}) is prohibited."
+
+        # Unwrap IPv6 addresses that embed an IPv4 destination.
+        if isinstance(ip, ipaddress.IPv6Address):
+            embedded = None
+            if ip.ipv4_mapped is not None:
+                embedded = ip.ipv4_mapped
+            elif ip in _NAT64_NETWORK:
+                embedded = ipaddress.IPv4Address(int(ip) & 0xFFFFFFFF)
+            elif ip.sixtofour is not None:
+                embedded = ip.sixtofour
+            elif ip.teredo is not None:
+                return False, f"Teredo tunnel address ({label}) is prohibited."
+            if embedded is not None:
+                ok, reason = SecurityGuard._check_ip_object(
+                    embedded, f"{embedded} (embedded in {label})", depth + 1
+                )
+                if not ok:
+                    return False, reason
+                return False, f"IPv6 transition-mechanism address ({label}) is prohibited."
+
+        for network, description in _BLOCKED_NETWORKS:
+            if ip.version == network.version and ip in network:
+                return False, f"{description} address ({label}) is prohibited."
+
         if ip.is_loopback:
-            return False, f"Loopback address ({clean_ip}) is prohibited."
-        if ip.is_private:
-            return False, f"Private RFC 1918 / CGNAT address ({clean_ip}) is prohibited."
+            return False, f"Loopback address ({label}) is prohibited."
         if ip.is_link_local:
-            return False, f"Link-local address ({clean_ip}) is prohibited."
+            return False, f"Link-local address ({label}) is prohibited."
         if ip.is_multicast:
-            return False, f"Multicast address ({clean_ip}) is prohibited."
+            return False, f"Multicast address ({label}) is prohibited."
+        if ip.is_unspecified:
+            return False, f"Unspecified address ({label}) is prohibited."
+        if ip.is_private:
+            return False, f"Private / non-routable address ({label}) is prohibited."
         if ip.is_reserved:
-            return False, f"Reserved address ({clean_ip}) is prohibited."
+            return False, f"Reserved address ({label}) is prohibited."
+        if not ip.is_global:
+            return False, f"Non-global address ({label}) is prohibited."
 
         return True, "IP is public and allowed"
+
+    @classmethod
+    def resolve_public_addresses(
+        cls, hostname: str, port: int, allow_loopback: bool = False
+    ) -> tuple[list[str], str]:
+        """
+        Resolve `hostname` NOW and return (validated_ips, reason).
+        Every resolved address must be public; one bad record rejects the host.
+        Callers must connect to the returned IPs directly (pinning) to defeat DNS rebinding.
+        """
+        host = hostname.lower().strip("[]")
+        loopback_names = ("localhost", "127.0.0.1", "::1")
+        if host in loopback_names:
+            if settings.can_allow_loopback:  # server-controlled: dev/test + ALLOW_DEV_LOOPBACK only
+                return ["127.0.0.1" if host == "localhost" else host], "loopback permitted (dev/test)"
+            return [], f"Loopback address ({host}) is prohibited."
+
+        try:
+            addresses = [str(ipaddress.ip_address(host))]
+        except ValueError:
+            try:
+                infos = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+            except socket.gaierror as e:
+                return [], f"DNS resolution failed for '{host}': {e}"
+            addresses = []
+            for info in infos:
+                addr = info[4][0]
+                if addr not in addresses:
+                    addresses.append(addr)
+
+        if not addresses:
+            return [], f"Could not resolve host '{host}'."
+
+        for addr in addresses:
+            ok, reason = cls.is_ip_allowed(addr)
+            if not ok:
+                return [], f"Host '{host}' resolved to prohibited address {addr}: {reason}"
+        return addresses, "ok"
 
     @classmethod
     def validate_target_url(
