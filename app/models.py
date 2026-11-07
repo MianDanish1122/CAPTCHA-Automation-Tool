@@ -139,6 +139,7 @@ class UrlScan(Base):
 
     def to_dict(self) -> dict:
         return {
+            "id": self.id,
             "scan_id": self.id,
             "submitted_url": self.submitted_url,
             "domain": self.domain,

@@ -98,6 +98,14 @@ async def upload_csv(
             detail=result["message"]
         )
 
+    # Provide consistent alias counts for frontend and reports
+    valid_websites = result.get("websites", [])
+    invalid_rows = result.get("invalid_rows", len(result.get("errors", [])))
+    result["valid_count"] = len(valid_websites)
+    result["invalid_count"] = invalid_rows
+    result["total_rows"] = len(valid_websites) + invalid_rows
+    result["message"] = f"CSV validated successfully ({len(valid_websites)} valid, {invalid_rows} invalid)."
+
     batch_id = None
     if auto_scan and result.get("websites"):
         batch_id = create_batch(result["websites"], start_background=True)

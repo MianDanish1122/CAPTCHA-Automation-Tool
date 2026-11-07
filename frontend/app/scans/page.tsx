@@ -173,8 +173,10 @@ function ScansContent() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
-                {filteredScans.map((scan) => (
-                  <tr key={scan.id} className="hover:bg-slate-50 transition-colors">
+                {filteredScans.map((scan) => {
+                  const sId = scan.id || (scan as any).scan_id || '';
+                  return (
+                  <tr key={sId} className="hover:bg-slate-50 transition-colors">
                     <td className="py-3 px-3 max-w-[260px]">
                       <div className="font-semibold text-slate-900 truncate">
                         {scan.domain}
@@ -184,7 +186,7 @@ function ScansContent() {
                       </div>
                     </td>
                     <td className="py-3 px-2 font-mono text-slate-500 text-[11px]">
-                      {scan.id.slice(0, 8)}...
+                      {sId.slice(0, 8)}...
                     </td>
                     <td className="py-3 px-2">
                       <Badge variant="status" value={scan.status} size="sm" />
@@ -216,7 +218,7 @@ function ScansContent() {
                     </td>
                     <td className="py-3 px-3 text-right">
                       <button
-                        onClick={() => handleOpenDetails(scan.id)}
+                        onClick={() => handleOpenDetails(sId)}
                         className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1 rounded-md transition"
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -224,7 +226,7 @@ function ScansContent() {
                       </button>
                     </td>
                   </tr>
-                ))}
+                );})}
               </tbody>
             </table>
           </div>

@@ -1,0 +1,607 @@
+{
+  "total": 29,
+  "passed": 29,
+  "failed": 0,
+  "console_errors": [],
+  "failed_requests": [],
+  "tests": [
+    {
+      "test_name": "Backend Health Diagnostic Check",
+      "expected": "HTTP 200, status=healthy, live_scan_enabled=False, tesseract_ready=True",
+      "actual": "HTTP 200, status=healthy, live_scan=False, ocr=tesseract_ready",
+      "status": "PASS",
+      "details": {
+        "status": "healthy",
+        "service": "CAPTCHA Automation Tool",
+        "version": "2.0.0",
+        "database": "sqlite_connected",
+        "database_connected": true,
+        "ocr_engine": "tesseract_ready",
+        "tesseract_installed": true,
+        "live_scan_enabled": false,
+        "allowed_domains": [
+          "example.com",
+          "demo.com",
+          "localhost"
+        ]
+      }
+    },
+    {
+      "test_name": "Security Guard: Loopback Prohibited without Override",
+      "expected": "HTTP 400 rejection",
+      "actual": "HTTP 400 (Security restriction: Target IP address prohibited: Loopback...)",
+      "status": "PASS",
+      "details": {
+        "response": {
+          "detail": "Security restriction: Target IP address prohibited: Loopback address (127.0.0.1) is prohibited."
+        }
+      }
+    },
+    {
+      "test_name": "Security Guard: Private IP Subnet (10.0.0.1)",
+      "expected": "HTTP 400 rejection",
+      "actual": "HTTP 400 (Security restriction: Host '10.0.0.1' resolved to prohibited...)",
+      "status": "PASS",
+      "details": {
+        "response": {
+          "detail": "Security restriction: Host '10.0.0.1' resolved to prohibited address 10.0.0.1: Private RFC 1918 / CGNAT address (10.0.0.1) is prohibited."
+        }
+      }
+    },
+    {
+      "test_name": "Security Guard: Cloud Metadata Subnet (169.254.169.254)",
+      "expected": "HTTP 400 rejection",
+      "actual": "HTTP 400 (Security restriction: Host '169.254.169.254' resolved to pro...)",
+      "status": "PASS",
+      "details": {
+        "response": {
+          "detail": "Security restriction: Host '169.254.169.254' resolved to prohibited address 169.254.169.254: Access to cloud metadata IP (169.254.169.254) is prohibited."
+        }
+      }
+    },
+    {
+      "test_name": "Security Guard: Invalid Scheme (file://)",
+      "expected": "HTTP 400 rejection",
+      "actual": "HTTP 400 (Security restriction: Invalid protocol scheme 'file'. Only h...)",
+      "status": "PASS",
+      "details": {
+        "response": {
+          "detail": "Security restriction: Invalid protocol scheme 'file'. Only http and https are permitted."
+        }
+      }
+    },
+    {
+      "test_name": "Security Guard: Unauthorized Domain (unauthorized-bank.com)",
+      "expected": "HTTP 400 rejection",
+      "actual": "HTTP 400 (Security restriction: DNS resolution failed for 'unauthorize...)",
+      "status": "PASS",
+      "details": {
+        "response": {
+          "detail": "Security restriction: DNS resolution failed for 'unauthorized-bank.com': [Errno 11001] getaddrinfo failed"
+        }
+      }
+    },
+    {
+      "test_name": "Crawl Execution on Local Fixture",
+      "expected": "Pages crawled >= 3, CAPTCHA detected = True, HTTP 200",
+      "actual": "Pages=5, Contact=2, CAPTCHA=True, Providers=['cloudflare_turnstile', 'google_recaptcha']",
+      "status": "PASS",
+      "details": {
+        "success": true,
+        "scan_id": "a09fc929-70f1-4458-a4fa-41bee169a907",
+        "status": "completed",
+        "submitted_url": "http://127.0.0.1:8888",
+        "domain": "127.0.0.1",
+        "pages_crawled": 5,
+        "contact_pages_found": 2,
+        "captcha_detected": true,
+        "captcha_providers": [
+          "cloudflare_turnstile",
+          "google_recaptcha"
+        ],
+        "crawl_duration_ms": 2920.45,
+        "results": [
+          {
+            "id": "6d7b29ba-1a99-4dad-8463-9bd3eb072ace",
+            "scan_id": "a09fc929-70f1-4458-a4fa-41bee169a907",
+            "url": "http://127.0.0.1:8888/",
+            "depth": 0,
+            "page_title": "Acme Corp \u2014 Security Automation Showcase",
+            "canonical_url": "http://127.0.0.1:8888/",
+            "classification": "general_page",
+            "confidence_score": 0.85,
+            "evidence": {
+              "path_signals": [],
+              "anchor_signals": [],
+              "title_signals": [],
+              "content_signals": [],
+              "form_signals": [],
+              "contact_score": 0.0,
+              "support_score": 0.0,
+              "classification_reason": "Classified as general_page: domain landing page or navigation page without targeted contact forms."
+            },
+            "contact_form_found": false,
+            "forms_count": 0,
+            "has_inputs": false,
+            "has_textarea": false,
+            "captcha_detected": false,
+            "captcha_provider": null,
+            "is_active_challenge": false,
+            "human_review_required": false,
+            "detection_method": "form_and_dom_scan",
+            "screenshot_path": "evidence/scans/a09fc929-70f1-4458-a4fa-41bee169a907/page_1_root.png",
+            "http_status": 200,
+            "crawl_duration_ms": 321.79,
+            "created_at": "2026-11-07T09:23:15.137434"
+          },
+          {
+            "id": "71d89c8d-33a6-4b54-a42e-7eaf31b92976",
+            "scan_id": "a09fc929-70f1-4458-a4fa-41bee169a907",
+            "url": "http://127.0.0.1:8888/contact",
+            "depth": 1,
+            "page_title": "Contact Us \u2014 Acme Security",
+            "canonical_url": "http://127.0.0.1:8888/contact",
+            "classification": "contact_page",
+            "confidence_score": 1.0,
+            "evidence": {
+              "path_signals": [
+                "Path matches contact keyword 'contact'"
+              ],
+              "anchor_signals": [
+                "Anchor text matches contact keyword 'contact'",
+                "Anchor text matches support keyword 'support'"
+              ],
+              "title_signals": [
+                "Title matches contact keyword 'contact'"
+              ],
+              "content_signals": [
+                "Body contains contact phrase 'contact us'"
+              ],
+              "form_signals": [
+                "Page contains 1 form(s)",
+                "Multi-line textarea detected (strong contact indicator)"
+              ],
+              "contact_score": 1.0,
+              "support_score": 0.25,
+              "classification_reason": "Classified as contact_page (score 1.0) based on URL path, anchor text, and form signals."
+            },
+            "contact_form_found": true,
+            "forms_count": 1,
+            "has_inputs": true,
+            "has_textarea": true,
+            "captcha_detected": true,
+            "captcha_provider": "google_recaptcha",
+            "is_active_challenge": true,
+            "human_review_required": true,
+            "detection_method": "dom_widget_and_script_pattern",
+            "screenshot_path": "evidence/scans/a09fc929-70f1-4458-a4fa-41bee169a907/page_2_contact.png",
+            "http_status": 200,
+            "crawl_duration_ms": 271.67,
+            "created_at": "2026-11-07T09:23:15.480161"
+          },
+          {
+            "id": "c9281d40-4ba1-4f60-9810-2415be37706a",
+            "scan_id": "a09fc929-70f1-4458-a4fa-41bee169a907",
+            "url": "http://127.0.0.1:8888/feedback",
+            "depth": 1,
+            "page_title": "User Feedback",
+            "canonical_url": "http://127.0.0.1:8888/feedback",
+            "classification": "contact_page",
+            "confidence_score": 0.9,
+            "evidence": {
+              "path_signals": [
+                "Path matches contact keyword 'feedback'"
+              ],
+              "anchor_signals": [],
+              "title_signals": [
+                "Title matches contact keyword 'feedback'"
+              ],
+              "content_signals": [],
+              "form_signals": [
+                "Page contains 1 form(s)",
+                "Multi-line textarea detected (strong contact indicator)"
+              ],
+              "contact_score": 0.9,
+              "support_score": 0.0,
+              "classification_reason": "Classified as contact_page (score 0.9) based on URL path, anchor text, and form signals."
+            },
+            "contact_form_found": true,
+            "forms_count": 1,
+            "has_inputs": false,
+            "has_textarea": true,
+            "captcha_detected": false,
+            "captcha_provider": null,
+            "is_active_challenge": false,
+            "human_review_required": false,
+            "detection_method": "form_and_dom_scan",
+            "screenshot_path": "evidence/scans/a09fc929-70f1-4458-a4fa-41bee169a907/page_3_feedback.png",
+            "http_status": 200,
+            "crawl_duration_ms": 171.05,
+            "created_at": "2026-11-07T09:23:15.715909"
+          },
+          {
+            "id": "d7bff569-5036-42ee-9b55-a1d1f10d26c7",
+            "scan_id": "a09fc929-70f1-4458-a4fa-41bee169a907",
+            "url": "http://127.0.0.1:8888/support",
+            "depth": 1,
+            "page_title": "Help & Customer Support",
+            "canonical_url": "http://127.0.0.1:8888/support",
+            "classification": "support_page",
+            "confidence_score": 1.0,
+            "evidence": {
+              "path_signals": [
+                "Path matches support keyword 'support'"
+              ],
+              "anchor_signals": [
+                "Anchor text matches support keyword 'support'"
+              ],
+              "title_signals": [
+                "Title matches support keyword 'support'"
+              ],
+              "content_signals": [
+                "Body contains support phrase 'customer support'"
+              ],
+              "form_signals": [
+                "Page contains 1 form(s)",
+                "Interactive input fields detected"
+              ],
+              "contact_score": 0.15,
+              "support_score": 1.0,
+              "classification_reason": "Classified as support_page (score 1.0) based on support keywords and help desk indicators."
+            },
+            "contact_form_found": true,
+            "forms_count": 1,
+            "has_inputs": true,
+            "has_textarea": false,
+            "captcha_detected": true,
+            "captcha_provider": "cloudflare_turnstile",
+            "is_active_challenge": true,
+            "human_review_required": true,
+            "detection_method": "dom_widget_and_script_pattern",
+            "screenshot_path": "evidence/scans/a09fc929-70f1-4458-a4fa-41bee169a907/page_4_support.png",
+            "http_status": 200,
+            "crawl_duration_ms": 213.09,
+            "created_at": "2026-11-07T09:23:15.978357"
+          },
+          {
+            "id": "d4903051-b1ea-49d5-9acc-6bbf4a919961",
+            "scan_id": "a09fc929-70f1-4458-a4fa-41bee169a907",
+            "url": "http://127.0.0.1:8888/about",
+            "depth": 1,
+            "page_title": "About Acme Corp",
+            "canonical_url": "http://127.0.0.1:8888/about",
+            "classification": "general_page",
+            "confidence_score": 0.7,
+            "evidence": {
+              "path_signals": [],
+              "anchor_signals": [],
+              "title_signals": [],
+              "content_signals": [],
+              "form_signals": [],
+              "contact_score": 0.0,
+              "support_score": 0.0,
+              "classification_reason": "Classified as general_page: domain landing page or navigation page without targeted contact forms."
+            },
+            "contact_form_found": false,
+            "forms_count": 0,
+            "has_inputs": false,
+            "has_textarea": false,
+            "captcha_detected": false,
+            "captcha_provider": null,
+            "is_active_challenge": false,
+            "human_review_required": false,
+            "detection_method": "form_and_dom_scan",
+            "screenshot_path": "evidence/scans/a09fc929-70f1-4458-a4fa-41bee169a907/page_5_about.png",
+            "http_status": 200,
+            "crawl_duration_ms": 229.49,
+            "created_at": "2026-11-07T09:23:16.267588"
+          }
+        ]
+      }
+    },
+    {
+      "test_name": "Database Record Integrity (url_scans & discovered_pages)",
+      "expected": "Scan a09fc929-70f1-4458-a4fa-41bee169a907 saved as completed with >= 3 pages",
+      "actual": "status=completed, pages_in_db=5, pending_reviews=34",
+      "status": "PASS",
+      "details": {
+        "scan_row": [
+          "a09fc929-70f1-4458-a4fa-41bee169a907",
+          "http://127.0.0.1:8888",
+          "completed",
+          5,
+          1
+        ],
+        "pages_count": 5,
+        "pending_reviews": 34
+      }
+    },
+    {
+      "test_name": "Human Review PATCH & Database Audit (#c532aad6-dd6e-4702-b790-cac5a373ba9d)",
+      "expected": "Updated to manually_verified in API response & SQLite database",
+      "actual": "API status=manually_verified, DB status=manually_verified",
+      "status": "PASS",
+      "details": {
+        "api": {
+          "success": true,
+          "message": "Review c532aad6-dd6e-4702-b790-cac5a373ba9d updated to 'manually_verified'.",
+          "review": {
+            "id": "c532aad6-dd6e-4702-b790-cac5a373ba9d",
+            "scan_id": "a09fc929-70f1-4458-a4fa-41bee169a907",
+            "page_url": "http://127.0.0.1:8888/support",
+            "captcha_provider": "cloudflare_turnstile",
+            "challenge_type": "turnstile_managed",
+            "reason_for_review": "Cloudflare Turnstile (turnstile_managed) detected. Automated bypass prohibited; queued for human review.",
+            "review_status": "manually_verified",
+            "operator_notes": "QA Acceptance Test: Verified challenge presence without bypass.",
+            "created_at": "2026-11-07T09:23:15.999263",
+            "resolved_at": "2026-11-07T09:23:16.392814"
+          }
+        },
+        "db": [
+          "manually_verified",
+          "QA Acceptance Test: Verified challenge presence without bypass.",
+          "2026-11-07 09:23:16.392814"
+        ]
+      }
+    },
+    {
+      "test_name": "Synthetic OCR Demo & Computer Vision Pipeline",
+      "expected": "Ground truth = ACME8, base64 images generated, prediction returned",
+      "actual": "Prediction='ACME8', CharAcc=100.0%, Time=737.43ms",
+      "status": "PASS",
+      "details": {
+        "success": true,
+        "evaluation_id": "6d1a99a5-0559-4e1e-8e10-1e8d78ffb692",
+        "ground_truth": "ACME8",
+        "ocr_prediction": "ACME8",
+        "exact_match": true,
+        "character_accuracy": 100.0,
+        "confidence": 84.5,
+        "execution_time_ms": 737.43,
+        "ocr_engine": "Tesseract OCR v5.5.0",
+        "image_base64": "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",
+        "preprocessed_base64": "iVBORw0KGgoAAAANSUhEUgAAAPAAAABQCAAAAAACIqegAAAC2klEQVR4AeXBAVLbSAAEwJ7/P3pOEo4xLrQrOAhJtju1ltRaUmtJrSW1ltRaUmtJrSW1ltRaUmtJrSW1ltRaUmtJrSW1ltRaUmtJrSW1ltRaUmtJrSW1ltSfJp7UF0r9aeJJfaHUnyae1BdK/YTY1LtCfZvUD4hdvSvUt0n9gNjVu0J9m9QPiF29K9S3Sf2A2NWDoHahvk3qq8WuzsWhXsWmdqE+JA51QepLxV2diUPdxa52oT4g7moq9ZXiQZ2IQ93FrnahrosHNZOaC2ouNrWLTb0vNNQvcahdvFVDoUSDmknNBTUV1E1Q7woq1E0cahdv1UhQh1AzqanY1Uyou1DvCirUizjUId6qkaAOoWZSU7GriaAuCCXUITSoQ6jLgjqEmklNxaHGQl0RSqhDaFCHUJcFdQg1k5oKDWokqCtCCbULFdQh1HWxK6GmUjOhhBoJ6oKghNqEEupFqOti19jUVGomlKAGgrogKKE2oYR6EeoD4lXNpGZCEWogqAtCEYpQhHoR6iPiVU2kZkIR1LmgLghFKEIJ6kWoD4hdiU2NpWZCbUKdC2ouKEIJRVAvQn1AUIeghlIToXZBnQv1VtSzoDZRoTahbuJZDQR1E2ooNRHqENSpoB4F9STULjTUJtRNPKuBoG5CDaUmQh2COhWbehDUk1C72NUmqJt4VudiUzehhlIToXaxq1NBPQj1LNQudrUJ6lNiUzehhlJj8VadCupBqGehdrGpXajPiU3dhBpKjcWTOhObugvqVFCHUJ8V6ibUUGosfilBnYpN3QR1LqhDqM8K6hDUUGos1F1Qp2JTh6AuCerTYlNiU2OpoaBeBXUqHtU1of6HuKuJ1FBQr4I6F6/qd4mbmkkNBfUgqHNxU79V1BWpoVCPgvp7pYZCvRHq75UaCvUvSQ2F+pek1pJaS2otqbWk1pJaS2otqbWk1pJaS2otqbWk1pJaS2otqbWk1pJay38wTC8QMgKkjgAAAABJRU5ErkJggg==",
+        "methodology": {
+          "synthesis": "Pillow noise lines + character rotation + salt-pepper artifacts",
+          "preprocessing": "OpenCV Bilateral filter + Otsu thresholding + Morphological opening",
+          "recognition": "Tesseract PSM 7 LSTM inference"
+        }
+      }
+    },
+    {
+      "test_name": "Synthetic OCR Benchmark Suite (5 samples)",
+      "expected": "Samples=5, Mean character accuracy & limitations summary calculated",
+      "actual": "Samples=5, ExactMatches=1, MeanAcc=69.2%, MeanTime=634.47ms",
+      "status": "PASS",
+      "details": {
+        "success": true,
+        "total_samples": 5,
+        "exact_match_rate_pct": 20.0,
+        "character_accuracy_pct": 69.2,
+        "average_duration_ms": 634.47,
+        "sample_evaluations": [
+          {
+            "sample_index": 1,
+            "ground_truth": "RBJT7",
+            "predicted_text": "RBST7",
+            "exact_match": false,
+            "confidence": 49.5,
+            "duration_ms": 851.53
+          },
+          {
+            "sample_index": 2,
+            "ground_truth": "96LUF",
+            "predicted_text": "9ELUF",
+            "exact_match": false,
+            "confidence": 58.0,
+            "duration_ms": 651.09
+          },
+          {
+            "sample_index": 3,
+            "ground_truth": "KUTUN",
+            "predicted_text": "KUTUN",
+            "exact_match": true,
+            "confidence": 83.0,
+            "duration_ms": 459.83
+          },
+          {
+            "sample_index": 4,
+            "ground_truth": "54PEJ",
+            "predicted_text": "54PEY",
+            "exact_match": false,
+            "confidence": 16.0,
+            "duration_ms": 613.81
+          },
+          {
+            "sample_index": 5,
+            "ground_truth": "JL7QB",
+            "predicted_text": "JTL7QB",
+            "exact_match": false,
+            "confidence": 68.5,
+            "duration_ms": 596.07
+          }
+        ],
+        "limitations_analysis": "1. Modern CAPTCHAs (reCAPTCHA v2/v3, Turnstile, hCaptcha) do not rely on static distorted text; they employ behavioral biometric telemetry, hardware fingerprinting, proof-of-work challenges, and interactive 3x3 semantic classification puzzles that standard OCR cannot solve.\n2. Traditional OCR engines degrade sharply with font shearing, overlapping glyphs, and high-frequency background noise lines.\n3. Synthetic OCR is strictly demonstrated here for legacy distortion benchmark analysis.",
+        "exact_matches": 1,
+        "exact_match_rate_percent": 20.0,
+        "mean_character_accuracy": 69.2,
+        "mean_execution_time_ms": 634.47,
+        "results": [
+          {
+            "sample_index": 1,
+            "ground_truth": "RBJT7",
+            "predicted_text": "RBST7",
+            "exact_match": false,
+            "character_accuracy": 49.5,
+            "execution_time_ms": 851.53,
+            "noise_level": "standard"
+          },
+          {
+            "sample_index": 2,
+            "ground_truth": "96LUF",
+            "predicted_text": "9ELUF",
+            "exact_match": false,
+            "character_accuracy": 58.0,
+            "execution_time_ms": 651.09,
+            "noise_level": "standard"
+          },
+          {
+            "sample_index": 3,
+            "ground_truth": "KUTUN",
+            "predicted_text": "KUTUN",
+            "exact_match": true,
+            "character_accuracy": 83.0,
+            "execution_time_ms": 459.83,
+            "noise_level": "standard"
+          },
+          {
+            "sample_index": 4,
+            "ground_truth": "54PEJ",
+            "predicted_text": "54PEY",
+            "exact_match": false,
+            "character_accuracy": 16.0,
+            "execution_time_ms": 613.81,
+            "noise_level": "standard"
+          },
+          {
+            "sample_index": 5,
+            "ground_truth": "JL7QB",
+            "predicted_text": "JTL7QB",
+            "exact_match": false,
+            "character_accuracy": 68.5,
+            "execution_time_ms": 596.07,
+            "noise_level": "standard"
+          }
+        ],
+        "technical_limitations_summary": "1. Modern CAPTCHAs (reCAPTCHA v2/v3, Turnstile, hCaptcha) do not rely on static distorted text; they employ behavioral biometric telemetry, hardware fingerprinting, proof-of-work challenges, and interactive 3x3 semantic classification puzzles that standard OCR cannot solve.\n2. Traditional OCR engines degrade sharply with font shearing, overlapping glyphs, and high-frequency background noise lines.\n3. Synthetic OCR is strictly demonstrated here for legacy distortion benchmark analysis."
+      }
+    },
+    {
+      "test_name": "CSV Importer Rejection on Missing Headers",
+      "expected": "HTTP 400 Bad Request",
+      "actual": "HTTP 400 (Missing required columns: ['company_name', 'website_url'])",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "CSV Importer Validation of Valid Targets",
+      "expected": "valid_count=2, HTTP 200",
+      "actual": "valid_count=2, invalid_count=0",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "Batch Job Creation",
+      "expected": "batch_id returned, status queued/running",
+      "actual": "batch_id=0cdac69d-fdd2-4882-a6ca-07bd850ab135, status=pending",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "Batch CSV Compliance Report Generation & Download",
+      "expected": "HTTP 200 with non-empty CSV stream",
+      "actual": "HTTP 200, Bytes=538, ContentType=text/csv; charset=utf-8",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Desktop Overview Page",
+      "expected": "Loaded with health indicator & stats",
+      "actual": "Visual snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: URL Inspector Live Crawl & Results Table",
+      "expected": "Results table rendered with discovered subpages",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Evidence Viewer Modal",
+      "expected": "Modal opens with screenshot, tokens, and raw tabs",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Scan History Slide-Out Drawer",
+      "expected": "Drawer slides in from right showing itemized pages",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Cross-Scan CAPTCHA Results",
+      "expected": "Table displaying classified challenges and providers",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Human Review Decision Action",
+      "expected": "Operator audit notes submitted and verified",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: OCR Laboratory Evaluation & Benchmark Suite",
+      "expected": "Computer vision preview and benchmark results rendered",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: CSV Batch Manager",
+      "expected": "Drag and drop uploader and pipeline monitor",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Reports & Compliance Archive",
+      "expected": "Archive table displaying batches with export CSV buttons",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: System Settings Diagnostics",
+      "expected": "All settings, allowlists, and engine paths verified",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Tablet Overview Layout",
+      "expected": "Adaptive grid cards and layout rendered cleanly",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Tablet URL Inspector",
+      "expected": "Adaptive controls and tables rendered cleanly",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Mobile Hamburger Navigation Drawer",
+      "expected": "Sidebar opens over canvas with backdrop",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "test_name": "UI: Mobile Human Review Queue",
+      "expected": "Stacked responsive cards for mobile viewports",
+      "actual": "Snapshot saved",
+      "status": "PASS",
+      "details": {}
+    }
+  ]
+}

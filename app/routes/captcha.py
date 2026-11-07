@@ -290,9 +290,33 @@ async def benchmark_ocr(request: OCRBenchmarkRequest):
     and output architectural limitation analysis.
     """
     results = benchmark_synthetic_ocr(samples=request.samples)
+    total_samples = results.get("total_samples", request.samples)
+    exact_pct = results.get("exact_match_rate_pct", 0.0)
+    exact_count = round(total_samples * (exact_pct / 100.0))
+    sample_evals = results.get("sample_evaluations", [])
+
+    # Format items for both schemas
+    results_list = []
+    for item in sample_evals:
+        results_list.append({
+            "sample_index": item.get("sample_index"),
+            "ground_truth": item.get("ground_truth"),
+            "predicted_text": item.get("predicted_text"),
+            "exact_match": item.get("exact_match"),
+            "character_accuracy": item.get("confidence", 0.0) if item.get("character_accuracy") is None else item.get("character_accuracy"),
+            "execution_time_ms": item.get("duration_ms", 0.0),
+            "noise_level": "standard",
+        })
+
     return {
         "success": True,
-        **results
+        **results,
+        "exact_matches": exact_count,
+        "exact_match_rate_percent": exact_pct,
+        "mean_character_accuracy": results.get("character_accuracy_pct", 0.0),
+        "mean_execution_time_ms": results.get("average_duration_ms", 0.0),
+        "results": results_list,
+        "technical_limitations_summary": results.get("limitations_analysis", ""),
     }
 
 
