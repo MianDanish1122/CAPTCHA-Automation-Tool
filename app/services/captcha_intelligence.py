@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from datetime import datetime, timezone
 from typing import Optional, Any
 from urllib.parse import urlparse
@@ -23,6 +24,97 @@ from app.services.ocr_service import (
 from app.services.token_verifier import verify_recaptcha_token
 
 logger = logging.getLogger(__name__)
+
+# ---------------------------------------------------------------------------
+# Server-side validation of client-asserted modes
+# ---------------------------------------------------------------------------
+# Published provider TEST site keys. Only a page whose every site key is one of these can be
+# treated as an "official test" integration; the client flag alone is never trusted.
+OFFICIAL_TEST_SITEKEYS: dict[str, set[str]] = {
+    "google_recaptcha": {"6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"},
+    "hcaptcha": {
+        "10000000-ffff-ffff-ffff-000000000001",
+        "20000000-ffff-ffff-ffff-000000000002",
+        "30000000-ffff-ffff-ffff-000000000003",
+    },
+    "cloudflare_turnstile": {
+        "1x00000000000000000000AA",
+        "2x00000000000000000000AB",
+        "1x00000000000000000000BB",
+        "2x00000000000000000000BB",
+        "3x00000000000000000000FF",
+    },
+}
+_SITEKEY_PATTERNS = [
+    re.compile(r"data-sitekey\s*=\s*[\"']([^\"']+)[\"']", re.IGNORECASE),
+    re.compile(r"sitekey\s*:\s*[\"']([^\"']+)[\"']", re.IGNORECASE),
+    re.compile(r"recaptcha/(?:api|enterprise)\.js\?[^\"'\s>]*render=([A-Za-z0-9_\-]{20,})", re.IGNORECASE),
+]
+_PROVIDER_CLASSES = {"google_recaptcha", "hcaptcha", "cloudflare_turnstile", "unknown_challenge"}
+
+
+def extract_sitekeys(html: Optional[str]) -> list[str]:
+    keys: list[str] = []
+    for pattern in _SITEKEY_PATTERNS:
+        for match in pattern.findall(html or ""):
+            if match not in keys:
+                keys.append(match)
+    return keys
+
+
+def validate_client_assertions(
+    html: Optional[str],
+    title: Optional[str],
+    image_bytes: Optional[bytes],
+    is_synthetic: bool,
+    is_official_test: bool,
+) -> dict[str, Any]:
+    """
+    Decide which client-supplied mode flags the SERVER will honor, based on content.
+
+      * is_synthetic      -> requires a valid, size-bounded image AND a page that carries no
+                             real provider / interstitial markers (so the flag cannot be used to
+                             hide a genuine third-party CAPTCHA from the human-review queue).
+      * is_official_test  -> requires a detected provider whose site keys are ALL published
+                             provider test keys (the flag cannot downgrade review of a real,
+                             production-keyed widget).
+    Returns the effective booleans plus a human-readable decision record for the response.
+    """
+    result = {
+        "is_synthetic": {"requested": bool(is_synthetic), "accepted": False, "reason": None},
+        "is_official_test": {"requested": bool(is_official_test), "accepted": False, "reason": None},
+    }
+    detected = classify_captcha(html=html, title=title)  # flags deliberately NOT passed
+
+    if is_synthetic:
+        if not image_bytes:
+            result["is_synthetic"]["reason"] = "No valid image supplied; flag ignored."
+        elif detected["classification"] in _PROVIDER_CLASSES:
+            result["is_synthetic"]["reason"] = (
+                f"Page contains {detected['classification']} markers; synthetic mode refused so the "
+                "page is handled as a real third-party challenge."
+            )
+        else:
+            result["is_synthetic"]["accepted"] = True
+            result["is_synthetic"]["reason"] = "Valid image and no third-party provider markers."
+
+    if is_official_test:
+        provider = detected["classification"]
+        official = OFFICIAL_TEST_SITEKEYS.get(provider)
+        keys = extract_sitekeys(html)
+        if not official:
+            result["is_official_test"]["reason"] = "No supported provider detected; flag ignored."
+        elif not keys:
+            result["is_official_test"]["reason"] = "No site key found in the page; cannot confirm test mode."
+        elif all(k in official for k in keys):
+            result["is_official_test"]["accepted"] = True
+            result["is_official_test"]["reason"] = f"All site keys are published {provider} test keys."
+        else:
+            result["is_official_test"]["reason"] = (
+                "Page uses a non-test site key; official test mode refused, routed to human review."
+            )
+
+    return result
 
 
 def classify_captcha(

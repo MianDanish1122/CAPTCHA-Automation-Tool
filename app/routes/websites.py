@@ -28,12 +28,17 @@ from app.services.security_guard import SecurityGuard
 from app.services.smart_crawler import SmartCrawler
 from app.services.auth_service import require_operator, require_admin, log_audit_event
 from app.services.rate_limiter import rate_limit
+from app.services.job_manager import job_manager, JobLimitExceeded
 from app.services.client_ip import get_client_ip
+from app.services.audit import redact_url
 
 router = APIRouter(
     prefix="/api/websites",
-    tags=["Website Inspection & Batches"]
+    tags=["Website Inspection & Batches"],
+    dependencies=[Depends(rate_limit(max_requests=settings.RATE_LIMIT_DEFAULT_PER_MIN, window_seconds=60, scope="api_default"))],
 )
+
+compute_limit = rate_limit(max_requests=settings.RATE_LIMIT_COMPUTE_PER_MIN, window_seconds=60, scope="compute")
 
 MAX_FILE_SIZE = settings.MAX_CSV_SIZE_BYTES
 
@@ -43,12 +48,12 @@ MAX_FILE_SIZE = settings.MAX_CSV_SIZE_BYTES
 # -----------------------------
 
 class DemoInspectionRequest(BaseModel):
-    html: str = Field(min_length=1, max_length=100000)
+    html: str = Field(min_length=1, max_length=settings.MAX_HTML_CHARS)
 
 
 class DemoPage(BaseModel):
     company_name: str = Field(min_length=1, max_length=120)
-    html: str = Field(min_length=1, max_length=100000)
+    html: str = Field(min_length=1, max_length=settings.MAX_HTML_CHARS)
 
 
 class BatchInspectionRequest(BaseModel):
@@ -127,7 +132,11 @@ async def upload_csv(
 
     batch_id = None
     if auto_scan and result.get("websites"):
-        batch_id = create_batch(result["websites"], start_background=True)
+        try:
+            job_manager.ensure_capacity("batch", current_user.id)
+        except JobLimitExceeded as exc:
+            raise exc.to_http()
+        batch_id = create_batch(result["websites"], start_background=True, owner_id=current_user.id)
         result["batch_id"] = batch_id
         result["batch_status"] = "pending"
 
@@ -148,7 +157,7 @@ async def upload_csv(
 # 2. Single Demo Inspection
 # -----------------------------
 
-@router.post("/inspect-demo")
+@router.post("/inspect-demo", dependencies=[Depends(compute_limit)])
 async def inspect_demo(
     request: DemoInspectionRequest,
     current_user: User = Depends(require_operator),
@@ -161,7 +170,7 @@ async def inspect_demo(
 # 3. Batch Demo Inspection
 # -----------------------------
 
-@router.post("/inspect-demo-batch")
+@router.post("/inspect-demo-batch", dependencies=[Depends(compute_limit)])
 async def inspect_demo_batch(
     request: BatchInspectionRequest,
     current_user: User = Depends(require_operator),
@@ -236,7 +245,12 @@ async def scan_batch(
         )
 
     items = [{"company_name": item.company_name, "website_url": item.website_url} for item in request.websites]
-    batch_id = create_batch(items, start_background=background)
+    if background:
+        try:
+            job_manager.ensure_capacity("batch", current_user.id)
+        except JobLimitExceeded as exc:
+            raise exc.to_http()
+    batch_id = create_batch(items, start_background=background, owner_id=current_user.id)
 
     log_audit_event(
         db=db,
@@ -362,6 +376,11 @@ async def inspect_url(
             detail=f"Security restriction: {reason}"
         )
 
+    try:
+        job_manager.ensure_capacity("crawl", current_user.id)
+    except JobLimitExceeded as exc:
+        raise exc.to_http()
+
     scan_id = generate_uuid()
     crawler = SmartCrawler(
         target_url=request.url,
@@ -378,7 +397,7 @@ async def inspect_url(
         resource_id=scan_id,
         ip_address=get_client_ip(req),
         request_id=req.headers.get("X-Request-ID"),
-        details={"url": request.url, "max_pages": request.max_pages, "background": request.background}
+        details={"url": redact_url(request.url), "max_pages": request.max_pages, "background": request.background}
     )
 
     if request.background:
@@ -391,7 +410,7 @@ async def inspect_url(
         db.add(scan)
         db.commit()
 
-        asyncio.create_task(crawler.crawl(scan_id=scan_id))
+        job_manager.spawn("crawl", current_user.id, crawler.crawl(scan_id=scan_id))
 
         return {
             "success": True,
@@ -400,8 +419,11 @@ async def inspect_url(
             "message": f"Website crawl job {scan_id} initiated in background."
         }
     else:
-        result = await crawler.crawl(scan_id=scan_id)
-        return result
+        try:
+            async with job_manager.slot("crawl", current_user.id):
+                return await crawler.crawl(scan_id=scan_id)
+        except JobLimitExceeded as exc:
+            raise exc.to_http()
 
 
 @router.get("/scans/{scan_id}")

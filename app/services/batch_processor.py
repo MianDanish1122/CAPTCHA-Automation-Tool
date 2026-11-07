@@ -8,6 +8,7 @@ from app.config import settings, BASE_DIR
 from app.database import SessionLocal
 from app.models import BatchJob, WebsiteInspection
 from app.services.browser_scanner import inspect_website, inspect_local_demo
+from app.services.job_manager import job_manager
 from app.services.fixture_loader import (
     FixtureError,
     extract_fixture_name,
@@ -147,7 +148,8 @@ async def run_batch_job(batch_id: str) -> None:
 
 def create_batch(
     websites_data: list[dict],
-    start_background: bool = True
+    start_background: bool = True,
+    owner_id: str = "system",
 ) -> str:
     """
     Initialize a BatchJob and related WebsiteInspection records in SQLite.
@@ -177,6 +179,7 @@ def create_batch(
         db.close()
 
     if start_background and websites_data:
-        asyncio.create_task(run_batch_job(batch_id))
+        # Tracked + bounded (see job_manager); callers pre-check capacity with ensure_capacity().
+        job_manager.spawn("batch", owner_id, run_batch_job(batch_id))
 
     return batch_id

@@ -7,8 +7,13 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import get_db
-from app.models import HumanReviewRecord, CaptchaIntelligenceRecord, OcrEvaluationRecord, User
-from app.services.captcha_intelligence import classify_captcha, execute_handling_strategy
+from app.models import HumanReviewRecord, CaptchaIntelligenceRecord, OcrEvaluationRecord, ReviewDecision, User
+from app.services.captcha_intelligence import (
+    classify_captcha,
+    execute_handling_strategy,
+    validate_client_assertions,
+)
+from app.services.input_limits import decode_image_b64, max_b64_chars
 from app.services.ocr_service import (
     generate_synthetic_captcha,
     preprocess_captcha_image,
@@ -19,11 +24,15 @@ from app.services.token_verifier import verify_recaptcha_token
 from app.services.auth_service import require_operator, log_audit_event
 from app.services.rate_limiter import rate_limit
 from app.services.client_ip import get_client_ip
+from app.services.audit import sanitize_request_id
 
 router = APIRouter(
     prefix="/api/captcha",
-    tags=["CAPTCHA Intelligence, OCR & Reviews"]
+    tags=["CAPTCHA Intelligence, OCR & Reviews"],
+    dependencies=[Depends(rate_limit(max_requests=settings.RATE_LIMIT_DEFAULT_PER_MIN, window_seconds=60, scope="api_default"))],
 )
+
+compute_limit = rate_limit(max_requests=settings.RATE_LIMIT_COMPUTE_PER_MIN, window_seconds=60, scope="compute")
 
 
 # -----------------------------
@@ -31,8 +40,8 @@ router = APIRouter(
 # -----------------------------
 
 class OCRDemoRequest(BaseModel):
-    custom_text: Optional[str] = Field(None, max_length=12, description="Optional custom text for synthetic CAPTCHA")
-    noise_level: Optional[str] = Field("medium", description="Noise intensity: low, medium, high")
+    custom_text: Optional[str] = Field(None, max_length=12, pattern=r"^[A-Za-z0-9]*$", description="Optional custom text for synthetic CAPTCHA")
+    noise_level: Optional[str] = Field("medium", pattern=r"^(low|medium|high)$", description="Noise intensity: low, medium, high")
 
 
 class OCRBenchmarkRequest(BaseModel):
@@ -40,40 +49,40 @@ class OCRBenchmarkRequest(BaseModel):
 
 
 class TokenVerificationRequest(BaseModel):
-    token: Optional[str] = Field(None, description="CAPTCHA response token from client")
-    secret_key: Optional[str] = Field(None, description="Optional custom secret key (defaults to official test secret)")
-    simulate_status: Optional[str] = Field(None, description="Simulation mode: valid, invalid, reused")
+    token: Optional[str] = Field(None, max_length=4096, description="CAPTCHA response token from client")
+    secret_key: Optional[str] = Field(None, max_length=256, description="Optional custom secret key (defaults to official test secret)")
+    simulate_status: Optional[str] = Field(None, pattern=r"^(valid|invalid|reused)$", description="Simulation mode: valid, invalid, reused")
 
 
 class CaptchaClassificationRequest(BaseModel):
-    html: Optional[str] = Field(None, description="HTML snippet to analyze for CAPTCHA markers")
-    title: Optional[str] = Field(None, description="Document title to analyze")
-    image_base64: Optional[str] = Field(None, description="Base64-encoded image data for synthetic OCR")
-    is_synthetic: Optional[bool] = Field(False, description="Flag indicating synthetic/owned CAPTCHA image")
-    is_official_test: Optional[bool] = Field(False, description="Flag indicating official test environment")
+    html: Optional[str] = Field(None, max_length=settings.MAX_HTML_CHARS, description="HTML snippet to analyze for CAPTCHA markers")
+    title: Optional[str] = Field(None, max_length=512, description="Document title to analyze")
+    image_base64: Optional[str] = Field(None, max_length=max_b64_chars(), description="Base64-encoded image data for synthetic OCR")
+    is_synthetic: Optional[bool] = Field(False, description="REQUEST for synthetic mode; honored only after server-side validation")
+    is_official_test: Optional[bool] = Field(False, description="REQUEST for official-test mode; honored only if the page uses published provider test keys")
 
 
 class EvaluateHandlingRequest(BaseModel):
-    html: Optional[str] = Field(None, description="HTML markup of the inspected page")
-    title: Optional[str] = Field(None, description="Page title")
-    page_url: Optional[str] = Field("http://localhost/demo", description="URL of the page undergoing inspection")
-    scan_id: Optional[str] = Field(None, description="Associated scan ID if part of a crawl run")
-    response_token: Optional[str] = Field(None, description="Response token for test verification")
-    image_base64: Optional[str] = Field(None, description="Base64-encoded image data for synthetic OCR")
-    is_synthetic: Optional[bool] = Field(False, description="Flag indicating synthetic/owned CAPTCHA")
-    is_official_test: Optional[bool] = Field(False, description="Flag indicating official test environment")
+    html: Optional[str] = Field(None, max_length=settings.MAX_HTML_CHARS, description="HTML markup of the inspected page")
+    title: Optional[str] = Field(None, max_length=512, description="Page title")
+    page_url: Optional[str] = Field("http://localhost/demo", max_length=2048, description="URL of the page undergoing inspection")
+    scan_id: Optional[str] = Field(None, max_length=36, description="Associated scan ID if part of a crawl run")
+    response_token: Optional[str] = Field(None, max_length=4096, description="Response token for test verification")
+    image_base64: Optional[str] = Field(None, max_length=max_b64_chars(), description="Base64-encoded image data for synthetic OCR")
+    is_synthetic: Optional[bool] = Field(False, description="REQUEST for synthetic mode; honored only after server-side validation")
+    is_official_test: Optional[bool] = Field(False, description="REQUEST for official-test mode; honored only if the page uses published provider test keys")
 
 
 class UpdateReviewRequest(BaseModel):
-    review_status: str = Field(..., description="Decision: approved, rejected, manually_verified")
-    operator_notes: Optional[str] = Field(None, description="Operator audit notes justifying the decision")
+    review_status: str = Field(..., max_length=32, description="Decision: approved, rejected, manually_verified")
+    operator_notes: Optional[str] = Field(None, max_length=4000, description="Operator audit notes justifying the decision")
 
 
 # -----------------------------
 # 1. CAPTCHA Classification & Intelligence
 # -----------------------------
 
-@router.post("/classify")
+@router.post("/classify", dependencies=[Depends(compute_limit)])
 async def classify_page(
     request: CaptchaClassificationRequest,
     current_user: User = Depends(require_operator)
@@ -82,21 +91,27 @@ async def classify_page(
     Classify page HTML/DOM markers into recognized CAPTCHA providers,
     distinguishing active widgets, passive scripts, invisible tokens, and unknown interstitials.
     """
+    image_bytes = decode_image_b64(request.image_base64)
+    assertions = validate_client_assertions(
+        request.html, request.title, image_bytes, bool(request.is_synthetic), bool(request.is_official_test)
+    )
     result = classify_captcha(
         html=request.html,
         title=request.title,
-        is_synthetic=request.is_synthetic,
-        is_official_test=request.is_official_test,
+        is_synthetic=assertions["is_synthetic"]["accepted"],
+        is_official_test=assertions["is_official_test"]["accepted"],
     )
     return {
         "success": True,
-        **result
+        **result,
+        "client_assertions": assertions,
     }
 
 
-@router.post("/evaluate-handling")
+@router.post("/evaluate-handling", dependencies=[Depends(compute_limit)])
 async def evaluate_page_handling(
     request: EvaluateHandlingRequest,
+    req: Request,
     current_user: User = Depends(require_operator),
     db: Session = Depends(get_db)
 ):
@@ -107,19 +122,29 @@ async def evaluate_page_handling(
       - Official test CAPTCHA -> Run server-side token verification
       - Production third-party CAPTCHA -> Record evidence, route to Human Review Queue
     """
+    image_bytes = decode_image_b64(request.image_base64)
+    assertions = validate_client_assertions(
+        request.html, request.title, image_bytes, bool(request.is_synthetic), bool(request.is_official_test)
+    )
     classification_result = classify_captcha(
         html=request.html,
         title=request.title,
-        is_synthetic=request.is_synthetic,
-        is_official_test=request.is_official_test,
+        is_synthetic=assertions["is_synthetic"]["accepted"],
+        is_official_test=assertions["is_official_test"]["accepted"],
     )
 
-    image_bytes = None
-    if request.image_base64:
-        try:
-            image_bytes = base64.b64decode(request.image_base64)
-        except Exception:
-            image_bytes = None
+    if request.is_synthetic or request.is_official_test:
+        log_audit_event(
+            db=db,
+            action="captcha.mode_assertion",
+            actor=current_user,
+            ip_address=get_client_ip(req),
+            request_id=req.headers.get("X-Request-ID"),
+            details={
+                "is_synthetic": assertions["is_synthetic"],
+                "is_official_test": assertions["is_official_test"],
+            },
+        )
 
     handling_result = await execute_handling_strategy(
         classification_result=classification_result,
@@ -135,6 +160,7 @@ async def evaluate_page_handling(
         **handling_result,
         "handling": handling_result,
         "classification": classification_result,
+        "client_assertions": assertions,
     }
 
 
@@ -225,7 +251,31 @@ async def get_review_detail(
     return {
         "success": True,
         "review": review.to_dict(),
+        "history": _decision_history(db, review_id),
     }
+
+
+def _decision_history(db: Session, review_id: str) -> list[dict]:
+    rows = (
+        db.query(ReviewDecision)
+        .filter(ReviewDecision.review_id == review_id)
+        .order_by(ReviewDecision.decided_at.asc())
+        .all()
+    )
+    return [r.to_dict() for r in rows]
+
+
+@router.get("/reviews/{review_id}/history")
+async def get_review_history(
+    review_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
+    """Full, append-only decision history (who decided what, when, and why)."""
+    review = db.query(HumanReviewRecord).filter(HumanReviewRecord.id == review_id).first()
+    if not review:
+        raise HTTPException(status_code=404, detail=f"Review record '{review_id}' not found.")
+    return {"success": True, "review_id": review_id, "history": _decision_history(db, review_id)}
 
 
 @router.patch(
@@ -255,10 +305,29 @@ async def update_review_status(
     if not review:
         raise HTTPException(status_code=404, detail=f"Review record '{review_id}' not found.")
 
+    previous_status = review.review_status
+    client_ip = get_client_ip(req)
+    request_id = sanitize_request_id(req.headers.get("X-Request-ID"))
+
+    # Immutable decision record: who changed what, from which state, when and why.
+    db.add(ReviewDecision(
+        review_id=review.id,
+        decided_by_id=current_user.id,
+        decided_by_username=current_user.username,
+        decided_by_role=current_user.role,
+        previous_status=previous_status,
+        new_status=request.review_status,
+        notes=request.operator_notes,
+        ip_address=client_ip,
+        request_id=request_id,
+    ))
     review.review_status = request.review_status
     if request.operator_notes is not None:
         review.operator_notes = request.operator_notes
     review.resolved_at = datetime.now(timezone.utc)
+    review.reviewed_by_id = current_user.id
+    review.reviewed_by_username = current_user.username
+    review.decision_count = (review.decision_count or 0) + 1
     db.commit()
 
     log_audit_event(
@@ -269,7 +338,11 @@ async def update_review_status(
         resource_id=review_id,
         ip_address=get_client_ip(req),
         request_id=req.headers.get("X-Request-ID"),
-        details={"new_status": request.review_status, "notes": request.operator_notes}
+        details={
+            "previous_status": previous_status,
+            "new_status": request.review_status,
+            "has_notes": bool(request.operator_notes),
+        }
     )
 
     return {
@@ -283,7 +356,7 @@ async def update_review_status(
 # 4. OCR Demo & Benchmark
 # -----------------------------
 
-@router.post("/ocr-demo")
+@router.post("/ocr-demo", dependencies=[Depends(compute_limit)])
 async def demonstrate_ocr(
     request: OCRDemoRequest,
     current_user: User = Depends(require_operator),
@@ -383,7 +456,7 @@ async def benchmark_ocr(
 # 5. Official Token Verification
 # -----------------------------
 
-@router.post("/verify-token")
+@router.post("/verify-token", dependencies=[Depends(compute_limit)])
 async def verify_token(
     request: TokenVerificationRequest,
     current_user: User = Depends(require_operator)
