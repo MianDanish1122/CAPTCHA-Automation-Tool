@@ -1,3 +1,4 @@
+import asyncio
 from typing import Optional
 from pathlib import Path
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Query
@@ -6,11 +7,13 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.models import BatchJob, WebsiteInspection
+from app.models import BatchJob, WebsiteInspection, UrlScan, DiscoveredPage, generate_uuid
 from app.services.csv_importer import import_websites
 from app.services.browser_scanner import inspect_local_demo
 from app.services.batch_processor import create_batch
 from app.services.report_generator import generate_batch_csv_report
+from app.services.security_guard import SecurityGuard
+from app.services.smart_crawler import SmartCrawler
 
 router = APIRouter(
     prefix="/api/websites",
@@ -44,6 +47,14 @@ class WebsiteScanItem(BaseModel):
 
 class ScanBatchRequest(BaseModel):
     websites: list[WebsiteScanItem] = Field(min_length=1, max_length=300)
+
+
+class UrlInspectionRequest(BaseModel):
+    url: str = Field(min_length=1, max_length=1024, description="Target website URL to inspect and crawl")
+    max_pages: Optional[int] = Field(default=10, ge=1, le=20, description="Maximum pages to crawl for the domain")
+    max_depth: Optional[int] = Field(default=2, ge=0, le=3, description="Maximum link crawl depth")
+    background: Optional[bool] = Field(default=False, description="Run crawler asynchronously in background")
+    allow_loopback: Optional[bool] = Field(default=False, description="Allow local loopback for testing purposes")
 
 
 # -----------------------------
@@ -222,3 +233,96 @@ async def download_batch_report(batch_id: str, db: Session = Depends(get_db)):
         filename=filename,
         media_type="text/csv"
     )
+
+
+# -----------------------------
+# 5. Smart Website Crawler Endpoints
+# -----------------------------
+
+@router.post("/inspect-url")
+async def inspect_url(
+    request: UrlInspectionRequest,
+    db: Session = Depends(get_db),
+):
+    """
+    Inspect an authorized website URL using Playwright.
+    Discovers contact & support pages, detects CAPTCHAs and forms,
+    enforces SSRF and redirect security policies, and captures evidence.
+    """
+    allowed, reason = SecurityGuard.validate_target_url(
+        request.url,
+        enforce_live_scan=True,
+        allow_loopback=request.allow_loopback,
+    )
+    if not allowed:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Security restriction: {reason}"
+        )
+
+    scan_id = generate_uuid()
+    crawler = SmartCrawler(
+        target_url=request.url,
+        max_pages=request.max_pages,
+        max_depth=request.max_depth,
+        allow_loopback=request.allow_loopback,
+    )
+
+    if request.background:
+        scan = UrlScan(
+            id=scan_id,
+            submitted_url=request.url,
+            domain=crawler.base_domain,
+            status="crawling",
+        )
+        db.add(scan)
+        db.commit()
+
+        asyncio.create_task(crawler.crawl(scan_id=scan_id))
+
+        return {
+            "success": True,
+            "scan_id": scan_id,
+            "status": "crawling",
+            "message": f"Website crawl job {scan_id} initiated in background."
+        }
+    else:
+        result = await crawler.crawl(scan_id=scan_id)
+        return result
+
+
+@router.get("/scans/{scan_id}")
+async def get_scan_status(scan_id: str, db: Session = Depends(get_db)):
+    """Retrieve status and summary information for a website crawl scan."""
+    scan = db.query(UrlScan).filter(UrlScan.id == scan_id).first()
+    if not scan:
+        raise HTTPException(status_code=404, detail=f"Scan '{scan_id}' not found.")
+
+    return {
+        "success": True,
+        "scan": scan.to_dict(),
+    }
+
+
+@router.get("/scans/{scan_id}/results")
+async def get_scan_results(scan_id: str, db: Session = Depends(get_db)):
+    """Retrieve detailed discovered pages, classifications, evidence, and CAPTCHA results."""
+    scan = db.query(UrlScan).filter(UrlScan.id == scan_id).first()
+    if not scan:
+        raise HTTPException(status_code=404, detail=f"Scan '{scan_id}' not found.")
+
+    pages = db.query(DiscoveredPage).filter(DiscoveredPage.scan_id == scan_id).order_by(DiscoveredPage.depth, DiscoveredPage.created_at).all()
+
+    return {
+        "success": True,
+        "scan_id": scan_id,
+        "status": scan.status,
+        "submitted_url": scan.submitted_url,
+        "domain": scan.domain,
+        "pages_crawled": scan.pages_crawled,
+        "contact_pages_found": scan.contact_pages_found,
+        "captcha_detected": scan.captcha_detected,
+        "captcha_providers": scan.to_dict()["captcha_providers"],
+        "crawl_duration_ms": round(scan.crawl_duration_ms, 2) if scan.crawl_duration_ms else 0.0,
+        "results": [page.to_dict() for page in pages],
+    }

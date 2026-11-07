@@ -26,6 +26,10 @@ def init_db() -> None:
     Base.metadata.create_all(bind=engine)
 
 
+# Auto-ensure tables exist on module import
+init_db()
+
+
 def get_db():
     """FastAPI database session dependency."""
     db: Session = SessionLocal()

@@ -44,7 +44,8 @@ class SecurityGuard:
     def validate_target_url(
         cls,
         url: str,
-        enforce_live_scan: bool = True
+        enforce_live_scan: bool = True,
+        allow_loopback: bool = False
     ) -> tuple[bool, str]:
         """
         Validate a target URL against SSRF, protocol, and domain allowlist policies.
@@ -67,16 +68,29 @@ class SecurityGuard:
 
         hostname = hostname.lower()
 
-        # 2. Credential injection check
+        # 2. Check if hostname is an IP address literal
+        try:
+            ipaddress.ip_address(hostname)
+            is_ip = True
+        except ValueError:
+            is_ip = False
+
+        if is_ip:
+            if not allow_loopback:
+                allowed, reason = cls.is_ip_allowed(hostname)
+                if not allowed:
+                    return False, f"Target IP address prohibited: {reason}"
+
+        # 3. Credential injection check
         if parsed.username or parsed.password:
             return False, "Embedded credentials in URL are prohibited."
 
-        # 3. Port check
-        if parsed.port and parsed.port not in (80, 443, 8080, 8443):
+        # 4. Port check
+        if not allow_loopback and parsed.port and parsed.port not in (80, 443, 8080, 8443):
             return False, f"Non-standard port '{parsed.port}' is not permitted."
 
-        # 4. Check domain allowlist
-        if settings.ALLOWED_DOMAINS:
+        # 5. Check domain allowlist
+        if settings.ALLOWED_DOMAINS and not allow_loopback and not is_ip:
             domain_allowed = False
             for allowed in settings.ALLOWED_DOMAINS:
                 if hostname == allowed or hostname.endswith("." + allowed):
@@ -85,18 +99,18 @@ class SecurityGuard:
             if not domain_allowed:
                 return False, f"Domain '{hostname}' is not in the authorized domains allowlist."
 
-        # 5. Live scanning authorization check
-        if enforce_live_scan and not settings.ENABLE_LIVE_SCAN:
+        # 6. Live scanning authorization check
+        if enforce_live_scan and not settings.ENABLE_LIVE_SCAN and not allow_loopback:
             return (
                 False,
                 "Live scanning is disabled (ENABLE_LIVE_SCAN=false). "
                 "Only authorized domains or local demo inspection allowed."
             )
 
-        # 6. DNS resolution & DNS rebinding / Private IP check
-        # We allow 'localhost' only if explicitly in allowlist and testing local dev
-        if hostname == "localhost":
-            if "localhost" in settings.ALLOWED_DOMAINS and not enforce_live_scan:
+        # 7. DNS resolution & DNS rebinding / Private IP check
+        # We allow 'localhost' or '127.0.0.1' only if explicitly permitted (local dev/test mode)
+        if hostname in ("localhost", "127.0.0.1"):
+            if allow_loopback or ("localhost" in settings.ALLOWED_DOMAINS and not enforce_live_scan):
                 return True, "Localhost permitted in local test mode."
             return False, "Localhost navigation is rejected by security policy."
 
@@ -117,3 +131,34 @@ class SecurityGuard:
             return False, f"Network validation error for '{hostname}': {str(e)}"
 
         return True, "URL validated and authorized."
+
+    @classmethod
+    def validate_redirect_url(
+        cls,
+        redirect_url: str,
+        original_url: str,
+        enforce_live_scan: bool = True,
+        allow_loopback: bool = False,
+        require_same_domain: bool = True,
+    ) -> tuple[bool, str]:
+        """
+        Validate destination of an HTTP redirect against SSRF, cross-domain, and domain allowlist policies.
+        """
+        if require_same_domain:
+            orig_parsed = urlparse(original_url)
+            redir_parsed = urlparse(redirect_url)
+            orig_host = (orig_parsed.hostname or "").lower()
+            redir_host = (redir_parsed.hostname or "").lower()
+
+            if orig_host != redir_host:
+                return False, f"Cross-domain redirect from '{orig_host}' to '{redir_host}' is prohibited."
+
+        allowed, reason = cls.validate_target_url(
+            redirect_url,
+            enforce_live_scan=enforce_live_scan,
+            allow_loopback=allow_loopback,
+        )
+        if not allowed:
+            return False, f"Redirect target rejected: {reason}"
+
+        return True, "Redirect URL is valid and authorized."

@@ -45,6 +45,11 @@ data/
 *.sqlite
 *.sqlite3
 
+# Dynamic test reports and crawl scans
+evidence/scans/*
+!evidence/scans/.gitkeep
+reports/captcha_audit_report_*.csv
+
 # IDE / Editor files
 .idea/
 .vscode/

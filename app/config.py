@@ -52,6 +52,17 @@ class Settings:
     UPLOADS_DIR: Path = BASE_DIR / "uploads"
     DATA_DIR: Path = BASE_DIR / "data"
     EVIDENCE_DIR: Path = BASE_DIR / "evidence"
+    SCANS_EVIDENCE_DIR: Path = BASE_DIR / "evidence" / "scans"
+
+    # Crawler configuration
+    CRAWLER_MAX_PAGES: int = int(os.getenv("CRAWLER_MAX_PAGES", "10"))
+    CRAWLER_MAX_DEPTH: int = int(os.getenv("CRAWLER_MAX_DEPTH", "2"))
+    CRAWLER_PAGE_TIMEOUT_MS: int = int(os.getenv("CRAWLER_PAGE_TIMEOUT_MS", "10000"))
+    CRAWLER_TOTAL_TIMEOUT_SEC: int = int(os.getenv("CRAWLER_TOTAL_TIMEOUT_SEC", "60"))
+    CRAWLER_USER_AGENT: str = os.getenv(
+        "CRAWLER_USER_AGENT",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 TechnologyBrainz-Crawler/2.0"
+    )
 
 
 settings = Settings()
@@ -61,3 +72,4 @@ settings.REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 settings.UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 settings.DATA_DIR.mkdir(parents=True, exist_ok=True)
 settings.EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+settings.SCANS_EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
