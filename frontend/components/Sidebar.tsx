@@ -18,6 +18,8 @@ import {
   ChevronRight,
   Menu,
   X,
+  BarChart3,
+  BadgeCheck,
 } from 'lucide-react';
 import { api } from '@/lib/api';
 
@@ -52,6 +54,7 @@ export function Sidebar() {
 
   const navItems: NavItem[] = [
     { name: 'Overview', href: '/', icon: LayoutDashboard },
+    { name: 'Evaluation', href: '/evaluation', icon: BarChart3 },
     { name: 'URL Inspector', href: '/inspector', icon: Search },
     { name: 'Scan History', href: '/scans', icon: History },
     { name: 'CAPTCHA Results', href: '/results', icon: ShieldAlert },
@@ -62,6 +65,7 @@ export function Sidebar() {
       badge: pendingReviews > 0 ? pendingReviews : undefined,
     },
     { name: 'OCR Laboratory', href: '/ocr', icon: Cpu },
+    { name: 'Verification', href: '/verification', icon: BadgeCheck },
     { name: 'CSV Batch Manager', href: '/batch', icon: Layers },
     { name: 'Reports', href: '/reports', icon: FileText },
     { name: 'Settings', href: '/settings', icon: Settings },

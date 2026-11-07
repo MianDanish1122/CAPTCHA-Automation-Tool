@@ -270,3 +270,97 @@ export interface AuditLogItem {
   request_id?: string | null;
   details?: Record<string, any> | null;
 }
+
+
+// ---- Phase 7: verification + evaluation metrics ---------------------------------
+export type VerificationMode = 'provider_live' | 'provider_test_keys' | 'simulated' | 'local_validation';
+
+export interface VerificationResult {
+  success: boolean;
+  provider: string;
+  verification_mode: VerificationMode;
+  outcome: string;
+  provider_called: boolean;
+  provider_verified: boolean;
+  scenario: string | null;
+  token_source: string;
+  http_status: number | null;
+  error_codes: string[];
+  hostname: string | null;
+  message: string;
+  duration_ms: number;
+  evidence_note: string;
+  checked_at: string;
+}
+
+export interface VerificationRow {
+  id: string;
+  created_at: string | null;
+  provider: string;
+  verification_mode: VerificationMode;
+  scenario: string | null;
+  outcome: string;
+  success: boolean;
+  provider_called: boolean;
+  provider_verified: boolean;
+  error_codes: string[];
+  duration_ms: number;
+}
+
+export interface BenchmarkRunRow {
+  id: string;
+  created_at: string | null;
+  source: string;
+  dataset: string;
+  split: string;
+  engine: string;
+  samples: number;
+  exact_matches: number;
+  exact_match_pct: number;
+  char_accuracy_pct: number;
+  latency_ms_mean: number;
+  latency_ms_p95: number;
+  failures: number;
+  details: any;
+}
+
+export interface StatsSummary {
+  success: boolean;
+  has_data: boolean;
+  time_range: { since: string | null; until: string; all_time: boolean; days: number | null };
+  inspections: {
+    denominator: string;
+    url_scans_total: number;
+    url_scans_by_status: Record<string, number>;
+    batch_inspections_total: number;
+    batch_inspections_by_status: Record<string, number>;
+    batches_total: number;
+  };
+  pages: { denominator: string; pages_inspected: number; pages_with_captcha: number; pages_with_captcha_pct: number | null };
+  captcha_types: { denominator: string; by_provider: Record<string, number>; share_pct: Record<string, number | null> };
+  ocr: {
+    denominator: string;
+    evaluations: number;
+    exact_matches: number;
+    exact_match_pct: number | null;
+    mean_char_accuracy_pct: number | null;
+    mean_latency_ms: number | null;
+    heldout_benchmarks: { denominator: string; by_engine: Record<string, BenchmarkRunRow> };
+    api_benchmark_runs: number;
+  };
+  verification: {
+    denominator: string;
+    attempts: number;
+    by_mode_and_outcome: Record<string, Record<string, number>>;
+    provider_confirmed: number;
+    simulated_attempts: number;
+    note: string;
+  };
+  failures: {
+    denominator: string;
+    failed_scans: number;
+    failed_scans_pct: number | null;
+    top_errors: { message: string; count: number }[];
+  };
+  human_review: { denominator: string; cases: number; by_status: Record<string, number>; decisions_recorded: number };
+}

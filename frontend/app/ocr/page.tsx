@@ -40,7 +40,9 @@ export default function OcrPage() {
   const [demoError, setDemoError] = useState<string | null>(null);
 
   // Benchmark Suite State
-  const [benchmarkSamples, setBenchmarkSamples] = useState(5);
+  const [benchmarkSamples, setBenchmarkSamples] = useState(20);
+  const [engine, setEngine] = useState('hybrid');
+  const [split, setSplit] = useState<'dev' | 'test'>('dev');
   const [runningBenchmark, setRunningBenchmark] = useState(false);
   const [benchmarkResult, setBenchmarkResult] = useState<OcrBenchmarkResponse | null>(null);
   const [benchmarkError, setBenchmarkError] = useState<string | null>(null);
@@ -61,6 +63,7 @@ export default function OcrPage() {
     try {
       const res = await api.runOcrDemo({
         text: customText.trim() || undefined,
+        engine,
       });
       if (res.success) {
         setDemoResult((res as any) || res.evaluation);
@@ -78,6 +81,8 @@ export default function OcrPage() {
     try {
       const res = await api.runOcrBenchmark({
         samples: benchmarkSamples,
+        engine,
+        split,
       });
       if (res.success) {
         setBenchmarkResult(res);
@@ -301,9 +306,35 @@ export default function OcrPage() {
       {/* Benchmark Suite Section */}
       <Card
         title="Automated Synthetic Benchmark Suite"
-        subtitle="Batch-evaluate OCR accuracy across randomized test sets"
+        subtitle="Evaluate an engine on the committed, labelled synthetic dataset (same samples every run; results are stored)"
         action={
           <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 text-xs text-slate-600">
+              <span>Engine:</span>
+              <select
+                value={engine}
+                onChange={(e) => setEngine(e.target.value)}
+                className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs font-semibold"
+                aria-label="OCR engine"
+              >
+                <option value="hybrid">Hybrid (custom + fallback)</option>
+                <option value="custom_mlp">Custom glyph model</option>
+                <option value="tesseract_tuned">Tesseract (tuned)</option>
+                <option value="tesseract_legacy">Tesseract (legacy pipeline)</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-slate-600">
+              <span>Split:</span>
+              <select
+                value={split}
+                onChange={(e) => setSplit(e.target.value as 'dev' | 'test')}
+                className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs font-semibold"
+                aria-label="Dataset split"
+              >
+                <option value="dev">Development set</option>
+                <option value="test">Held-out test set</option>
+              </select>
+            </div>
             <div className="flex items-center gap-1.5 text-xs text-slate-600">
               <span>Samples:</span>
               <select
@@ -311,9 +342,10 @@ export default function OcrPage() {
                 onChange={(e) => setBenchmarkSamples(Number(e.target.value))}
                 className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs font-semibold"
               >
-                <option value={5}>5 Samples</option>
                 <option value={10}>10 Samples</option>
                 <option value={20}>20 Samples</option>
+                <option value={50}>50 Samples</option>
+                <option value={100}>100 Samples</option>
               </select>
             </div>
 

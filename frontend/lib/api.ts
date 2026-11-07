@@ -1,4 +1,7 @@
 import {
+  VerificationResult,
+  VerificationRow,
+  StatsSummary,
   HealthResponse,
   SystemSettings,
   OverviewStats,
@@ -300,18 +303,20 @@ export const api = {
   // OCR Laboratory
   async runOcrDemo(payload: {
     text?: string;
-    add_noise?: boolean;
+    engine?: string;
     noise_level?: string;
   } = {}): Promise<{ success: boolean; evaluation: OcrEvaluation }> {
+    const { text, ...rest } = payload;
     return request('/api/captcha/ocr-demo', {
       method: 'POST',
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ ...rest, custom_text: text }),
     });
   },
 
   async runOcrBenchmark(payload: {
     samples?: number;
-    noise_level?: string;
+    engine?: string;
+    split?: 'dev' | 'test';
   } = {}): Promise<OcrBenchmarkResponse> {
     return request<OcrBenchmarkResponse>('/api/captcha/ocr-benchmark', {
       method: 'POST',
@@ -335,23 +340,44 @@ export const api = {
   // Token Verification
   async verifyToken(payload: {
     provider: string;
-    token: string;
-    remote_ip?: string;
-  }): Promise<{
-    success: boolean;
-    verification: {
-      provider: string;
-      is_valid: boolean;
-      score?: number;
-      action?: string;
-      hostname?: string;
-      error_codes?: string[];
-    };
-  }> {
-    return request('/api/captcha/verify-token', {
+    token?: string;
+    secret_key?: string;
+    simulate_status?: string;
+    expected_hostname?: string;
+  }): Promise<VerificationResult> {
+    return request<VerificationResult>('/api/captcha/verify-token', {
       method: 'POST',
       body: JSON.stringify(payload),
     });
+  },
+
+  async listVerificationRecords(limit = 20): Promise<{ success: boolean; total: number; records: VerificationRow[] }> {
+    return request(`/api/captcha/verification/records?limit=${limit}`);
+  },
+
+  async listOcrBenchmarkRuns(limit = 20): Promise<{ success: boolean; total: number; runs: any[] }> {
+    return request(`/api/captcha/ocr-benchmark/runs?limit=${limit}`);
+  },
+
+  // Evaluation metrics (persisted data only) and report
+  async getStatsSummary(days?: number): Promise<StatsSummary> {
+    return request<StatsSummary>(`/api/stats/summary${days ? `?days=${days}` : ''}`);
+  },
+
+  async downloadEvaluationReport(days?: number): Promise<void> {
+    const headers = new Headers();
+    const token = getStoredToken();
+    if (token) headers.set('Authorization', `Bearer ${token}`);
+    const res = await fetch(`${API_BASE}/api/stats/report${days ? `?days=${days}` : ''}`, { headers });
+    if (!res.ok) throw new ApiError(res.status, 'Could not generate the evaluation report');
+    const url = URL.createObjectURL(await res.blob());
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'captcha_inspector_evaluation_report.md';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   },
 
   // Authentication & Session Management
