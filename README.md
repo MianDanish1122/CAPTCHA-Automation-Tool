@@ -98,3 +98,13 @@ docs/               documentation and phase reports      evidence/  measured out
 ## Safety & scope
 
 Only synthetic/owned challenges are solved. Production reCAPTCHA/hCaptcha/Turnstile challenges are detected and sent to human review; official **test** modes are used for demonstrations; no tokens are harvested or forged; scans are limited to authorised domains behind an SSRF/egress guard. See [docs/SECURITY_SUMMARY.md](docs/SECURITY_SUMMARY.md) and [docs/KNOWN_LIMITATIONS.md](docs/KNOWN_LIMITATIONS.md).
+
+## Real-world QA additions (CSV batch, shared detection, evaluation)
+- **CSV batch:** the importer keeps every column of the employer CSV (`Company, Website, City, State, Category, Platform, Captcha, Contact Page` and any extras), reports invalid rows and warnings, and the batch visits each row's Contact Page directly (landing-page discovery is the fallback).
+- **One detection engine** (`app/services/captcha_detection.py`) for the URL inspector and the batch: waits for JavaScript widgets, reads provider scripts / iframes / DOM, reports provider, subtype and whether the widget loaded. Providers mentioned only as page text are not reported.
+- **Politeness and access:** robots.txt is checked first; a disallow, 401/403/429, bot challenge or error stops the site and is reported as *Not accessible* (no workaround). Per-host spacing: `BATCH_MIN_HOST_INTERVAL_S` (default 5 s).
+- **Form probe (never submits):** `BATCH_PROBE_FORMS=true` records the form's fields and fills visible text fields with fake data under a no-network lockdown. No clicks, no Enter, no CAPTCHA interaction.
+- **Expected vs detected:** `GET /api/websites/batches/{id}/evaluation` (+ `.csv` / `.md`) and the Batch page card. Metrics use only inspected rows with an expected value.
+- **Real-site run (read-only, approved sites only):** `python -m scripts.real_site_validation --sites "Big Frog,Breadtopia,Barrett Firearms"`; results in `docs/REAL_WEBSITE_VALIDATION_REPORT.md`.
+- Reports: `docs/FINAL_REAL_WORLD_QA_REPORT.md`, `FINAL_ASSIGNMENT_COMPLIANCE_MATRIX.md`, `FINAL_FUNCTIONAL_TEST_REPORT.md`, `FINAL_SECURITY_REVIEW.md`, `FINAL_REMAINING_RISKS.md`, `FINAL_DEPLOYMENT_READINESS_CHECKLIST.md`.
+- Database: run `alembic upgrade head` (new head `8a01realworldqa`; additive).

@@ -1,8 +1,10 @@
 import asyncio
+import json
 from typing import Optional
+from urllib.parse import urlparse
 from pathlib import Path
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Query, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel, Field
 from sqlalchemy import func
 from sqlalchemy.orm import Session
@@ -20,10 +22,12 @@ from app.models import (
     UserRole,
     generate_uuid,
 )
-from app.services.csv_importer import import_websites
+from app.services.csv_importer import import_websites, normalise_expected_captcha
 from app.services.browser_scanner import inspect_local_demo
 from app.services.batch_processor import create_batch
-from app.services.report_generator import generate_batch_csv_report
+from app.services.report_generator import (
+    build_evaluation, evaluation_csv, evaluation_markdown, generate_batch_csv_report,
+)
 from app.services.security_guard import SecurityGuard
 from app.services.smart_crawler import SmartCrawler
 from app.services.auth_service import require_operator, require_admin, log_audit_event
@@ -41,6 +45,11 @@ router = APIRouter(
 compute_limit = rate_limit(max_requests=settings.RATE_LIMIT_COMPUTE_PER_MIN, window_seconds=60, scope="compute")
 
 MAX_FILE_SIZE = settings.MAX_CSV_SIZE_BYTES
+
+
+def _is_http_url(value: str) -> bool:
+    p = urlparse(value)
+    return p.scheme in ("http", "https") and bool(p.hostname) and not p.username and not p.password
 
 
 # -----------------------------
@@ -63,6 +72,14 @@ class BatchInspectionRequest(BaseModel):
 class WebsiteScanItem(BaseModel):
     company_name: str = Field(min_length=1, max_length=255)
     website_url: str = Field(min_length=1, max_length=1024)
+    # Optional CSV context (returned by /import and sent back unchanged when the batch is launched manually)
+    expected_captcha_raw: Optional[str] = Field(default=None, max_length=128)
+    expected_contact_page: Optional[str] = Field(default=None, max_length=1024)
+    platform: Optional[str] = Field(default=None, max_length=128)
+    city: Optional[str] = Field(default=None, max_length=128)
+    state: Optional[str] = Field(default=None, max_length=64)
+    category: Optional[str] = Field(default=None, max_length=128)
+    source_row: Optional[str] = Field(default=None, max_length=20000)
 
 
 class ScanBatchRequest(BaseModel):
@@ -244,7 +261,28 @@ async def scan_batch(
             detail=f"Batch size exceeds maximum limit of {settings.MAX_CSV_ROWS} websites."
         )
 
-    items = [{"company_name": item.company_name, "website_url": item.website_url} for item in request.websites]
+    items = []
+    for item in request.websites:
+        page = (item.expected_contact_page or "").strip() or None
+        if page and not _is_http_url(page):
+            page = None  # ignored; page discovery is used instead
+        src = None
+        if item.source_row:
+            try:
+                parsed_src = json.loads(item.source_row)
+                src = item.source_row if isinstance(parsed_src, dict) else None
+            except ValueError:
+                src = None
+        items.append({
+            "company_name": item.company_name,
+            "website_url": item.website_url,
+            "expected_captcha_raw": item.expected_captcha_raw,
+            # always normalised server-side; a client-supplied label is never trusted
+            "expected_captcha": normalise_expected_captcha(item.expected_captcha_raw),
+            "expected_contact_page": page,
+            "platform": item.platform, "city": item.city, "state": item.state, "category": item.category,
+            "source_row": src,
+        })
     if background:
         try:
             job_manager.ensure_capacity("batch", current_user.id)
@@ -335,6 +373,46 @@ async def download_batch_report(
         filename=filename,
         media_type="text/csv"
     )
+
+
+def _batch_inspections(db: Session, batch_id: str):
+    batch = db.query(BatchJob).filter(BatchJob.id == batch_id).first()
+    if not batch:
+        raise HTTPException(status_code=404, detail=f"Batch '{batch_id}' not found.")
+    return batch, db.query(WebsiteInspection).filter(WebsiteInspection.batch_id == batch_id).all()
+
+
+@router.get("/batches/{batch_id}/evaluation")
+async def get_batch_evaluation(
+    batch_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
+):
+    """Expected-vs-detected CAPTCHA evaluation: per-site rows and eligible-only summary metrics."""
+    batch, inspections = _batch_inspections(db, batch_id)
+    ev = build_evaluation(inspections)
+    return {"success": True, "batch_id": batch_id, "status": batch.status,
+            "processed_records": batch.processed_records, "total_records": batch.total_records, **ev}
+
+
+@router.get("/batches/{batch_id}/evaluation.{fmt}")
+async def download_batch_evaluation(
+    batch_id: str,
+    fmt: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
+):
+    """Download the expected-vs-detected report as CSV (formula-safe) or Markdown."""
+    if fmt not in ("csv", "md"):
+        raise HTTPException(status_code=404, detail="Supported formats: csv, md.")
+    _, inspections = _batch_inspections(db, batch_id)
+    ev = build_evaluation(inspections)
+    if fmt == "csv":
+        body, media = evaluation_csv(ev), "text/csv"
+    else:
+        body, media = evaluation_markdown(ev), "text/markdown"
+    return Response(content=body, media_type=media,
+                    headers={"Content-Disposition": f'attachment; filename="expected_vs_detected_{batch_id[:8]}.{fmt}"'})
 
 
 # -----------------------------

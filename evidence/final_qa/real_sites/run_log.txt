@@ -1,0 +1,66 @@
+allow-list: barrett.net,bigfrog.com,breadtopia.com,www.barrett.net,www.bigfrog.com,www.breadtopia.com
+[2026-11-07 20:22:04] Big Frog: https://bigfrog.com  contact=https://www.bigfrog.com/contact-us/  expected=hCaptcha
+    -> NOT_ACCESSIBLE | status=failed robots=allowed detected=none subtype=None widget=None forms=None filled=None
+    error: HTTP 403 from the website
+[2026-11-07 20:22:16] Breadtopia: https://breadtopia.com  contact=https://breadtopia.com/contact/  expected=Turnstile
+NetworkGuard[batch-scan] blocked https://kit-free.fontawesome.com/releases/latest/css/free.min.css?ver=5.x: Domain 'kit-free.fontawesome.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://fonts.googleapis.com/css?family=Assistant:600,600,500,500,300,400,700%7CFira%20Sans%20Extra%20Condensed:600,600,500,500,300,400,700&subset=latin&display=swap&ver=1779527213: Domain 'fonts.googleapis.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092: Domain 'static.cloudflareinsights.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://fonts.googleapis.com/css?family=Montserrat:100: Domain 'fonts.googleapis.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://cdnjs.cloudflare.com/ajax/libs/retina.js/2.1.3/retina.min.js?ver=7.1.4: Domain 'cdnjs.cloudflare.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://breadtopia.com/?wc-ajax=nm_suggestions_product_data: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86b0a0ffc/CvpnDEYVcV_pRZb4NzhgHK2rWqXfLrc-M-OMVBKnu14nxKfNI: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86accff23/Cq0SAd4VciN-w34IkHAqYDjEs4kmxfvQyCxynGOdq5vU-CAra: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b858153485/CjGZ1c6sAtd4ulvQb5u8JlYuCisuDgA4V5XwQaIGlBzRFY_9R: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86b0a0ffc/CvpnDEYVcV_pRZb4NzhgHK2rWqXfLrc-M-OMVBKnu14nxKfNI: Network locked (no-transmission mode): all requests are aborted.
+NetworkGuard[batch-scan] blocked https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86accff23/Cq0SAd4VciN-w34IkHAqYDjEs4kmxfvQyCxynGOdq5vU-CAra: Network locked (no-transmission mode): all requests are aborted.
+NetworkGuard[batch-scan] blocked https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b858153485/CjGZ1c6sAtd4ulvQb5u8JlYuCisuDgA4V5XwQaIGlBzRFY_9R: Network locked (no-transmission mode): all requests are aborted.
+    -> MATCH | status=captcha_detected robots=allowed detected=['hcaptcha', 'cloudflare_turnstile'] subtype=managed_or_non_interactive widget=iframe_loaded forms=6 filled=4
+[2026-11-07 20:22:34] Barrett Firearms: https://barrett.net  contact=https://barrett.net/support/contact-us/  expected=invisible reCAPTCHA
+NetworkGuard[batch-scan] blocked https://fonts.googleapis.com/css?family=Raleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C300italic%2C400italic%2C700italic%7CTitillium+Web%3A100%2C200%2C300%2C400%2C500%2C60: Domain 'fonts.googleapis.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css: Domain 'cdn-images.mailchimp.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://www.googletagmanager.com/gtag/js?id=GT-WF657XF: Domain 'www.googletagmanager.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://chimpstatic.com/mcjs-connected/js/users/88e2f4cafc65a82ff8a6b7338/c5c74004e384b34e2f5cd92db.js: Domain 'chimpstatic.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://chimpstatic.com/mcjs-connected/js/users/88e2f4cafc65a82ff8a6b7338/23c441e4968443bbd28fbdc3e.js: Domain 'chimpstatic.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://ssl.google-analytics.com/ga.js: Domain 'ssl.google-analytics.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://www.googletagmanager.com/gtag/js?id=G-S8HS7NQJ32: Domain 'www.googletagmanager.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://maps.googleapis.com/maps/api/js?key=REDACTED&ver=1: Domain 'maps.googleapis.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2: Domain 'fonts.gstatic.com' is not in the authorized domains allowlist.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: POST blocked: read-only inspection never transmits data.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: Network locked (no-transmission mode): all requests are aborted.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: Network locked (no-transmission mode): all requests are aborted.
+NetworkGuard[batch-scan] blocked https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L: Network locked (no-transmission mode): all requests are aborted.
+    -> MATCH | status=captcha_detected robots=allowed detected=['google_recaptcha'] subtype=invisible widget=iframe_loaded forms=3 filled=4
+{
+  "total_records": 3,
+  "counts": {
+    "match": 2,
+    "mismatch": 0,
+    "not_detected": 0,
+    "not_accessible": 1,
+    "not_verified": 0
+  },
+  "eligible_records": 2,
+  "excluded": {
+    "not_accessible": 1,
+    "not_verified": 0
+  },
+  "agreement_pct": 100.0,
+  "subtype_agreement": {
+    "agree": 1,
+    "differs": 0
+  },
+  "sample_size_note": "Agreement is computed over 2 eligible inspected record(s) out of 3 total. This sample is too small to estimate accuracy statistically; treat it as a demonstration, not a benchmark."
+}
+Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x000001B5052DD300>
+Traceback (most recent call last):
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 126, in __del__
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 104, in close
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 109, in close
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 795, in call_soon
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 541, in _check_closed
+RuntimeError: Event loop is closed

@@ -48,6 +48,26 @@ class SecurityException(Exception):
     pass
 
 
+def strip_www(host: str) -> str:
+    host = (host or "").lower().rstrip(".")
+    return host[4:] if host.startswith("www.") else host
+
+
+def same_site(host_a: str, host_b: str) -> bool:
+    """
+    Redirect-safe site identity: identical hosts, or the same host differing only by a leading `www.`
+    (the ubiquitous apex <-> www redirect). Different subdomains or domains are NOT the same site.
+    """
+    a, b = (host_a or "").lower().rstrip("."), (host_b or "").lower().rstrip(".")
+    return bool(a) and (a == b or strip_www(a) == strip_www(b))
+
+
+def host_matches_allowed(host: str, allowed: str) -> bool:
+    """Allow-list match: exact, subdomain of an allowed domain, or the apex/www sibling of an allowed host."""
+    host, allowed = host.lower().rstrip("."), allowed.lower().rstrip(".")
+    return host == allowed or host.endswith("." + allowed) or strip_www(host) == strip_www(allowed)
+
+
 class SecurityGuard:
     @staticmethod
     def is_ip_allowed(ip_str: str) -> tuple[bool, str]:
@@ -164,9 +184,12 @@ class SecurityGuard:
         url: str,
         enforce_live_scan: bool = True,
         allow_loopback: bool = False,
+        skip_domain_allowlist: bool = False,
     ) -> tuple[bool, str]:
         """
         Validate a target URL against SSRF, protocol, port, and domain allowlist policies.
+        `skip_domain_allowlist` is used ONLY for exact provider-widget resources (see provider_hosts.py);
+        every other check (scheme, port, credentials, public-IP policy, DNS) still applies.
         Server-side settings.can_allow_loopback strictly governs whether any loopback exception is valid.
         Client cannot enable loopback access in staging or production.
         """
@@ -229,10 +252,10 @@ class SecurityGuard:
                     return False, f"Target IP address prohibited: {reason}"
 
         # 6. Domain Allowlist Check (for named domains)
-        if settings.ALLOWED_DOMAINS and not is_ip:
+        if settings.ALLOWED_DOMAINS and not is_ip and not skip_domain_allowlist:
             domain_allowed = False
             for allowed in settings.ALLOWED_DOMAINS:
-                if hostname == allowed or hostname.endswith("." + allowed):
+                if host_matches_allowed(hostname, allowed):
                     domain_allowed = True
                     break
             if not domain_allowed and not (effective_loopback_allowed and hostname in ("localhost", "127.0.0.1", "::1")):
@@ -292,7 +315,7 @@ class SecurityGuard:
             orig_host = (orig_parsed.hostname or "").lower()
             redir_host = (redir_parsed.hostname or "").lower()
 
-            if orig_host != redir_host:
+            if not same_site(orig_host, redir_host):
                 return False, f"Cross-domain redirect from '{orig_host}' to '{redir_host}' is prohibited."
 
         allowed, reason = cls.validate_target_url(

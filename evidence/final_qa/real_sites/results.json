@@ -1,0 +1,1818 @@
+{
+  "sites": [
+    {
+      "company": "Big Frog",
+      "website": "https://bigfrog.com",
+      "csv_contact_page": "https://www.bigfrog.com/contact-us/",
+      "csv_expected": "hCaptcha",
+      "csv_expected_normalised": "hcaptcha",
+      "visited_at": "2026-11-07 20:22:04",
+      "result_category": "not_accessible",
+      "reason": "The page could not be inspected (error, access restriction or bot challenge).",
+      "subtype_agreement": "n/a",
+      "inspection": {
+        "success": false,
+        "scan_status": "failed",
+        "error": "HTTP 403 from the website",
+        "error_details": "HTTP 403 from the website",
+        "detected_providers": [],
+        "page_title": null,
+        "contact_page_url": null,
+        "contact_form_found": false,
+        "captcha_detected": false,
+        "captcha_provider": null,
+        "detection_method": "http_error",
+        "is_active_challenge": false,
+        "human_review_required": false,
+        "inspection_duration_ms": 3855.13,
+        "robots_status": "allowed",
+        "evidence": {
+          "robots": {
+            "robots_status": "allowed",
+            "http_status": 200,
+            "reason": "robots.txt allows this path.",
+            "robots_url": "https://www.bigfrog.com/robots.txt"
+          },
+          "csv_contact_page_http_status": 403
+        }
+      }
+    },
+    {
+      "company": "Breadtopia",
+      "website": "https://breadtopia.com",
+      "csv_contact_page": "https://breadtopia.com/contact/",
+      "csv_expected": "Turnstile",
+      "csv_expected_normalised": "turnstile",
+      "visited_at": "2026-11-07 20:22:16",
+      "result_category": "match",
+      "reason": "Expected turnstile; detected hcaptcha, turnstile.",
+      "subtype_agreement": "n/a",
+      "inspection": {
+        "success": true,
+        "scan_status": "captcha_detected",
+        "page_title": "Contact - Breadtopia",
+        "contact_page_url": "https://breadtopia.com/contact/",
+        "contact_source": "csv",
+        "contact_form_found": true,
+        "captcha_detected": true,
+        "captcha_provider": "hcaptcha, cloudflare_turnstile",
+        "detected_providers": [
+          "hcaptcha",
+          "cloudflare_turnstile"
+        ],
+        "detection_method": "rendered_dom_iframe_inspection",
+        "is_active_challenge": true,
+        "human_review_required": true,
+        "error_details": null,
+        "captcha_subtype": "managed_or_non_interactive",
+        "widget_state": "iframe_loaded",
+        "widget_loaded": true,
+        "detections": [
+          {
+            "provider": "cloudflare_turnstile",
+            "subtype": "managed_or_non_interactive",
+            "widget_state": "iframe_loaded",
+            "widget_loaded": true,
+            "evidence": [
+              "script: challenges.cloudflare.com/turnstile/v0/api.js",
+              "iframe: challenges.cloudflare.com",
+              "iframe: challenges.cloudflare.com",
+              "iframe: challenges.cloudflare.com",
+              "container: .cf-turnstile",
+              "inline api: turnstile.render",
+              "token field: cf-turnstile-response (name only)"
+            ]
+          }
+        ],
+        "blocked_provider_resources": [],
+        "robots_status": "allowed",
+        "screenshot_path": "evidence/final_qa/real_sites/screenshots/breadtopia.png",
+        "form_probe": {
+          "form_count": 6,
+          "forms": [
+            {
+              "index": 0,
+              "method": "get",
+              "action_host": "breadtopia.com",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "0-0",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "s",
+                  "id": "nm-header-search-input",
+                  "label": "",
+                  "placeholder": "Search products\u2026",
+                  "autocomplete": "off",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "0-1",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "post_type",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [],
+              "captcha_inside_form": false
+            },
+            {
+              "index": 1,
+              "method": "post",
+              "action_host": "breadtopia.com",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "1-0",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-1",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_version",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-2",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_locale",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-3",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_unit_tag",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-4",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_container_post",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-5",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_posted_data_hash",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-6",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "your-name",
+                  "id": "",
+                  "label": "Your Name (required)",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": 400,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-7",
+                  "tag": "input",
+                  "type": "email",
+                  "name": "your-email",
+                  "id": "",
+                  "label": "Your Email (required)",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": 400,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-8",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "your-subject",
+                  "id": "",
+                  "label": "Subject",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": 400,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-9",
+                  "tag": "textarea",
+                  "type": "textarea",
+                  "name": "your-message",
+                  "id": "",
+                  "label": "Your Message",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": 2000,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-10",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "cf-turnstile-response",
+                  "id": "cf-chl-widget-ltffq_response",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-11",
+                  "tag": "input",
+                  "type": "submit",
+                  "name": "",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-12",
+                  "tag": "textarea",
+                  "type": "textarea",
+                  "name": "_wpcf7_ak_hp_textarea",
+                  "id": "",
+                  "label": "\u0394",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": 100,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-13",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_ak_js",
+                  "id": "ak_js_2",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-14",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [
+                "Send"
+              ],
+              "captcha_inside_form": true
+            },
+            {
+              "index": 2,
+              "method": "post",
+              "action_host": "breadtopia.com",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "2-0",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-1",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_version",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-2",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_locale",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-3",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_unit_tag",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-4",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_container_post",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-5",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_posted_data_hash",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-6",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "first-name",
+                  "id": "",
+                  "label": "First Name",
+                  "placeholder": "First Name",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": 400,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-7",
+                  "tag": "input",
+                  "type": "email",
+                  "name": "your-email",
+                  "id": "",
+                  "label": "Email",
+                  "placeholder": "Email",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": 400,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-8",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "cf-turnstile-response",
+                  "id": "cf-chl-widget-zd6cc_response",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-9",
+                  "tag": "input",
+                  "type": "submit",
+                  "name": "",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-10",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "last-name",
+                  "id": "wpcf7-6aef423d07dc0-field",
+                  "label": "Please leave this field empty.",
+                  "placeholder": "",
+                  "autocomplete": "new-password",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-11",
+                  "tag": "textarea",
+                  "type": "textarea",
+                  "name": "_wpcf7_ak_hp_textarea",
+                  "id": "",
+                  "label": "\u0394",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": 100,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-12",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_ak_js",
+                  "id": "ak_js_1",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-13",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-14",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "pum_form_popup_id",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [
+                "Subscribe"
+              ],
+              "captcha_inside_form": true
+            },
+            {
+              "index": 3,
+              "method": "post",
+              "action_host": "breadtopia.com",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "3-0",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpnonce",
+                  "id": "_wpnonce",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "3-1",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wp_http_referer",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [],
+              "captcha_inside_form": false
+            },
+            {
+              "index": 4,
+              "method": "post",
+              "action_host": "breadtopia.com",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "4-0",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "redirect",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "4-1",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "username",
+                  "id": "username",
+                  "label": "Username or email address\u00a0*Required",
+                  "placeholder": "",
+                  "autocomplete": "username",
+                  "required": true,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "4-2",
+                  "tag": "input",
+                  "type": "password",
+                  "name": "password",
+                  "id": "password",
+                  "label": "Password\u00a0*Required",
+                  "placeholder": "",
+                  "autocomplete": "current-password",
+                  "required": true,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "4-3",
+                  "tag": "input",
+                  "type": "checkbox",
+                  "name": "rememberme",
+                  "id": "rememberme",
+                  "label": "Remember me",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "4-4",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "woocommerce-login-nonce",
+                  "id": "woocommerce-login-nonce",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "4-5",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wp_http_referer",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [
+                "Log in"
+              ],
+              "captcha_inside_form": false
+            },
+            {
+              "index": 5,
+              "method": "post",
+              "action_host": "breadtopia.com",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "5-0",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "redirect",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "5-1",
+                  "tag": "input",
+                  "type": "email",
+                  "name": "email",
+                  "id": "reg_email",
+                  "label": "Email address *",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "5-2",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "cf-turnstile-response",
+                  "id": "cf-chl-widget-2zvqr_response",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "5-3",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "woocommerce-register-nonce",
+                  "id": "woocommerce-register-nonce",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "5-4",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wp_http_referer",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [
+                "Register"
+              ],
+              "captcha_inside_form": true
+            }
+          ],
+          "filled_fields": 4,
+          "skipped_fields": [
+            {
+              "form": 0,
+              "name": "s",
+              "type": "text",
+              "reason": "not visible"
+            },
+            {
+              "form": 0,
+              "name": "post_type",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_version",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_locale",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_unit_tag",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_container_post",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_posted_data_hash",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "cf-turnstile-response",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "",
+              "type": "submit",
+              "reason": "type 'submit' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_ak_hp_textarea",
+              "type": "textarea",
+              "reason": "looks like a honeypot field"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_ak_js",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7_version",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7_locale",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7_unit_tag",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7_container_post",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7_posted_data_hash",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "first-name",
+              "type": "text",
+              "reason": "not visible"
+            },
+            {
+              "form": 2,
+              "name": "your-email",
+              "type": "email",
+              "reason": "not visible"
+            },
+            {
+              "form": 2,
+              "name": "cf-turnstile-response",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "",
+              "type": "submit",
+              "reason": "type 'submit' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "last-name",
+              "type": "text",
+              "reason": "not visible"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7_ak_hp_textarea",
+              "type": "textarea",
+              "reason": "looks like a honeypot field"
+            },
+            {
+              "form": 2,
+              "name": "_wpcf7_ak_js",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "pum_form_popup_id",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 3,
+              "name": "_wpnonce",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 3,
+              "name": "_wp_http_referer",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 4,
+              "name": "redirect",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 4,
+              "name": "username",
+              "type": "text",
+              "reason": "not visible"
+            },
+            {
+              "form": 4,
+              "name": "password",
+              "type": "password",
+              "reason": "type 'password' is never filled"
+            },
+            {
+              "form": 4,
+              "name": "rememberme",
+              "type": "checkbox",
+              "reason": "type 'checkbox' is never filled"
+            },
+            {
+              "form": 4,
+              "name": "woocommerce-login-nonce",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 4,
+              "name": "_wp_http_referer",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 5,
+              "name": "redirect",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 5,
+              "name": "email",
+              "type": "email",
+              "reason": "not visible"
+            },
+            {
+              "form": 5,
+              "name": "cf-turnstile-response",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 5,
+              "name": "woocommerce-register-nonce",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 5,
+              "name": "_wp_http_referer",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            }
+          ],
+          "filled_kinds": {
+            "name": 1,
+            "email": 1,
+            "subject": 1,
+            "message": 1
+          },
+          "policy": {
+            "network_locked": true,
+            "browser_offline": true,
+            "submit_shield": true,
+            "submit_clicked": false,
+            "enter_pressed": false,
+            "captcha_touched": false,
+            "data_transmitted": false
+          },
+          "requests_blocked_while_locked": 3,
+          "aborted_reason": null,
+          "captcha_outside_forms": false,
+          "filled_screenshot": "evidence/final_qa/real_sites/screenshots/breadtopia_filled.png"
+        },
+        "evidence": {
+          "robots": {
+            "robots_status": "allowed",
+            "http_status": 200,
+            "reason": "robots.txt allows this path.",
+            "robots_url": "https://breadtopia.com/robots.txt"
+          },
+          "final_url": "https://breadtopia.com/contact/",
+          "http_status": 200,
+          "contact_source": "csv",
+          "settle": {
+            "network_idle": true,
+            "extra_wait_ms": 0,
+            "settle_seconds": 1.04
+          },
+          "observability_note": null,
+          "blocked_requests": [
+            {
+              "url": "https://kit-free.fontawesome.com/releases/latest/css/free.min.css?ver=5.x",
+              "reason": "Domain 'kit-free.fontawesome.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://fonts.googleapis.com/css?family=Assistant:600,600,500,500,300,400,700%7CFira%20Sans%20Extra%20Condensed:600,600,500,500,300,400,700&subset=latin&display=swap&ver=1779527213",
+              "reason": "Domain 'fonts.googleapis.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092",
+              "reason": "Domain 'static.cloudflareinsights.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://fonts.googleapis.com/css?family=Montserrat:100",
+              "reason": "Domain 'fonts.googleapis.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://cdnjs.cloudflare.com/ajax/libs/retina.js/2.1.3/retina.min.js?ver=7.1.4",
+              "reason": "Domain 'cdnjs.cloudflare.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://breadtopia.com/?wc-ajax=nm_suggestions_product_data",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86b0a0ffc/CvpnDEYVcV_pRZb4NzhgHK2rWqXfLrc-M-OMVBKnu14nxKfNI",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86accff23/Cq0SAd4VciN-w34IkHAqYDjEs4kmxfvQyCxynGOdq5vU-CAra",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b858153485/CjGZ1c6sAtd4ulvQb5u8JlYuCisuDgA4V5XwQaIGlBzRFY_9R",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86b0a0ffc/CvpnDEYVcV_pRZb4NzhgHK2rWqXfLrc-M-OMVBKnu14nxKfNI",
+              "reason": "Network locked (no-transmission mode): all requests are aborted."
+            },
+            {
+              "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b86accff23/Cq0SAd4VciN-w34IkHAqYDjEs4kmxfvQyCxynGOdq5vU-CAra",
+              "reason": "Network locked (no-transmission mode): all requests are aborted."
+            },
+            {
+              "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/fo/1604436247:1794060620:w_nAsugAe5hNdFIaDAXCQRdxefH8jINuw2yL9y47xa4/a56d55b858153485/CjGZ1c6sAtd4ulvQb5u8JlYuCisuDgA4V5XwQaIGlBzRFY_9R",
+              "reason": "Network locked (no-transmission mode): all requests are aborted."
+            }
+          ],
+          "blocked_request_count": 12,
+          "provider_requests": [
+            "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=cfturnstileOnload",
+            "https://challenges.cloudflare.com/turnstile/v0/b/8340802ab0bb/api.js",
+            "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/zd6cc/0x4AAAAAAACfUhOCEmM9MVTh/light/fbE/new/normal?lang=auto",
+            "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/ltffq/0x4AAAAAAACfUhOCEmM9MVTh/light/fbE/new/normal?lang=auto",
+            "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/turnstile/f/av0/rch/2zvqr/0x4AAAAAAACfUhOCEmM9MVTh/light/fbE/new/normal?lang=auto"
+          ]
+        },
+        "inspection_duration_ms": 10058.15
+      }
+    },
+    {
+      "company": "Barrett Firearms",
+      "website": "https://barrett.net",
+      "csv_contact_page": "https://barrett.net/support/contact-us/",
+      "csv_expected": "invisible reCAPTCHA",
+      "csv_expected_normalised": "recaptcha_invisible",
+      "visited_at": "2026-11-07 20:22:34",
+      "result_category": "match",
+      "reason": "Expected recaptcha_invisible; detected recaptcha.",
+      "subtype_agreement": "agree",
+      "inspection": {
+        "success": true,
+        "scan_status": "captcha_detected",
+        "page_title": "Contact Us - Barrett Firearms",
+        "contact_page_url": "https://barrett.net/support/contact-us/",
+        "contact_source": "csv",
+        "contact_form_found": true,
+        "captcha_detected": true,
+        "captcha_provider": "google_recaptcha",
+        "detected_providers": [
+          "google_recaptcha"
+        ],
+        "detection_method": "rendered_dom_iframe_inspection",
+        "is_active_challenge": true,
+        "human_review_required": true,
+        "error_details": null,
+        "captcha_subtype": "invisible",
+        "widget_state": "iframe_loaded",
+        "widget_loaded": true,
+        "detections": [
+          {
+            "provider": "google_recaptcha",
+            "subtype": "invisible",
+            "widget_state": "iframe_loaded",
+            "widget_loaded": true,
+            "evidence": [
+              "script: www.gstatic.com/recaptcha/releases/bSuJ2xBC8cFy7pM4Z3Hu9boH/recaptcha__en.js",
+              "iframe: www.google.com/recaptcha/api2/anchor",
+              "iframe: www.google.com/recaptcha/api2/anchor",
+              "token field: g-recaptcha-response (name only)",
+              "badge: .grecaptcha-badge"
+            ]
+          }
+        ],
+        "blocked_provider_resources": [
+          "https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L"
+        ],
+        "robots_status": "allowed",
+        "screenshot_path": "evidence/final_qa/real_sites/screenshots/barrett_firearms.png",
+        "form_probe": {
+          "form_count": 3,
+          "forms": [
+            {
+              "index": 0,
+              "method": "get",
+              "action_host": "barrett.net",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "0-0",
+                  "tag": "input",
+                  "type": "search",
+                  "name": "s",
+                  "id": "6aef42522f1f9",
+                  "label": "Search",
+                  "placeholder": "Search",
+                  "autocomplete": "off",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "0-1",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "post_type",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "0-2",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "type_aws",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [],
+              "captcha_inside_form": false
+            },
+            {
+              "index": 1,
+              "method": "post",
+              "action_host": "barrett.net",
+              "same_origin_action": true,
+              "fields": [
+                {
+                  "key": "1-0",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-1",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_version",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-2",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_locale",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-3",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_unit_tag",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-4",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_container_post",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-5",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_posted_data_hash",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-6",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "_wpcf7_recaptcha_response",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "1-7",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "full-name",
+                  "id": "",
+                  "label": "Name:",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": 400,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-8",
+                  "tag": "input",
+                  "type": "email",
+                  "name": "your-email",
+                  "id": "",
+                  "label": "Email Address:",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": 400,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-9",
+                  "tag": "select",
+                  "type": "select",
+                  "name": "department",
+                  "id": "",
+                  "label": "Who are you trying to contact?\nSelect One\nCustomer Service / Tech Support\nTraining\nLaw Enforcement\nMilitary\nInternationa",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": true,
+                  "options": 10
+                },
+                {
+                  "key": "1-10",
+                  "tag": "textarea",
+                  "type": "textarea",
+                  "name": "comments",
+                  "id": "",
+                  "label": "Comments or Questions:",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": 2000,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-11",
+                  "tag": "input",
+                  "type": "submit",
+                  "name": "",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-12",
+                  "tag": "input",
+                  "type": "reset",
+                  "name": "",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "1-13",
+                  "tag": "input",
+                  "type": "hidden",
+                  "name": "",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [
+                "Submit"
+              ],
+              "captcha_inside_form": false
+            },
+            {
+              "index": 2,
+              "method": "post",
+              "action_host": "barrett.us16.list-manage.com",
+              "same_origin_action": false,
+              "fields": [
+                {
+                  "key": "2-0",
+                  "tag": "input",
+                  "type": "email",
+                  "name": "EMAIL",
+                  "id": "mce-EMAIL",
+                  "label": "",
+                  "placeholder": "Enter email address to subscribe",
+                  "autocomplete": "",
+                  "required": true,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                },
+                {
+                  "key": "2-1",
+                  "tag": "input",
+                  "type": "text",
+                  "name": "b_88e2f4cafc65a82ff8a6b7338_a8f278148c",
+                  "id": "",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": false,
+                  "options": null
+                },
+                {
+                  "key": "2-2",
+                  "tag": "input",
+                  "type": "submit",
+                  "name": "subscribe",
+                  "id": "mc-embedded-subscribe",
+                  "label": "",
+                  "placeholder": "",
+                  "autocomplete": "",
+                  "required": false,
+                  "maxlength": null,
+                  "pattern": null,
+                  "visible": true,
+                  "options": null
+                }
+              ],
+              "submit_buttons": [
+                ">"
+              ],
+              "captcha_inside_form": false
+            }
+          ],
+          "filled_fields": 4,
+          "skipped_fields": [
+            {
+              "form": 0,
+              "name": "s",
+              "type": "search",
+              "reason": "not visible"
+            },
+            {
+              "form": 0,
+              "name": "post_type",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 0,
+              "name": "type_aws",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_version",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_locale",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_unit_tag",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_container_post",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_posted_data_hash",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "_wpcf7_recaptcha_response",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "department",
+              "type": "select",
+              "reason": "type 'select' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "",
+              "type": "submit",
+              "reason": "type 'submit' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "",
+              "type": "reset",
+              "reason": "type 'reset' is never filled"
+            },
+            {
+              "form": 1,
+              "name": "",
+              "type": "hidden",
+              "reason": "type 'hidden' is never filled"
+            },
+            {
+              "form": 2,
+              "name": "b_88e2f4cafc65a82ff8a6b7338_a8f278148c",
+              "type": "text",
+              "reason": "not visible"
+            },
+            {
+              "form": 2,
+              "name": "subscribe",
+              "type": "submit",
+              "reason": "type 'submit' is never filled"
+            }
+          ],
+          "filled_kinds": {
+            "name": 1,
+            "email": 2,
+            "message": 1
+          },
+          "policy": {
+            "network_locked": true,
+            "browser_offline": true,
+            "submit_shield": true,
+            "submit_clicked": false,
+            "enter_pressed": false,
+            "captcha_touched": false,
+            "data_transmitted": false
+          },
+          "requests_blocked_while_locked": 3,
+          "aborted_reason": null,
+          "captcha_outside_forms": false,
+          "filled_screenshot": "evidence/final_qa/real_sites/screenshots/barrett_firearms_filled.png"
+        },
+        "evidence": {
+          "robots": {
+            "robots_status": "allowed",
+            "http_status": 200,
+            "reason": "robots.txt allows this path.",
+            "robots_url": "https://barrett.net/robots.txt"
+          },
+          "final_url": "https://barrett.net/support/contact-us/",
+          "http_status": 200,
+          "contact_source": "csv",
+          "settle": {
+            "network_idle": true,
+            "extra_wait_ms": 0,
+            "settle_seconds": 3.45
+          },
+          "observability_note": null,
+          "blocked_requests": [
+            {
+              "url": "https://fonts.googleapis.com/css?family=Raleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900%2C100italic%2C300italic%2C400italic%2C700italic%7CTitillium+Web%3A100%2C200%2C300%2C400%2C500%2C60",
+              "reason": "Domain 'fonts.googleapis.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css",
+              "reason": "Domain 'cdn-images.mailchimp.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=GT-WF657XF",
+              "reason": "Domain 'www.googletagmanager.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://chimpstatic.com/mcjs-connected/js/users/88e2f4cafc65a82ff8a6b7338/c5c74004e384b34e2f5cd92db.js",
+              "reason": "Domain 'chimpstatic.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://chimpstatic.com/mcjs-connected/js/users/88e2f4cafc65a82ff8a6b7338/23c441e4968443bbd28fbdc3e.js",
+              "reason": "Domain 'chimpstatic.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://ssl.google-analytics.com/ga.js",
+              "reason": "Domain 'ssl.google-analytics.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://www.googletagmanager.com/gtag/js?id=G-S8HS7NQJ32",
+              "reason": "Domain 'www.googletagmanager.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/js?key=REDACTED&ver=1",
+              "reason": "Domain 'maps.googleapis.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBA.woff2",
+              "reason": "Domain 'fonts.gstatic.com' is not in the authorized domains allowlist."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/clr?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "POST blocked: read-only inspection never transmits data."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "Network locked (no-transmission mode): all requests are aborted."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "Network locked (no-transmission mode): all requests are aborted."
+            },
+            {
+              "url": "https://www.google.com/recaptcha/api2/reload?k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L",
+              "reason": "Network locked (no-transmission mode): all requests are aborted."
+            }
+          ],
+          "blocked_request_count": 17,
+          "provider_requests": [
+            "https://www.google.com/recaptcha/api.js?render=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L&ver=3.0",
+            "https://www.gstatic.com/recaptcha/releases/bSuJ2xBC8cFy7pM4Z3Hu9boH/recaptcha__en.js",
+            "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfwH98mAAAAAHQLohPdlFgBsUn3Fuc2HDC7Pk1L&co=aHR0cHM6Ly9iYXJyZXR0Lm5ldDo0NDM.&hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&size=invisible&anchor-ms=20000&execute-ms=30000&cb=riydc07nlzgj",
+            "https://www.gstatic.com/recaptcha/releases/bSuJ2xBC8cFy7pM4Z3Hu9boH/styles__ltr.css",
+            "https://www.gstatic.com/recaptcha/releases/bSuJ2xBC8cFy7pM4Z3Hu9boH/recaptcha__en.js",
+            "https://www.google.com/recaptcha/api2/webworker.js?hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH",
+            "https://www.gstatic.com/recaptcha/api2/logo_48.png",
+            "https://www.gstatic.com/recaptcha/releases/bSuJ2xBC8cFy7pM4Z3Hu9boH/recaptcha__en.js"
+          ]
+        },
+        "inspection_duration_ms": 19064.87
+      }
+    }
+  ],
+  "summary": {
+    "total_records": 3,
+    "counts": {
+      "match": 2,
+      "mismatch": 0,
+      "not_detected": 0,
+      "not_accessible": 1,
+      "not_verified": 0
+    },
+    "eligible_records": 2,
+    "excluded": {
+      "not_accessible": 1,
+      "not_verified": 0
+    },
+    "agreement_pct": 100.0,
+    "subtype_agreement": {
+      "agree": 1,
+      "differs": 0
+    },
+    "sample_size_note": "Agreement is computed over 2 eligible inspected record(s) out of 3 total. This sample is too small to estimate accuracy statistically; treat it as a demonstration, not a benchmark."
+  },
+  "policy": {
+    "robots_first": true,
+    "submit": false,
+    "captcha_clicked": false,
+    "min_gap_seconds": 8.0
+  }
+}

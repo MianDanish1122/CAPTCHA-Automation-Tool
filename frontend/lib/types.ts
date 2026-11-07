@@ -146,21 +146,78 @@ export interface BatchJob {
   completed_at: string | null;
 }
 
+// Mirrors WebsiteInspection.to_dict() on the backend (field names are the API's, not guesses).
 export interface WebsiteInspectionItem {
-  id: number;
+  id: string;
   batch_id: string;
   company_name: string;
   website_url: string;
-  status: string;
+  scan_status: string;
+  page_title: string | null;
+  contact_page_url: string | null;
+  contact_form_found: boolean;
   captcha_detected: boolean;
   captcha_provider: string | null;
-  challenge_type: string | null;
-  confidence_score: number;
-  forms_found_count: number;
+  detection_method: string | null;
+  is_active_challenge: boolean;
   human_review_required: boolean;
-  evidence: Record<string, any>;
-  error_message: string | null;
+  error_details: string | null;
+  inspection_duration_ms: number;
+  expected_captcha: string | null;
+  expected_captcha_raw: string | null;
+  expected_contact_page: string | null;
+  platform: string | null;
+  city: string | null;
+  state: string | null;
+  category: string | null;
+  captcha_subtype: string | null;
+  widget_state: string | null;
+  widget_loaded: boolean;
+  result_category: ResultCategory | null;
+  robots_status: string | null;
+  screenshot_path: string | null;
+  evidence: Record<string, any> | null;
+  form_probe: Record<string, any> | null;
+  source_row: Record<string, any> | null;
   created_at: string;
+}
+
+export type ResultCategory = 'match' | 'mismatch' | 'not_detected' | 'not_accessible' | 'not_verified';
+
+export interface EvaluationRow {
+  company: string;
+  website: string;
+  expected: string | null;
+  expected_normalised: string | null;
+  detected: string;
+  contact_page: string | null;
+  widget_loaded: boolean;
+  result_category: ResultCategory;
+  result: string;
+  reason: string | null;
+  subtype_agreement: string;
+  scan_status: string | null;
+  error: string | null;
+}
+
+export interface EvaluationSummary {
+  total_records: number;
+  counts: Record<ResultCategory, number>;
+  eligible_records: number;
+  excluded: { not_accessible: number; not_verified: number };
+  agreement_pct: number | null;
+  subtype_agreement: { agree: number; differs: number };
+  sample_size_note: string;
+}
+
+export interface BatchEvaluation {
+  success: boolean;
+  batch_id: string;
+  status: string;
+  processed_records: number;
+  total_records: number;
+  rows: EvaluationRow[];
+  summary: EvaluationSummary;
 }
 
 export interface BatchResultsResponse {
@@ -172,20 +229,33 @@ export interface BatchResultsResponse {
   results: WebsiteInspectionItem[];
 }
 
+export interface ScanWebsite {
+  company_name: string;
+  website_url: string;
+  expected_captcha_raw?: string | null;
+  expected_captcha?: string | null;
+  expected_contact_page?: string | null;
+  platform?: string | null;
+  city?: string | null;
+  state?: string | null;
+  category?: string | null;
+  source_row?: string | null;
+}
+
 export interface CsvImportResult {
   success: boolean;
   message: string;
   total_rows: number;
   valid_count: number;
   invalid_count: number;
-  websites: Array<{
-    company_name: string;
-    website_url: string;
-  }>;
+  websites: Array<ScanWebsite>;
   errors: Array<{
     row: number;
     reason: string;
   }>;
+  warnings?: Array<{ row: number; reason: string }>;
+  columns?: string[];
+  unmapped_columns?: string[];
   batch_id?: string;
   batch_status?: string;
 }

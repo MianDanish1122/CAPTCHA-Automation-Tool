@@ -1,0 +1,7 @@
+Baseline preserved before the real-world QA stage
+commit: f5c7df85ba0b516aeec42b0c8b19583088be1173
+branch: phase-7-assignment-readiness
+tag:    baseline-before-real-world-qa
+backend: 445 passed, 1 skipped (independent re-run during the compliance audit)
+frontend build: 15/15 pages
+browser: Phase 7 E2E 30/30, Phase 6B regression 32/32, demo rehearsal 19/19 (stored reports)

@@ -18,6 +18,7 @@ from app.models import UrlScan, DiscoveredPage
 from app.services.browser_scanner import get_shared_browser, detect_captcha_in_html
 from app.services.security_guard import SecurityGuard
 from app.services.network_guard import NetworkGuard, new_guarded_context
+from app.services.captcha_detection import detect_on_page
 
 logger = logging.getLogger(__name__)
 
@@ -405,7 +406,8 @@ class SmartCrawler:
 
         # All crawler egress (navigations, redirects, subresources) is routed through the
         # shared DNS-pinned SSRF guard. TLS certificate validation stays enabled.
-        net_guard = NetworkGuard(allow_loopback=self.allow_loopback, label=f"crawl:{scan_id[:8]}")
+        net_guard = NetworkGuard(allow_loopback=self.allow_loopback, label=f"crawl:{scan_id[:8]}",
+                                 provider_resources=True, read_only=True)
         try:
             browser = await get_shared_browser()
             context = await new_guarded_context(
@@ -513,7 +515,8 @@ class SmartCrawler:
                         has_textarea = len(textareas) > 0
 
                     # CAPTCHA detection
-                    captcha_res = detect_captcha_in_html(page_html, page_title)
+                    # shared rendered-page engine (same one the batch workflow uses)
+                    captcha_res = await detect_on_page(page, net_guard, settle_ms=3000, evidence_wait_ms=2000)
                     providers = captcha_res.get("detected_providers", [])
                     has_captcha = len(providers) > 0 or captcha_res.get("status") == "unsupported_challenge"
                     for prov in providers:

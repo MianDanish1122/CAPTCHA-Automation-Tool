@@ -1,0 +1,170 @@
+........................................................................ [ 16%]
+......................................s................................. [ 32%]
+........................................................................ [ 48%]
+........................................................................ [ 64%]
+........................................................................ [ 80%]
+........................................................................ [ 96%]
+..............                                                           [100%]C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x0000019D1829EB60>
+
+Traceback (most recent call last):
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 125, in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+                               ^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 78, in __repr__
+    info.append(f'stdout={stdout.pipe}')
+                         ^^^^^^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 80, in __repr__
+    info.append(f'fd={self._sock.fileno()}')
+                      ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\windows_utils.py", line 102, in fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+
+Enable tracemalloc to get traceback where the object was allocated.
+See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 0x0000019D182CC400>
+
+Traceback (most recent call last):
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 116, in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+                               ^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 80, in __repr__
+    info.append(f'fd={self._sock.fileno()}')
+                      ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\windows_utils.py", line 102, in fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+
+Enable tracemalloc to get traceback where the object was allocated.
+See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x0000019D1829EB60>
+
+Traceback (most recent call last):
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 125, in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+                               ^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 70, in __repr__
+    info.append(f'stdin={stdin.pipe}')
+                        ^^^^^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 80, in __repr__
+    info.append(f'fd={self._sock.fileno()}')
+                      ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\windows_utils.py", line 102, in fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+
+Enable tracemalloc to get traceback where the object was allocated.
+See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x0000019D1829EB60>
+
+Traceback (most recent call last):
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 126, in __del__
+    self.close()
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 104, in close
+    proto.pipe.close()
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 109, in close
+    self._loop.call_soon(self._call_connection_lost, None)
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 795, in call_soon
+    self._check_closed()
+  File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 541, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+
+Enable tracemalloc to get traceback where the object was allocated.
+See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+  warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+============================== warnings summary ===============================
+tests\conftest.py:4
+  C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\tests\conftest.py:4: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient
+
+tests/test_api_endpoints.py::test_api_scan_batch_and_report_lifecycle
+  C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 0x0000019D182CC400>
+  
+  Traceback (most recent call last):
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 116, in __del__
+      _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+                                 ^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 80, in __repr__
+      info.append(f'fd={self._sock.fileno()}')
+                        ^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\windows_utils.py", line 102, in fileno
+      raise ValueError("I/O operation on closed pipe")
+  ValueError: I/O operation on closed pipe
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+tests/test_api_endpoints.py::test_api_scan_batch_and_report_lifecycle
+  C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x0000019D1829EB60>
+  
+  Traceback (most recent call last):
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 125, in __del__
+      _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+                                 ^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 70, in __repr__
+      info.append(f'stdin={stdin.pipe}')
+                          ^^^^^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 80, in __repr__
+      info.append(f'fd={self._sock.fileno()}')
+                        ^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\windows_utils.py", line 102, in fileno
+      raise ValueError("I/O operation on closed pipe")
+  ValueError: I/O operation on closed pipe
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+tests/test_phase6b_final.py::test_revoked_token_rejected_and_other_tokens_unaffected
+  C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\tests\test_phase6b_final.py:228: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expires_at=datetime.utcnow() + timedelta(minutes=10), reason="test"))
+
+tests/test_phase6b_final.py::test_restore_requires_confirmation_and_preserves_current_db
+  C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x0000019D1829EB60>
+  
+  Traceback (most recent call last):
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 126, in __del__
+      self.close()
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 104, in close
+      proto.pipe.close()
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 109, in close
+      self._loop.call_soon(self._call_connection_lost, None)
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 795, in call_soon
+      self._check_closed()
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 541, in _check_closed
+      raise RuntimeError('Event loop is closed')
+  RuntimeError: Event loop is closed
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+tests/test_phase6b_final.py::test_restore_requires_confirmation_and_preserves_current_db
+  C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Lib\site-packages\_pytest\unraisableexception.py:63: PytestUnraisableExceptionWarning: Exception ignored in: <function BaseSubprocessTransport.__del__ at 0x0000019D1829EB60>
+  
+  Traceback (most recent call last):
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 125, in __del__
+      _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+                                 ^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_subprocess.py", line 78, in __repr__
+      info.append(f'stdout={stdout.pipe}')
+                           ^^^^^^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\proactor_events.py", line 80, in __repr__
+      info.append(f'fd={self._sock.fileno()}')
+                        ^^^^^^^^^^^^^^^^^^^
+    File "C:\Users\Hp\AppData\Local\Programs\Python\Python312\Lib\asyncio\windows_utils.py", line 102, in fileno
+      raise ValueError("I/O operation on closed pipe")
+  ValueError: I/O operation on closed pipe
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+445 passed, 1 skipped, 6 warnings in 240.58s (0:04:00)

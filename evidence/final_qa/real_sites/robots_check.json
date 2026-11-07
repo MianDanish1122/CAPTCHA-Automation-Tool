@@ -1,0 +1,86 @@
+{
+  "checked_utc": "2026-11-07T14:40:13Z",
+  "user_agent": "TechnologyBrainz-Crawler/2.0 (authorised QA inspection; read-only; no form submission)",
+  "sites": [
+    {
+      "site": "wilton.com",
+      "expected_captcha": "reCAPTCHA",
+      "contact_page": "https://wilton.com/contact-us/",
+      "robots_url": "https://wilton.com/robots.txt",
+      "status": 403,
+      "final_url": "https://wilton.com/robots.txt",
+      "server": "cloudflare",
+      "content_type": "text/html; charset=UTF-8",
+      "challenge_header": "challenge",
+      "note": "non-200 or non-text robots response",
+      "body_start": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/htm"
+    },
+    {
+      "site": "barrett.net",
+      "expected_captcha": "invisible reCAPTCHA",
+      "contact_page": "https://barrett.net/support/contact-us/",
+      "robots_url": "https://barrett.net/robots.txt",
+      "status": 200,
+      "final_url": "https://barrett.net/robots.txt",
+      "server": "nginx",
+      "content_type": "text/plain; charset=utf-8",
+      "challenge_header": null,
+      "can_fetch_contact_for_our_agent": true,
+      "can_fetch_contact_for_*": true,
+      "disallow_lines_for_*": [
+        "Disallow: /wp-content/uploads/wc-logs/",
+        "Disallow: /wp-content/uploads/woocommerce_transient_files/",
+        "Disallow: /wp-content/uploads/woocommerce_uploads/",
+        "Disallow: /*?add-to-cart=",
+        "Disallow: /*?*add-to-cart=",
+        "Disallow: /wp-admin/"
+      ],
+      "mentions_our_agent": false,
+      "crawl_delay": null
+    },
+    {
+      "site": "bigfrog.com",
+      "expected_captcha": "hCaptcha",
+      "contact_page": "https://www.bigfrog.com/contact-us/",
+      "robots_url": "https://www.bigfrog.com/robots.txt",
+      "status": 200,
+      "final_url": "https://www.bigfrog.com/robots.txt",
+      "server": "cloudflare",
+      "content_type": "text/plain",
+      "challenge_header": null,
+      "can_fetch_contact_for_our_agent": true,
+      "can_fetch_contact_for_*": true,
+      "disallow_lines_for_*": [
+        "Disallow: ",
+        "Disallow: /tag/",
+        "Disallow: /category/",
+        "Disallow: /author/"
+      ],
+      "mentions_our_agent": false,
+      "crawl_delay": null
+    },
+    {
+      "site": "breadtopia.com",
+      "expected_captcha": "Turnstile",
+      "contact_page": "https://breadtopia.com/contact/",
+      "robots_url": "https://breadtopia.com/robots.txt",
+      "status": 200,
+      "final_url": "https://breadtopia.com/robots.txt",
+      "server": "cloudflare",
+      "content_type": "text/plain",
+      "challenge_header": null,
+      "can_fetch_contact_for_our_agent": true,
+      "can_fetch_contact_for_*": true,
+      "disallow_lines_for_*": [
+        "Disallow: /wishlist*",
+        "Disallow: /my-lists*",
+        "Disallow: /cgi-breadtopia*",
+        "Disallow: /xmlrpc",
+        "Disallow: /local-customer",
+        "Disallow: /wp-admin/"
+      ],
+      "mentions_our_agent": false,
+      "crawl_delay": null
+    }
+  ]
+}

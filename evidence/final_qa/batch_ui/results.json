@@ -1,0 +1,85 @@
+{
+  "checks": [
+    {
+      "check": "all 9 CSV columns reported as preserved",
+      "passed": true,
+      "detail": "Columns preserved (9): Company \u00b7 Website \u00b7 City \u00b7 State \u00b7 Category \u00b7 Platform \u00b7 Captcha \u00b7 Contact Page \u00b7 Notes (stored but not used for scanning: Notes)"
+    },
+    {
+      "check": "unmapped column 'Notes' reported as stored",
+      "passed": true,
+      "detail": "Columns preserved (9): Company \u00b7 Website \u00b7 City \u00b7 State \u00b7 Category \u00b7 Platform \u00b7 Captcha \u00b7 Contact Page \u00b7 Notes (stored but not used for scanning: Notes)"
+    },
+    {
+      "check": "invalid row (missing name) listed with its row number",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "unrecognised Captcha value produces a warning",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "6 valid rows scanned and listed",
+      "passed": true,
+      "detail": "6"
+    },
+    {
+      "check": "evaluation categories as expected (3 match, 1 mismatch, 1 not accessible, 1 not verified)",
+      "passed": true,
+      "detail": "{'match': 3, 'mismatch': 1, 'not_detected': 0, 'not_accessible': 1, 'not_verified': 1}"
+    },
+    {
+      "check": "agreement computed over eligible records only, with sample size stated",
+      "passed": true,
+      "detail": "Agreement: 75% over 4 eligible record(s) of 6. Agreement is computed over 4 eligible inspected record(s) out of 6 total. This sample is too small to estimate accuracy statistically; treat it as a demonstration, not a benchmark. Not accessible and Not verified records are excluded from the percentage"
+    },
+    {
+      "check": "evaluation table has the requested columns",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "formula-looking company name is shown as text, not executed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "details modal opens with robots/widget/result summary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "evaluation CSV downloads with the session token",
+      "passed": true,
+      "detail": "expected_vs_detected_94eac211.csv"
+    },
+    {
+      "check": "downloaded evaluation CSV has no live formula cells",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "evaluation Markdown downloads with the session token",
+      "passed": true,
+      "detail": "expected_vs_detected_94eac211.md"
+    },
+    {
+      "check": "batch audit report downloads (authenticated) with new columns",
+      "passed": true,
+      "detail": "captcha_audit_report_94eac211.csv"
+    },
+    {
+      "check": "Reports page 'Export CSV' downloads a file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no browser console errors",
+      "passed": true,
+      "detail": "[]"
+    }
+  ],
+  "console_errors": []
+}

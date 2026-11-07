@@ -44,3 +44,14 @@ Machine time for the whole sequence in the rehearsal was 69–86 s; the rest is 
 - Do not say 99.3% "accuracy" without "on the project's own synthetic generator".
 - Do not describe test-key results as "real verification".
 - Do not open the credentials file, `.env`, a terminal showing your Windows profile path, or the browser's saved-password list.
+
+## Real-world QA addendum (add ~60-75 s; keep the total within 5 minutes by trimming narration elsewhere)
+
+Show on the **CSV Batch Manager** page, using the prepared local fixtures CSV (`tests/e2e_realworld_batch_ui.py` contains the exact layout) - not live third-party sites.
+
+1. **Upload the employer-layout CSV** (Company, Website, City, State, Category, Platform, Captcha, Contact Page + an extra column). Point at "Columns preserved (9)", the invalid-row table and the warning. Say: "every column is kept; bad rows are reported, not dropped."
+2. **Start the scan.** Say: "the batch uses the same detection engine as the single-site crawler, checks robots.txt first, and goes straight to the CSV's contact page."
+3. **Expected vs detected card.** Say: "Match, mismatch, not detected, not accessible, not verified. The percentage counts only inspected rows that have an expected value, and the sample size is stated. Not accessible rows are never counted as wrong."
+4. **Open Details on one row.** Show robots status, widget state and the screenshot. Say: "a person completes any CAPTCHA; the system never solves or submits anything."
+5. **Download the CSV report.** Say: "cells that start with = + - or @ are neutralised so a spreadsheet cannot run them."
+6. **If you mention real websites**, say exactly: "On two approved real sites the tool identified invisible reCAPTCHA and Cloudflare Turnstile and filled the form with fake data under a no-network lockdown, without submitting; two other sites blocked automated access and were reported as not accessible. That is a demonstration, not an accuracy figure."

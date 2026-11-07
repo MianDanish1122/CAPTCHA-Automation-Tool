@@ -119,6 +119,13 @@ class Settings:
     # Resource Protection Limits
     REQUEST_TIMEOUT_MS: int = int(os.getenv("REQUEST_TIMEOUT_MS", "15000"))
     MAX_CONCURRENT_PAGES: int = int(os.getenv("MAX_CONCURRENT_PAGES", "3"))
+    # Politeness: minimum seconds between two requests/inspections of the SAME external host (loopback exempt)
+    # Fill discovered forms with SYNTHETIC data under a no-transmission lockdown (never submits). Off by default.
+    BATCH_PROBE_FORMS: bool = os.getenv("BATCH_PROBE_FORMS", "false").lower() in ("1", "true", "yes")
+    BATCH_MIN_HOST_INTERVAL_S: float = float(os.getenv("BATCH_MIN_HOST_INTERVAL_S", "5"))
+    # Seconds to wait for JS-rendered CAPTCHA widgets per page (bounded)
+    DETECTION_SETTLE_MS: int = int(os.getenv("DETECTION_SETTLE_MS", "6000"))
+    DETECTION_EVIDENCE_WAIT_MS: int = int(os.getenv("DETECTION_EVIDENCE_WAIT_MS", "4000"))
     MAX_CSV_ROWS: int = int(os.getenv("MAX_CSV_ROWS", "300"))
     MAX_CSV_SIZE_BYTES: int = int(os.getenv("MAX_CSV_SIZE_BYTES", str(5 * 1024 * 1024)))
 

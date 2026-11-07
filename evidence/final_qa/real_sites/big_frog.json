@@ -1,0 +1,37 @@
+{
+  "company": "Big Frog",
+  "website": "https://bigfrog.com",
+  "csv_contact_page": "https://www.bigfrog.com/contact-us/",
+  "csv_expected": "hCaptcha",
+  "csv_expected_normalised": "hcaptcha",
+  "visited_at": "2026-11-07 20:22:04",
+  "result_category": "not_accessible",
+  "reason": "The page could not be inspected (error, access restriction or bot challenge).",
+  "subtype_agreement": "n/a",
+  "inspection": {
+    "success": false,
+    "scan_status": "failed",
+    "error": "HTTP 403 from the website",
+    "error_details": "HTTP 403 from the website",
+    "detected_providers": [],
+    "page_title": null,
+    "contact_page_url": null,
+    "contact_form_found": false,
+    "captcha_detected": false,
+    "captcha_provider": null,
+    "detection_method": "http_error",
+    "is_active_challenge": false,
+    "human_review_required": false,
+    "inspection_duration_ms": 3855.13,
+    "robots_status": "allowed",
+    "evidence": {
+      "robots": {
+        "robots_status": "allowed",
+        "http_status": 200,
+        "reason": "robots.txt allows this path.",
+        "robots_url": "https://www.bigfrog.com/robots.txt"
+      },
+      "csv_contact_page_http_status": 403
+    }
+  }
+}

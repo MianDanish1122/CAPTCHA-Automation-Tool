@@ -1,6 +1,6 @@
 # CAPTCHA Inspector - Evaluation Report
 
-Generated (UTC): 2026-11-07T14:02:03.646259Z  |  Range: all time
+Generated (UTC): 2026-11-07T15:47:20.158064Z  |  Range: all time
 Generated for: e2e_op7 (operator)
 
 All figures come from persisted records; denominators are stated for every block.
@@ -16,7 +16,7 @@ _Denominator: 1 pages with a CAPTCHA detected_
 
 ## OCR evaluation
 _Denominator: OCR demo/handling evaluations with a KNOWN true label (unlabelled uploads are not counted)_
-- Labelled evaluations: 2; exact match: 100.0%; mean character accuracy: 100.0%; mean latency: 52.1 ms
+- Labelled evaluations: 2; exact match: 100.0%; mean character accuracy: 100.0%; mean latency: 75.32 ms
 
 ### Held-out benchmark (latest CLI run per engine)
 - tesseract_legacy: n=300, exact 32.33%, char 78.88%, latency 327.29 ms, failures 4

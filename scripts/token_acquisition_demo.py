@@ -25,12 +25,23 @@ from app.services.token_verifier import PROVIDERS, verify_token  # noqa: E402
 
 OUT = ROOT / "evidence" / "phase7" / "verification"
 
-PAGE = """<!doctype html><html><head><title>Owned test page</title>
-<script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
-<script src="https://js.hcaptcha.com/1/api.js?render=explicit" async defer></script>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
-</head><body><h1>Owned test page (official TEST site keys)</h1>
-<div id="rc"></div><div id="hc"></div><div id="ts"></div></body></html>"""
+# One isolated page PER provider. A shared page made the providers' globals collide: hCaptcha's api.js ships a
+# reCAPTCHA-compatibility layer (recaptchacompat=on by default), so `hcaptcha.render` on the shared page produced a
+# *Google reCAPTCHA* iframe and the hCaptcha checkbox never existed (root cause of the earlier 20 s timeout).
+PAGES = {
+    "google_recaptcha": '<script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>'
+                        '<div id="rc"></div>',
+    "hcaptcha": '<script src="https://js.hcaptcha.com/1/api.js?render=explicit&recaptchacompat=off" async defer></script>'
+                '<div id="hc"></div>',
+    "cloudflare_turnstile": '<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>'
+                            '<div id="ts"></div>',
+}
+
+
+def page_for(provider: str) -> str:
+    return ("<!doctype html><html><head><title>Owned test page</title></head><body>"
+            "<h1>Owned test page (official TEST site key)</h1>" + PAGES[provider] + "</body></html>")
+
 
 TEST_SITEKEYS = {
     "google_recaptcha": "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
@@ -44,7 +55,9 @@ class _H(http.server.BaseHTTPRequestHandler):
         pass
 
     def do_GET(self):
-        data = PAGE.encode()
+        from urllib.parse import parse_qs, urlparse
+        provider = (parse_qs(urlparse(self.path).query).get("p") or ["google_recaptcha"])[0]
+        data = page_for(provider if provider in PAGES else "google_recaptcha").encode()
         self.send_response(200)
         self.send_header("Content-Type", "text/html")
         self.send_header("Content-Length", str(len(data)))
@@ -89,7 +102,7 @@ async def main() -> int:
             page = await (await browser.new_context()).new_page()
             entry = {"provider": provider, "test_site_key_used": TEST_SITEKEYS[provider]}
             try:
-                await page.goto(url, wait_until="load")
+                await page.goto(f"{url}?p={provider}", wait_until="load")
                 token = await acquire(page, provider)
                 entry["token_acquired_from_widget"] = bool(token)
                 entry["token_length"] = len(token or "")

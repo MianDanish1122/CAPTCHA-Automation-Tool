@@ -12,6 +12,8 @@ import {
   HumanReviewRecord,
   BatchJob,
   BatchResultsResponse,
+  BatchEvaluation,
+  ScanWebsite,
   CsvImportResult,
   OcrEvaluation,
   OcrBenchmarkResponse,
@@ -261,7 +263,7 @@ export const api = {
     });
   },
 
-  async scanBatch(websites: Array<{ company_name: string; website_url: string }>): Promise<{
+  async scanBatch(websites: ScanWebsite[]): Promise<{
     success: boolean;
     batch_id: string;
     status: string;
@@ -298,6 +300,38 @@ export const api = {
 
   getBatchReportUrl(batchId: string): string {
     return `${API_BASE}/api/websites/batches/${batchId}/report`;
+  },
+
+  async getBatchEvaluation(batchId: string): Promise<BatchEvaluation> {
+    return request<BatchEvaluation>(`/api/websites/batches/${batchId}/evaluation`);
+  },
+
+  // Downloads need the session token, which a plain <a href> cannot send: fetch as a blob, then save.
+  async downloadAuthenticated(path: string, filename: string): Promise<void> {
+    const headers = new Headers();
+    const token = getStoredToken();
+    if (token) headers.set('Authorization', `Bearer ${token}`);
+    const res = await fetch(`${API_BASE}${path}`, { headers });
+    if (!res.ok) throw new ApiError(res.status, 'Download failed');
+    const url = URL.createObjectURL(await res.blob());
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  },
+
+  async downloadBatchReport(batchId: string): Promise<void> {
+    return this.downloadAuthenticated(`/api/websites/batches/${batchId}/report`, `captcha_audit_report_${batchId.slice(0, 8)}.csv`);
+  },
+
+  async downloadBatchEvaluation(batchId: string, fmt: 'csv' | 'md'): Promise<void> {
+    return this.downloadAuthenticated(
+      `/api/websites/batches/${batchId}/evaluation.${fmt}`,
+      `expected_vs_detected_${batchId.slice(0, 8)}.${fmt}`
+    );
   },
 
   // OCR Laboratory

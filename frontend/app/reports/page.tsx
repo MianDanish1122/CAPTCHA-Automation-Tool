@@ -149,14 +149,13 @@ export default function ReportsPage() {
                       {b.completed_at ? new Date(b.completed_at).toLocaleString() : '-'}
                     </td>
                     <td className="py-3 px-3 text-right">
-                      <a
-                        href={api.getBatchReportUrl(b.id)}
-                        download
+                      <button
+                        onClick={() => api.downloadBatchReport(b.id).catch(() => undefined)}
                         className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-900 hover:text-white bg-slate-100 hover:bg-slate-900 px-3 py-1.5 rounded-lg transition shadow-xs"
                       >
                         <Download className="w-3.5 h-3.5" />
                         <span>Export CSV</span>
-                      </a>
+                      </button>
                     </td>
                   </tr>
                 ))}

@@ -4,74 +4,74 @@
     {
       "step": "S1 login",
       "ok": true,
-      "seconds": 4.4,
+      "seconds": 3.9,
       "detail": ""
     },
     {
       "step": "S2 evaluation dashboard: zero scans, 4 held-out engines, scope caveat on screen",
       "ok": true,
-      "seconds": 1.8,
+      "seconds": 1.7,
       "detail": "{\"denominator\": \"discovered pages created in range\", \"pages_inspected\": 0, \"pages_with_captcha\": 0, \"pages_with_captcha_pct\": null}"
     },
     {
       "step": "S3 inspect demo site via UI -> scan completed",
       "ok": true,
-      "seconds": 8.7,
+      "seconds": 21.0,
       "detail": "{\"status\": \"completed\", \"pages_crawled\": 4, \"contact_pages_found\": 1}"
     },
     {
       "step": "S3b policy refusal for http://169.254.169.254/latest/meta-data/",
       "ok": true,
-      "seconds": 2.6,
+      "seconds": 2.9,
       "detail": "HTTP 400"
     },
     {
       "step": "S3b policy refusal for https://example.com",
       "ok": true,
-      "seconds": 2.5,
+      "seconds": 2.4,
       "detail": "HTTP 400"
     },
     {
       "step": "S4 pages listed + screenshot evidence renders",
       "ok": true,
-      "seconds": 2.8,
+      "seconds": 2.9,
       "detail": "naturalWidth=1280"
     },
     {
       "step": "S5 CAPTCHA results show reCAPTCHA + human-review strategy",
       "ok": true,
-      "seconds": 3.5,
+      "seconds": 3.3,
       "detail": ""
     },
     {
       "step": "S6 human review decision recorded with identity",
       "ok": true,
-      "seconds": 4.3,
+      "seconds": 4.9,
       "detail": "demo_operator"
     },
     {
       "step": "S7a OCR page states the synthetic-generator-only scope",
       "ok": true,
-      "seconds": 1.2,
+      "seconds": 1.1,
       "detail": ""
     },
     {
       "step": "S7b single OCR evaluation stored with true label",
       "ok": true,
-      "seconds": 3.8,
+      "seconds": 3.9,
       "detail": "1"
     },
     {
       "step": "S7 benchmark hybrid: 50 held-out-split samples",
       "ok": true,
-      "seconds": 2.7,
-      "detail": "exact=100.0% char=100.0% latency=7.9ms"
+      "seconds": 2.8,
+      "detail": "exact=100.0% char=100.0% latency=8.06ms"
     },
     {
       "step": "S7 benchmark legacy: 50 held-out-split samples",
       "ok": true,
-      "seconds": 16.2,
-      "detail": "exact=20.0% char=70.88% latency=281.85ms"
+      "seconds": 17.9,
+      "detail": "exact=20.0% char=70.88% latency=316.7ms"
     },
     {
       "step": "S7 hybrid clearly beats legacy on the same 50 samples",
@@ -82,13 +82,13 @@
     {
       "step": "S8 verification: recaptcha_test_key",
       "ok": true,
-      "seconds": 2.9,
+      "seconds": 4.3,
       "detail": "PROVIDER \u2013 OFFICIAL TEST KEYS CONFIRMED BY PROVIDER verified  The real provider endpoint answered, but test keys accept/reject any token by design. This shows t"
     },
     {
       "step": "S8 verification: turnstile_already_spent",
       "ok": true,
-      "seconds": 2.5,
+      "seconds": 2.2,
       "detail": "PROVIDER \u2013 OFFICIAL TEST KEYS NOT VERIFIED rejected_timeout_or_duplicate  The real provider endpoint answered, but test keys accept/reject any token by design. "
     },
     {
@@ -106,17 +106,17 @@
     {
       "step": "S9 dashboard + report reflect the demo run",
       "ok": true,
-      "seconds": 2.3,
+      "seconds": 3.8,
       "detail": "{\"scans\": 1, \"verif\": 4}"
     },
     {
       "step": "S9b Settings page + API expose no local paths (evidence/, tesseract only)",
       "ok": true,
-      "seconds": 3.5,
+      "seconds": 3.0,
       "detail": "{\"evidence_dir\": \"evidence/\", \"tesseract_cmd\": \"tesseract\", \"reports_dir\": \"reports/\"}"
     }
   ],
-  "total_seconds": 68.8,
+  "total_seconds": 85.1,
   "leak_findings": [],
   "console_errors": [],
   "failed_requests": [],

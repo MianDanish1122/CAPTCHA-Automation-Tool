@@ -38,6 +38,7 @@ import httpx
 
 from app.config import settings
 from app.services.security_guard import SecurityGuard
+from app.services.provider_hosts import is_provider_resource
 
 logger = logging.getLogger(__name__)
 
@@ -59,9 +60,18 @@ class NetworkGuard:
         allow_loopback: bool = False,
         block_all_network: bool = False,
         label: str = "scan",
+        provider_resources: bool = False,
+        read_only: bool = False,
     ):
         self.allow_loopback = bool(allow_loopback and settings.can_allow_loopback)
         self.block_all_network = block_all_network
+        # Narrow policy: allow GET/HEAD to the CAPTCHA providers' widget hosts (provider_hosts.py)
+        self.provider_resources = provider_resources
+        # No-transmission policy: abort every request whose method is not GET/HEAD
+        self.read_only = read_only
+        # Lockdown: once set, EVERY request (any method, any host) is aborted. Used while filling forms.
+        self.locked = False
+        self.provider_requests: list[str] = []
         self.label = label
         self.blocked: list[dict[str, Any]] = []
         self.errors: list[dict[str, Any]] = []
@@ -97,35 +107,52 @@ class NetworkGuard:
             logger.debug("route_web_socket unavailable; relying on CSP-less fallback")
 
     # ------------------------------------------------------------------ helpers
+    def lock(self) -> None:
+        """Cut the network: from now on every request is aborted (no-transmission mode)."""
+        self.locked = True
+
+    def unlock(self) -> None:
+        self.locked = False
+
     def _block(self, url: str, reason: str) -> None:
         logger.warning("NetworkGuard[%s] blocked %s: %s", self.label, url[:200], reason)
         self.blocked.append({"url": url[:500], "reason": reason})
 
-    async def _validate(self, url: str, redirected_from: Optional[str]) -> tuple[list[str], str]:
+    async def _validate(
+        self, url: str, redirected_from: Optional[str], method: str = "GET"
+    ) -> tuple[list[str], str]:
         parsed = urlparse(url)
         if parsed.scheme.lower() not in ("http", "https"):
             return [], f"Non-HTTP(S) scheme '{parsed.scheme}' is prohibited."
 
+        provider_ok = self.provider_resources and is_provider_resource(url, method)
         allowed, reason = await asyncio.to_thread(
             SecurityGuard.validate_target_url,
             url,
             False,
             self.allow_loopback,
+            provider_ok,  # skip_domain_allowlist: ONLY for exact provider widget resources
         )
         if not allowed:
             return [], reason
 
         if redirected_from:
-            ok, why = await asyncio.to_thread(
-                SecurityGuard.validate_redirect_url,
-                url,
-                redirected_from,
-                False,
-                self.allow_loopback,
-                True,
-            )
-            if not ok:
-                return [], why
+            # provider -> provider hops (e.g. recaptcha.net -> google.com) are permitted; all other hops
+            # must stay on the same site (apex/www counts as the same site).
+            prev_provider = self.provider_resources and is_provider_resource(redirected_from, "GET")
+            if not (provider_ok and prev_provider):
+                ok, why = await asyncio.to_thread(
+                    SecurityGuard.validate_redirect_url,
+                    url,
+                    redirected_from,
+                    False,
+                    self.allow_loopback,
+                    True,
+                )
+                if not ok:
+                    return [], why
+        if provider_ok:
+            self.provider_requests.append(url[:300])
 
         port = parsed.port or (443 if parsed.scheme.lower() == "https" else 80)
         ips, why = await asyncio.to_thread(
@@ -206,7 +233,7 @@ class NetworkGuard:
         previous: Optional[str] = None
 
         for _hop in range(MAX_REDIRECT_HOPS + 1):
-            ips, reason = await self._validate(url, previous)
+            ips, reason = await self._validate(url, previous, method)
             if not ips:
                 return None, url, reason
 
@@ -230,6 +257,15 @@ class NetworkGuard:
         try:
             if self.block_all_network:
                 self._block(url, "Network access is disabled for this inspection mode.")
+                await route.abort("blockedbyclient")
+                return
+
+            if self.locked:
+                self._block(url, "Network locked (no-transmission mode): all requests are aborted.")
+                await route.abort("blockedbyclient")
+                return
+            if self.read_only and request.method.upper() not in ("GET", "HEAD"):
+                self._block(url, f"{request.method} blocked: read-only inspection never transmits data.")
                 await route.abort("blockedbyclient")
                 return
 
@@ -260,6 +296,7 @@ class NetworkGuard:
         return {
             "allowed_requests": self.allowed_count,
             "blocked_requests": list(self.blocked),
+            "provider_requests": list(self.provider_requests),
             "errors": list(self.errors),
         }
 

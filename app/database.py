@@ -30,7 +30,16 @@ _ADDITIVE_COLUMNS = {
         ("entry_hash", "VARCHAR(64)"),
         ("key_id", "VARCHAR(16)"),
     ],
+    "website_inspections": [
+        ("source_row", "TEXT"), ("expected_captcha_raw", "VARCHAR(128)"), ("expected_captcha", "VARCHAR(40)"),
+        ("expected_contact_page", "VARCHAR(1024)"), ("platform", "VARCHAR(128)"), ("city", "VARCHAR(128)"),
+        ("state", "VARCHAR(64)"), ("category", "VARCHAR(128)"), ("captcha_subtype", "VARCHAR(40)"),
+        ("widget_state", "VARCHAR(24)"), ("widget_loaded", "BOOLEAN DEFAULT 0"), ("result_category", "VARCHAR(24)"),
+        ("robots_status", "VARCHAR(24)"), ("form_probe", "TEXT"), ("evidence", "TEXT"),
+        ("screenshot_path", "VARCHAR(512)"),
+    ],
     "human_reviews": [
+        ("inspection_id", "VARCHAR(36)"),
         ("reviewed_by_id", "VARCHAR(36)"),
         ("reviewed_by_username", "VARCHAR(64)"),
         ("decision_count", "INTEGER NOT NULL DEFAULT 0"),

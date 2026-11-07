@@ -16,6 +16,16 @@ from sqlalchemy.orm import declarative_base, relationship
 Base = declarative_base()
 
 
+def _loads(value):
+    """Parse a stored JSON text column; None / invalid text -> None (never raises into an API response)."""
+    if not value:
+        return None
+    try:
+        return json.loads(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def generate_uuid() -> str:
     return str(uuid.uuid4())
 
@@ -49,6 +59,7 @@ class BatchJob(Base):
 
     def to_dict(self) -> dict:
         return {
+            "id": self.id,          # the frontend (batch + reports pages) reads `id`; `batch_id` kept for API clients
             "batch_id": self.id,
             "status": self.status,
             "total_records": self.total_records,
@@ -57,6 +68,8 @@ class BatchJob(Base):
             "failed_records": self.failed_records,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
+            "completed_at": (self.updated_at.isoformat() if self.updated_at else None)
+                            if self.status in ("completed", "failed") else None,
         }
 
 
@@ -85,6 +98,24 @@ class WebsiteInspection(Base):
     error_details = Column(Text, nullable=True)
     inspection_duration_ms = Column(Float, default=0.0)
 
+    # ---- real-world QA additions (all nullable / defaulted; see migration 8a01realworldqa) ----
+    source_row = Column(Text, nullable=True)            # JSON: the ORIGINAL CSV row, every column preserved
+    expected_captcha_raw = Column(String(128), nullable=True)   # the CSV "Captcha" cell as written
+    expected_captcha = Column(String(40), nullable=True)        # normalised label (recaptcha_v2, none, ...)
+    expected_contact_page = Column(String(1024), nullable=True) # CSV "Contact Page" URL
+    platform = Column(String(128), nullable=True)
+    city = Column(String(128), nullable=True)
+    state = Column(String(64), nullable=True)
+    category = Column(String(128), nullable=True)
+    captcha_subtype = Column(String(40), nullable=True)
+    widget_state = Column(String(24), nullable=True)
+    widget_loaded = Column(Boolean, default=False)
+    result_category = Column(String(24), nullable=True, index=True)  # match|mismatch|not_detected|not_accessible|not_verified
+    robots_status = Column(String(24), nullable=True)           # allowed|disallowed|unavailable|blocked_by_challenge
+    form_probe = Column(Text, nullable=True)            # JSON: field inventory (no values, no tokens)
+    evidence = Column(Text, nullable=True)              # JSON: blocked resources, provider requests, settle timing
+    screenshot_path = Column(String(512), nullable=True)
+
     created_at = Column(DateTime, default=utc_now)
 
     batch = relationship("BatchJob", back_populates="inspections")
@@ -106,6 +137,22 @@ class WebsiteInspection(Base):
             "human_review_required": self.human_review_required,
             "error_details": self.error_details,
             "inspection_duration_ms": round(self.inspection_duration_ms, 2),
+            "expected_captcha": self.expected_captcha,
+            "expected_captcha_raw": self.expected_captcha_raw,
+            "expected_contact_page": self.expected_contact_page,
+            "platform": self.platform,
+            "city": self.city,
+            "state": self.state,
+            "category": self.category,
+            "captcha_subtype": self.captcha_subtype,
+            "widget_state": self.widget_state,
+            "widget_loaded": bool(self.widget_loaded),
+            "result_category": self.result_category,
+            "robots_status": self.robots_status,
+            "screenshot_path": self.screenshot_path,
+            "evidence": _loads(self.evidence),
+            "form_probe": _loads(self.form_probe),
+            "source_row": _loads(self.source_row),
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
 
@@ -243,11 +290,14 @@ class HumanReviewRecord(Base):
     reviewed_by_id = Column(String(36), nullable=True)
     reviewed_by_username = Column(String(64), nullable=True)
     decision_count = Column(Integer, default=0, nullable=False, server_default="0")
+    # batch workflow link (the single-site crawler uses scan_id)
+    inspection_id = Column(String(36), nullable=True, index=True)
 
     def to_dict(self) -> dict:
         return {
             "id": self.id,
             "scan_id": self.scan_id,
+            "inspection_id": self.inspection_id,
             "page_url": self.page_url,
             "captcha_provider": self.captcha_provider,
             "challenge_type": self.challenge_type,
