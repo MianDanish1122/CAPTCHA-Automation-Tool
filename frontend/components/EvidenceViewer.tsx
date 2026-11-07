@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import { Badge } from './Badge';
 import { ExternalLink, Copy, Check, Image as ImageIcon, Code, ShieldCheck } from 'lucide-react';
@@ -25,7 +25,36 @@ export function EvidenceViewer({
   const [activeTab, setActiveTab] = useState<'screenshot' | 'tokens' | 'raw'>('screenshot');
   const [copied, setCopied] = useState(false);
 
-  const screenshotUrl = api.getScreenshotUrl(screenshotPath || null);
+  const screenshotApiPath = api.getScreenshotUrl(screenshotPath || null);
+  const [screenshotUrl, setScreenshotUrl] = useState<string | null>(null);
+  const [screenshotFailed, setScreenshotFailed] = useState(false);
+
+  // Screenshots require an authenticated request, so load them as a blob (never a public URL).
+  useEffect(() => {
+    let objectUrl: string | null = null;
+    let cancelled = false;
+    setScreenshotUrl(null);
+    setScreenshotFailed(false);
+    if (screenshotApiPath) {
+      api
+        .fetchEvidenceObjectUrl(screenshotApiPath)
+        .then((url) => {
+          if (cancelled) {
+            URL.revokeObjectURL(url);
+          } else {
+            objectUrl = url;
+            setScreenshotUrl(url);
+          }
+        })
+        .catch(() => {
+          if (!cancelled) setScreenshotFailed(true);
+        });
+    }
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }, [screenshotApiPath]);
 
   const copyRawJson = () => {
     navigator.clipboard.writeText(JSON.stringify(evidence || {}, null, 2));
@@ -119,24 +148,23 @@ export function EvidenceViewer({
       {/* Tab Panels */}
       {activeTab === 'screenshot' && (
         <div className="space-y-2">
-          {screenshotUrl ? (
+          {screenshotApiPath && screenshotFailed ? (
+            <div className="border border-slate-200 rounded-xl p-8 text-center text-slate-400 bg-slate-900">
+              <p className="text-sm font-medium">Screenshot not available</p>
+              <p className="text-xs text-slate-500 mt-1 font-mono">{screenshotPath}</p>
+            </div>
+          ) : screenshotUrl ? (
             <div className="border border-slate-200 rounded-xl overflow-hidden bg-slate-900 flex items-center justify-center p-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={screenshotUrl}
                 alt="Page inspection screenshot"
                 className="max-h-[420px] w-auto object-contain rounded shadow-lg"
-                onError={(e) => {
-                  const target = e.currentTarget;
-                  target.style.display = 'none';
-                  target.parentElement!.innerHTML = `
-                    <div class="p-8 text-center text-slate-400">
-                      <p class="text-sm font-medium">Screenshot file not reachable</p>
-                      <p class="text-xs text-slate-500 mt-1 font-mono">${screenshotPath}</p>
-                    </div>
-                  `;
-                }}
               />
+            </div>
+          ) : screenshotApiPath ? (
+            <div className="border border-slate-200 rounded-xl p-8 text-center text-slate-400 bg-slate-900 text-sm">
+              Loading screenshot…
             </div>
           ) : (
             <div className="border border-dashed border-slate-300 rounded-xl p-12 text-center text-slate-400">

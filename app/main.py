@@ -1,17 +1,22 @@
+import os
 import sys
 import asyncio
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
 from app.database import init_db
-from app.models import generate_uuid
+from app.models import User, generate_uuid
 from app.routes.auth import router as auth_router
 from app.routes.websites import router as websites_router
 from app.routes.captcha import router as captcha_router
+from app.routes.evidence import router as evidence_router
+from app.services.audit import sanitize_request_id
+from app.services.auth_service import require_operator
 from app.services.browser_scanner import close_shared_browser
+from app.services.input_limits import BodySizeLimitMiddleware
+from app.services.job_manager import job_manager
 
 # On Windows, ensure ProactorEventLoop is configured for child process transports
 if sys.platform == "win32":
@@ -25,7 +30,8 @@ async def lifespan(app: FastAPI):
     # Initialize Database
     init_db()
     yield
-    # Shutdown: Safely terminate shared Playwright browser
+    # Shutdown: stop background jobs, then safely terminate shared Playwright browser
+    await job_manager.shutdown()
     await close_shared_browser()
 
 
@@ -39,12 +45,22 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Correlation ID Middleware for request tracking & audit logs
+# Request body size limits (JSON and multipart, including chunked uploads)
+app.add_middleware(BodySizeLimitMiddleware)
+
+
+# Correlation ID + baseline security headers
 @app.middleware("http")
 async def correlation_id_middleware(request: Request, call_next):
-    request_id = request.headers.get("X-Request-ID") or generate_uuid()
+    # Client-supplied IDs are accepted only if short and boring (log-injection defence)
+    request_id = sanitize_request_id(request.headers.get("X-Request-ID")) or generate_uuid()
     response = await call_next(request)
     response.headers["X-Request-ID"] = request_id
+    response.headers.setdefault("X-Content-Type-Options", "nosniff")
+    response.headers.setdefault("X-Frame-Options", "DENY")
+    response.headers.setdefault("Referrer-Policy", "no-referrer")
+    if request.url.path.startswith("/api/"):
+        response.headers.setdefault("Cache-Control", "no-store")
     return response
 
 
@@ -54,16 +70,14 @@ app.add_middleware(
     allow_origins=settings.CORS_ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    allow_headers=["Authorization", "Content-Type", "X-Request-ID", "Accept"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID", "Accept", "X-Setup-Token"],
 )
 
 # Include Routers
 app.include_router(auth_router)
 app.include_router(websites_router)
 app.include_router(captcha_router)
-
-# Mount static evidence directory for screenshots
-app.mount("/evidence", StaticFiles(directory=str(settings.EVIDENCE_DIR)), name="evidence")
+app.include_router(evidence_router)  # authenticated; replaces the former public /evidence mount
 
 
 @app.get("/")
@@ -72,8 +86,6 @@ async def home():
         "app": settings.APP_NAME,
         "version": "2.1.0",
         "status": "online",
-        "app_env": settings.APP_ENV,
-        "live_scan_enabled": settings.ENABLE_LIVE_SCAN,
         "docs_url": "/docs",
     }
 
@@ -81,7 +93,13 @@ async def home():
 @app.get("/health")
 @app.get("/api/health")
 async def health_check():
-    import os
+    """Public liveness probe: deliberately reveals nothing about configuration."""
+    return {"status": "healthy"}
+
+
+@app.get("/api/health/details")
+async def health_details(current_user: User = Depends(require_operator)):
+    """Authenticated diagnostics (configuration-dependent details live here, not on /health)."""
     tesseract_exists = os.path.exists(settings.TESSERACT_CMD)
     return {
         "status": "healthy",
@@ -94,4 +112,5 @@ async def health_check():
         "tesseract_installed": tesseract_exists,
         "live_scan_enabled": settings.ENABLE_LIVE_SCAN,
         "allowed_domains": settings.ALLOWED_DOMAINS,
+        "active_background_jobs": job_manager.active(),
     }

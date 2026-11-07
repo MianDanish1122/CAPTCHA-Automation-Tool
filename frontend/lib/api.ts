@@ -136,7 +136,12 @@ export const api = {
 
   // Health and System Diagnostics
   async getHealth(): Promise<HealthResponse> {
-    return request<HealthResponse>('/health');
+    // Detailed diagnostics require a session; the public /health probe reveals only liveness.
+    try {
+      return await request<HealthResponse>('/api/health/details');
+    } catch {
+      return request<HealthResponse>('/health');
+    }
   },
 
   async getSettings(): Promise<SystemSettings> {
@@ -406,11 +411,25 @@ export const api = {
     });
   },
 
-  // Helper to format evidence/screenshot URL
+  // Evidence is served only to authenticated sessions, so an <img src> cannot load it directly.
+  // Returns the API path for a stored relative path ("evidence/scans/<id>/<file>.png").
   getScreenshotUrl(relPath: string | null): string | null {
     if (!relPath) return null;
-    if (relPath.startsWith('http://') || relPath.startsWith('https://')) return relPath;
-    const cleanPath = relPath.startsWith('/') ? relPath.slice(1) : relPath;
-    return `${API_BASE}/${cleanPath}`;
+    if (relPath.startsWith('http://') || relPath.startsWith('https://')) return null;
+    let clean = relPath.startsWith('/') ? relPath.slice(1) : relPath;
+    if (clean.startsWith('evidence/')) clean = clean.slice('evidence/'.length);
+    return `/api/evidence/${clean}`;
+  },
+
+  // Fetch a screenshot with the session token and return a temporary object URL.
+  async fetchEvidenceObjectUrl(apiPath: string): Promise<string> {
+    const headers = new Headers();
+    const token = getStoredToken();
+    if (token) headers.set('Authorization', `Bearer ${token}`);
+    const response = await fetch(`${API_BASE}${apiPath}`, { headers });
+    if (!response.ok) {
+      throw new ApiError(response.status, 'Evidence not available');
+    }
+    return URL.createObjectURL(await response.blob());
   },
 };
