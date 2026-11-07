@@ -76,3 +76,12 @@ def auto_inject_auth_headers(monkeypatch):
         return orig_request(self, method, url, *args, **kwargs)
 
     monkeypatch.setattr(TestClient, "request", authenticated_request)
+
+
+@pytest.fixture(autouse=True)
+def reset_rate_limiter_and_jobs():
+    """Isolate tests from each other's rate-limit buckets."""
+    from app.services.rate_limiter import limiter
+    limiter.reset()
+    yield
+    limiter.reset()
