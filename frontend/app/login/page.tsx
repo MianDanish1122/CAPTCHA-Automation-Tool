@@ -62,7 +62,7 @@ function LoginForm() {
           </p>
           <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs text-slate-300 font-mono">
             <Lock className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Phase 5 Security-Hardened</span>
+            <span>Security-Hardened</span>
           </div>
         </div>
 

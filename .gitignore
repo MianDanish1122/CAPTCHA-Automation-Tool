@@ -65,3 +65,6 @@ frontend/out/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Demo environment (random demo accounts + demo database)
+demo_runtime/

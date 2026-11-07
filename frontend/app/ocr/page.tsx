@@ -107,7 +107,7 @@ export default function OcrPage() {
         </h1>
         <p className="mt-1 text-xs text-slate-300 max-w-3xl leading-relaxed">
           Test synthetic text distortion recognition using OpenCV filters (Bilateral Smoothing, Otsu
-          Adaptive Binarization, Morphological Opening) coupled with Tesseract LSTM OCR.
+          Adaptive Binarization, Morphological Opening), the custom glyph model and Tesseract LSTM OCR.
           Audited for owned/synthetic challenges only.
         </p>
       </div>
@@ -273,7 +273,7 @@ export default function OcrPage() {
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 uppercase tracking-wider block">
-                      Tesseract OCR Prediction
+                      OCR Prediction
                     </span>
                     <span
                       className={`text-xl font-mono font-bold tracking-wider ${
@@ -287,7 +287,7 @@ export default function OcrPage() {
 
                 <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400 font-mono">
                   <span>Engine: {demoResult.ocr_engine}</span>
-                  <span>Confidence: {Math.round(demoResult.confidence * 100)}%</span>
+                  <span>Confidence: {Number(demoResult.confidence).toFixed(1)}% (engine-reported)</span>
                 </div>
               </div>
             </div>
@@ -306,7 +306,7 @@ export default function OcrPage() {
       {/* Benchmark Suite Section */}
       <Card
         title="Automated Synthetic Benchmark Suite"
-        subtitle="Evaluate an engine on the committed, labelled synthetic dataset (same samples every run; results are stored)"
+        subtitle="Scope: this project's OWN synthetic CAPTCHA generator only (not reCAPTCHA, hCaptcha, Turnstile or any other CAPTCHA family). Same labelled samples every run; results are stored."
         action={
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1.5 text-xs text-slate-600">

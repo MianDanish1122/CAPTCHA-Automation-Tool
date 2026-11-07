@@ -1,3 +1,5 @@
+> **Superseded** by `docs/DEMO_VIDEO_SCRIPT.md`, `docs/DEMO_RECORDING_CHECKLIST.md` and `docs/DEMO_ENVIRONMENT_GUIDE.md`. This early plan predates the security and evaluation work and contains a local file-system path; do not use it for recording.
+
 # 3–5 Minute Live Demonstration Plan
 
 This walkthrough is designed for technical interviewers and stakeholders to demonstrate the complete capabilities of the **CAPTCHA Inspection & Verification Tool**.

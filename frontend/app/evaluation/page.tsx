@@ -172,7 +172,11 @@ export default function EvaluationPage() {
               <Metric label="Mean latency" value={stats.ocr.mean_latency_ms === null ? 'n/a' : `${stats.ocr.mean_latency_ms} ms`} denom={`${stats.ocr.evaluations} labelled evaluations`} />
             </div>
             <h3 className="text-sm font-semibold text-slate-800">Held-out benchmark (latest per engine)</h3>
-            <p className="text-[11px] text-slate-500 mb-2">{stats.ocr.heldout_benchmarks.denominator}</p>
+            <p className="text-[11px] text-slate-500 mb-1">{stats.ocr.heldout_benchmarks.denominator}</p>
+            <p className="text-[11px] font-semibold text-amber-700 mb-2">
+              Scope: images from this project&apos;s own synthetic CAPTCHA generator only. These figures do not apply to
+              reCAPTCHA, hCaptcha, Turnstile or any other CAPTCHA family, which are never solved here.
+            </p>
             {Object.keys(stats.ocr.heldout_benchmarks.by_engine).length === 0 ? (
               <p className="text-sm text-slate-500">
                 No held-out results imported. Run <code>python -m scripts.ocr_benchmark evaluate</code> then <code>import-results</code>.

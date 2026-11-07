@@ -33,7 +33,9 @@ Only scan sites you are authorised to test; production CAPTCHAs are never solved
 
 ---
 
-# 3–5 minute demo video — plan and checklist
+# Demo video — plan and checklist
+
+> The current, rehearsed script is `docs/DEMO_VIDEO_SCRIPT.md` (with `DEMO_RECORDING_CHECKLIST.md` and `DEMO_ENVIRONMENT_GUIDE.md`). The summary below is the earlier outline.
 
 The assignment requires a recorded demonstration showing **success and failure cases**. Recording is a human step; this is a rehearsed script (all steps have automated evidence in `evidence/phase7/e2e/`).
 

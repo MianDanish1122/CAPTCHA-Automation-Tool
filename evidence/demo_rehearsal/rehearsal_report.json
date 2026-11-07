@@ -1,0 +1,120 @@
+{
+  "expected_policy_refusals_http_400": 2,
+  "steps": [
+    {
+      "step": "S1 login",
+      "ok": true,
+      "seconds": 5.1,
+      "detail": ""
+    },
+    {
+      "step": "S2 evaluation dashboard: zero scans, 4 held-out engines, scope caveat on screen",
+      "ok": true,
+      "seconds": 2.0,
+      "detail": "{\"denominator\": \"discovered pages created in range\", \"pages_inspected\": 0, \"pages_with_captcha\": 0, \"pages_with_captcha_pct\": null}"
+    },
+    {
+      "step": "S3 inspect demo site via UI -> scan completed",
+      "ok": true,
+      "seconds": 10.4,
+      "detail": "{\"status\": \"completed\", \"pages_crawled\": 4, \"contact_pages_found\": 1}"
+    },
+    {
+      "step": "S3b policy refusal for http://169.254.169.254/latest/meta-data/",
+      "ok": true,
+      "seconds": 3.0,
+      "detail": "HTTP 400"
+    },
+    {
+      "step": "S3b policy refusal for https://example.com",
+      "ok": true,
+      "seconds": 3.0,
+      "detail": "HTTP 400"
+    },
+    {
+      "step": "S4 pages listed + screenshot evidence renders",
+      "ok": true,
+      "seconds": 3.5,
+      "detail": "naturalWidth=1280"
+    },
+    {
+      "step": "S5 CAPTCHA results show reCAPTCHA + human-review strategy",
+      "ok": true,
+      "seconds": 3.3,
+      "detail": ""
+    },
+    {
+      "step": "S6 human review decision recorded with identity",
+      "ok": true,
+      "seconds": 4.4,
+      "detail": "demo_operator"
+    },
+    {
+      "step": "S7a OCR page states the synthetic-generator-only scope",
+      "ok": true,
+      "seconds": 0.9,
+      "detail": ""
+    },
+    {
+      "step": "S7b single OCR evaluation stored with true label",
+      "ok": true,
+      "seconds": 4.0,
+      "detail": "1"
+    },
+    {
+      "step": "S7 benchmark hybrid: 50 held-out-split samples",
+      "ok": true,
+      "seconds": 5.6,
+      "detail": "exact=100.0% char=100.0% latency=6.04ms"
+    },
+    {
+      "step": "S7 benchmark legacy: 50 held-out-split samples",
+      "ok": true,
+      "seconds": 22.4,
+      "detail": "exact=20.0% char=70.88% latency=407.33ms"
+    },
+    {
+      "step": "S7 hybrid clearly beats legacy on the same 50 samples",
+      "ok": true,
+      "seconds": 0.0,
+      "detail": "50/50 vs 10/50"
+    },
+    {
+      "step": "S8 verification: recaptcha_test_key",
+      "ok": true,
+      "seconds": 3.4,
+      "detail": "PROVIDER \u2013 OFFICIAL TEST KEYS CONFIRMED BY PROVIDER verified  The real provider endpoint answered, but test keys accept/reject any token by design. This shows t"
+    },
+    {
+      "step": "S8 verification: turnstile_already_spent",
+      "ok": true,
+      "seconds": 2.9,
+      "detail": "PROVIDER \u2013 OFFICIAL TEST KEYS NOT VERIFIED rejected_timeout_or_duplicate  The real provider endpoint answered, but test keys accept/reject any token by design. "
+    },
+    {
+      "step": "S8 verification: simulated_expired",
+      "ok": true,
+      "seconds": 1.6,
+      "detail": "SIMULATED \u2013 NO PROVIDER CALL NOT VERIFIED rejected_timeout_or_duplicate  Generated locally to demonstrate error handling. A simulation can never succeed.  Provi"
+    },
+    {
+      "step": "S8 verification: missing_token",
+      "ok": true,
+      "seconds": 1.6,
+      "detail": "LOCAL VALIDATION \u2013 REJECTED BEFORE PROVIDER NOT VERIFIED rejected_missing_token  The request was rejected by the server without contacting the provider.  Provid"
+    },
+    {
+      "step": "S9 dashboard + report reflect the demo run",
+      "ok": true,
+      "seconds": 2.5,
+      "detail": "{\"scans\": 1, \"verif\": 4}"
+    }
+  ],
+  "total_seconds": 79.6,
+  "leak_findings": [],
+  "console_errors": [],
+  "failed_requests": [],
+  "http_errors": [],
+  "passed": 18,
+  "total": 18
+}
