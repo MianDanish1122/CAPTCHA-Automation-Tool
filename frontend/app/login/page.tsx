@@ -30,8 +30,9 @@ function LoginForm() {
     setLoading(true);
 
     try {
+      // Navigation to '/' is performed once by the isAuthenticated effect above
+      // (a second explicit navigation here aborted the first request).
       await login(username.trim(), password);
-      window.location.href = '/';
     } catch (err: any) {
       if (err?.status === 429) {
         setError('Rate limit exceeded: Too many failed login attempts. Please wait 60 seconds.');
