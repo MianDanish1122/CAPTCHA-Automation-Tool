@@ -13,8 +13,9 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
+/lib/
+/lib64/
+!frontend/lib/
 parts/
 sdist/
 var/
@@ -55,6 +56,11 @@ reports/captcha_audit_report_*.csv
 .vscode/
 *.swp
 *.swo
+
+# Frontend Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
 
 # OS files
 .DS_Store

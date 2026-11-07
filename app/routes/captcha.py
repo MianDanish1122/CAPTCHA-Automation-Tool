@@ -241,7 +241,7 @@ async def demonstrate_ocr(request: OCRDemoRequest, db: Session = Depends(get_db)
     evaluate Tesseract OCR extraction, and persist the evaluation record.
     """
     img_bytes, ground_truth = generate_synthetic_captcha(text=request.custom_text)
-    clean_img, _ = preprocess_captcha_image(img_bytes)
+    clean_img, clean_bytes = preprocess_captcha_image(img_bytes)
     result = run_ocr(clean_img)
 
     pred = result.get("predicted_text", "")
@@ -273,6 +273,8 @@ async def demonstrate_ocr(request: OCRDemoRequest, db: Session = Depends(get_db)
         "confidence": result.get("confidence", 0.0),
         "execution_time_ms": result.get("ocr_duration_ms", 0.0),
         "ocr_engine": result.get("ocr_engine"),
+        "image_base64": base64.b64encode(img_bytes).decode("utf-8"),
+        "preprocessed_base64": base64.b64encode(clean_bytes).decode("utf-8"),
         "methodology": {
             "synthesis": "Pillow noise lines + character rotation + salt-pepper artifacts",
             "preprocessing": "OpenCV Bilateral filter + Otsu thresholding + Morphological opening",

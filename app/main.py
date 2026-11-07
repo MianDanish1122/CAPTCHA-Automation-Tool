@@ -3,6 +3,7 @@ import asyncio
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
 from app.database import init_db
@@ -47,6 +48,9 @@ app.add_middleware(
 app.include_router(websites_router)
 app.include_router(captcha_router)
 
+# Mount static evidence directory for screenshots
+app.mount("/evidence", StaticFiles(directory=str(settings.EVIDENCE_DIR)), name="evidence")
+
 
 @app.get("/")
 async def home():
@@ -61,8 +65,16 @@ async def home():
 
 @app.get("/health")
 async def health_check():
+    import os
+    tesseract_exists = os.path.exists(settings.TESSERACT_CMD)
     return {
         "status": "healthy",
+        "service": settings.APP_NAME,
+        "version": "2.0.0",
         "database": "sqlite_connected",
-        "ocr_engine": "tesseract_ready",
+        "database_connected": True,
+        "ocr_engine": "tesseract_ready" if tesseract_exists else "tesseract_missing",
+        "tesseract_installed": tesseract_exists,
+        "live_scan_enabled": settings.ENABLE_LIVE_SCAN,
+        "allowed_domains": settings.ALLOWED_DOMAINS,
     }

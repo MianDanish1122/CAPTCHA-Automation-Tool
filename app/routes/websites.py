@@ -4,10 +4,20 @@ from pathlib import Path
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Query
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.database import get_db
-from app.models import BatchJob, WebsiteInspection, UrlScan, DiscoveredPage, generate_uuid
+from app.models import (
+    BatchJob,
+    WebsiteInspection,
+    UrlScan,
+    DiscoveredPage,
+    HumanReviewRecord,
+    CaptchaIntelligenceRecord,
+    generate_uuid,
+)
 from app.services.csv_importer import import_websites
 from app.services.browser_scanner import inspect_local_demo
 from app.services.batch_processor import create_batch
@@ -325,4 +335,127 @@ async def get_scan_results(scan_id: str, db: Session = Depends(get_db)):
         "captcha_providers": scan.to_dict()["captcha_providers"],
         "crawl_duration_ms": round(scan.crawl_duration_ms, 2) if scan.crawl_duration_ms else 0.0,
         "results": [page.to_dict() for page in pages],
+    }
+
+
+@router.get("/overview-stats")
+async def get_overview_stats(db: Session = Depends(get_db)):
+    """Summary metrics and provider distribution for the overview dashboard."""
+    total_scans = db.query(UrlScan).count()
+    total_pages = db.query(DiscoveredPage).count()
+    total_captchas = db.query(DiscoveredPage).filter(DiscoveredPage.captcha_detected == True).count()
+    pending_reviews = db.query(HumanReviewRecord).filter(HumanReviewRecord.review_status == "pending").count()
+    total_batches = db.query(BatchJob).count()
+    
+    # Provider breakdown across discovered pages
+    provider_counts = (
+        db.query(DiscoveredPage.captcha_provider, func.count(DiscoveredPage.id))
+        .filter(DiscoveredPage.captcha_detected == True)
+        .group_by(DiscoveredPage.captcha_provider)
+        .all()
+    )
+    provider_breakdown = {p or "unknown": count for p, count in provider_counts}
+
+    # Recent scans preview
+    recent_scans = db.query(UrlScan).order_by(UrlScan.created_at.desc()).limit(5).all()
+
+    return {
+        "success": True,
+        "total_scans": total_scans,
+        "total_pages": total_pages,
+        "total_captchas": total_captchas,
+        "pending_reviews": pending_reviews,
+        "total_batches": total_batches,
+        "provider_breakdown": provider_breakdown,
+        "recent_scans": [s.to_dict() for s in recent_scans],
+    }
+
+
+@router.get("/scans")
+async def list_scans(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    status: Optional[str] = Query(None),
+    db: Session = Depends(get_db)
+):
+    """List URL crawl scans with optional status filter and pagination."""
+    query = db.query(UrlScan)
+    if status:
+        query = query.filter(UrlScan.status == status)
+    total = query.count()
+    scans = query.order_by(UrlScan.created_at.desc()).offset(offset).limit(limit).all()
+    return {
+        "success": True,
+        "total": total,
+        "scans": [s.to_dict() for s in scans]
+    }
+
+
+@router.get("/batches")
+async def list_batches(
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    status: Optional[str] = Query(None),
+    db: Session = Depends(get_db)
+):
+    """List batch jobs with optional status filter and pagination."""
+    query = db.query(BatchJob)
+    if status:
+        query = query.filter(BatchJob.status == status)
+    total = query.count()
+    batches = query.order_by(BatchJob.created_at.desc()).offset(offset).limit(limit).all()
+    return {
+        "success": True,
+        "total": total,
+        "batches": [b.to_dict() for b in batches]
+    }
+
+
+@router.get("/pages")
+async def list_discovered_pages(
+    limit: int = Query(100, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+    captcha_only: bool = Query(False),
+    provider: Optional[str] = Query(None),
+    db: Session = Depends(get_db)
+):
+    """List discovered pages across scans with CAPTCHA and provider filters."""
+    query = db.query(DiscoveredPage)
+    if captcha_only:
+        query = query.filter(DiscoveredPage.captcha_detected == True)
+    if provider and provider != "all":
+        query = query.filter(DiscoveredPage.captcha_provider == provider)
+    total = query.count()
+    pages = query.order_by(DiscoveredPage.created_at.desc()).offset(offset).limit(limit).all()
+    return {
+        "success": True,
+        "total": total,
+        "pages": [p.to_dict() for p in pages]
+    }
+
+
+@router.get("/settings")
+async def get_system_settings():
+    """Diagnostic system settings and environment configuration."""
+    import os
+    tesseract_exists = os.path.exists(settings.TESSERACT_CMD)
+    return {
+        "success": True,
+        "app_name": settings.APP_NAME,
+        "app_env": settings.APP_ENV,
+        "debug": settings.DEBUG,
+        "host": settings.HOST,
+        "port": settings.PORT,
+        "enable_live_scan": settings.ENABLE_LIVE_SCAN,
+        "allowed_domains": settings.ALLOWED_DOMAINS,
+        "request_timeout_ms": settings.REQUEST_TIMEOUT_MS,
+        "max_concurrent_pages": settings.MAX_CONCURRENT_PAGES,
+        "crawler_max_pages": settings.CRAWLER_MAX_PAGES,
+        "crawler_max_depth": settings.CRAWLER_MAX_DEPTH,
+        "crawler_page_timeout_ms": settings.CRAWLER_PAGE_TIMEOUT_MS,
+        "crawler_total_timeout_sec": settings.CRAWLER_TOTAL_TIMEOUT_SEC,
+        "tesseract_cmd": settings.TESSERACT_CMD,
+        "tesseract_installed": tesseract_exists,
+        "reports_dir": str(settings.REPORTS_DIR),
+        "evidence_dir": str(settings.EVIDENCE_DIR),
     }
