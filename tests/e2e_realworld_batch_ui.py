@@ -16,7 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 FRONTEND, BACKEND = "http://localhost:3000", "http://127.0.0.1:8000"
-OUT = ROOT / "evidence" / "final_qa" / "batch_ui"
+OUT = (Path(os.environ["E2E_OUT_DIR"]) / "batch_ui") if os.environ.get("E2E_OUT_DIR") else ROOT / "evidence" / "final_qa" / "batch_ui"  # E2E_OUT_DIR keeps tracked evidence untouched
 
 CSV = (
     "Company,Website,City,State,Category,Platform,Captcha,Contact Page,Notes\n"
@@ -76,6 +76,7 @@ async def run() -> int:
         await page.fill('input[type="password"]', env("E2E_OPERATOR_PASSWORD"))
         await page.click('button[type="submit"]')
         await page.wait_for_url(f"{FRONTEND}/", timeout=20000)
+        await page.wait_for_load_state("networkidle")  # let the post-login page settle before the next hard navigation
 
         await page.goto(f"{FRONTEND}/batch", wait_until="networkidle")
         await page.set_input_files("#csvFileInput", str(csv_path))

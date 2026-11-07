@@ -366,3 +366,40 @@ def test_one_failure_does_not_stop_the_batch(site, monkeypatch, tmp_path):
     _, recs, _ = _run_rows(monkeypatch, rows, tmp_path)
     assert recs["Unreachable"].result_category == "not_accessible" and recs["Unreachable"].error_details
     assert recs["Fine"].result_category == "match"
+
+
+# ------------------------------------------------------------------ robots: rules written for OUR crawler must apply
+LONG_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+           "Chrome/128.0.0.0 Safari/537.36 TechnologyBrainz-Crawler/2.0")
+
+
+def test_robots_agents_extract_our_product_token_not_browser_tokens():
+    from app.services.robots_check import robots_agents
+    agents = robots_agents(LONG_UA)
+    assert agents[0] == "TechnologyBrainz-Crawler" and agents[-1] == LONG_UA
+    assert not {"Mozilla", "Chrome", "Safari", "AppleWebKit"} & set(agents)
+    assert robots_agents("CaptchaInspector/1.0")[0] == "CaptchaInspector"
+    assert robots_agents("plain agent") == ["plain agent"]
+
+
+def test_rules_naming_our_crawler_are_honoured_with_the_long_user_agent():
+    body = "User-agent: TechnologyBrainz-Crawler\nDisallow: /\n\nUser-agent: *\nDisallow:\n"
+    r = evaluate_robots(200, body, {}, LONG_UA, "https://s.example/contact")
+    assert r["proceed"] is False and r["robots_status"] == "disallowed"
+    # other agents are unaffected, and a wildcard-only file still allows
+    assert evaluate_robots(200, body, {}, "OtherBot/1.0", "https://s.example/contact")["proceed"]
+    assert evaluate_robots(200, "User-agent: *\nDisallow: /private\n", {}, LONG_UA, "https://s.example/contact")["proceed"]
+
+
+def test_most_restrictive_agent_wins_including_wildcard_and_mozilla_rules():
+    assert not evaluate_robots(200, "User-agent: *\nDisallow: /contact\n", {}, LONG_UA, "https://s.example/contact")["proceed"]
+    assert not evaluate_robots(200, "User-agent: Mozilla\nDisallow: /\n", {}, LONG_UA, "https://s.example/x")["proceed"]
+
+
+def test_url_crawler_uses_the_same_robots_matching():
+    import urllib.robotparser
+    from app.services.robots_check import can_fetch_all
+    rp = urllib.robotparser.RobotFileParser()
+    rp.parse(["User-agent: TechnologyBrainz-Crawler", "Disallow: /contact", "", "User-agent: *", "Disallow:"])
+    rp.modified()
+    assert can_fetch_all(rp, LONG_UA, "/contact") is False and can_fetch_all(rp, LONG_UA, "/about") is True

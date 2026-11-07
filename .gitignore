@@ -68,3 +68,4 @@ Thumbs.db
 
 # Demo environment (random demo accounts + demo database)
 demo_runtime/
+.e2e_runs/

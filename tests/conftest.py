@@ -7,6 +7,18 @@ from starlette.testclient import TestClient
 os.environ["APP_ENV"] = "test"
 os.environ["ALLOW_DEV_LOOPBACK"] = "true"
 
+# Database isolation: the suite must never read or write the development database (data/captcha_tool.db).
+# Unless the caller deliberately exports DATABASE_URL, use a throw-away SQLite file that is removed at exit.
+# (Must happen before any `app.*` import, because app.database builds its engine at import time.)
+if not os.environ.get("DATABASE_URL"):
+    import atexit
+    import shutil
+    import tempfile
+
+    _TEST_DB_DIR = tempfile.mkdtemp(prefix="captcha_pytest_db_")
+    os.environ["DATABASE_URL"] = "sqlite:///" + os.path.join(_TEST_DB_DIR, "test.db").replace("\\", "/")
+    atexit.register(shutil.rmtree, _TEST_DB_DIR, ignore_errors=True)
+
 from app.database import SessionLocal, init_db
 from app.models import User, UserRole
 from app.services.auth_service import hash_password, create_access_token

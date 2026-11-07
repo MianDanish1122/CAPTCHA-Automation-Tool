@@ -301,7 +301,7 @@ async def inspect_website(
       expected_contact_page  visit the CSV's Contact Page directly; fall back to landing-page discovery if it fails
       respect_robots         check robots.txt/access restrictions FIRST and stop (no workaround) if restricted
       evidence_dir           save a screenshot of the inspected page there (relative path returned)
-      user_agent             override the browser UA (the real-site validation sends the honest crawler UA)
+      user_agent             override the browser UA (the real-site validation sends CRAWLER_USER_AGENT)
       probe_forms            record the form field inventory and fill it with synthetic data in a no-transmission
                              lockdown (never submits, never touches a CAPTCHA)
     """

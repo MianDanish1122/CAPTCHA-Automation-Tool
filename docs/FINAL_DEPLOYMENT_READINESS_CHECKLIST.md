@@ -13,7 +13,7 @@ Nothing has been deployed, pushed or committed. Tick items before any deployment
 - [ ] `ENABLE_LIVE_SCAN=true` only with a deliberate `ALLOWED_DOMAINS` list (apex and `www.` are treated as one site).
 - [ ] `ALLOW_DEV_LOOPBACK` and fixture URLs disabled.
 - [ ] `BATCH_MIN_HOST_INTERVAL_S` ≥ 5; `BATCH_PROBE_FORMS` left `false` unless you want the synthetic fill during batch runs.
-- [ ] Decide the batch user agent (currently Chrome-like) versus the honest crawler agent.
+- [ ] Decide the user agent: the batch default is Chrome-like with no crawler token; `CRAWLER_USER_AGENT` is Chrome-like ending in `TechnologyBrainz-Crawler/2.0`. Consider a plainly self-identifying agent. robots.txt rules are matched against the `TechnologyBrainz-Crawler` token and the full string (most restrictive wins).
 
 ## Database
 - [ ] Back up, then `alembic upgrade head` (head `8a01realworldqa`, additive, idempotent).

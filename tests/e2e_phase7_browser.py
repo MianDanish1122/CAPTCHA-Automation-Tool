@@ -27,7 +27,7 @@ sys.path.insert(0, str(ROOT))
 
 BACKEND = os.environ.get("E2E_BACKEND", "http://127.0.0.1:8000")
 FRONTEND = os.environ.get("E2E_FRONTEND", "http://localhost:3000")
-OUT = ROOT / "evidence" / "phase7" / "e2e"
+OUT = (Path(os.environ["E2E_OUT_DIR"]) / "phase7_e2e") if os.environ.get("E2E_OUT_DIR") else ROOT / "evidence" / "phase7" / "e2e"  # E2E_OUT_DIR keeps tracked evidence untouched
 
 
 def env(name):

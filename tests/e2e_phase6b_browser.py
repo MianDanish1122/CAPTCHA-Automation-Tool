@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT))
 
 BACKEND = os.environ.get("E2E_BACKEND", "http://127.0.0.1:8000")
 FRONTEND = os.environ.get("E2E_FRONTEND", "http://localhost:3000")
-OUT_DIR = ROOT / "evidence" / "phase6b"
+OUT_DIR = (Path(os.environ["E2E_OUT_DIR"]) / "phase6b") if os.environ.get("E2E_OUT_DIR") else ROOT / "evidence" / "phase6b"  # E2E_OUT_DIR keeps tracked evidence untouched
 STATE = Path(os.environ.get("E2E_STATE", OUT_DIR / "e2e_state.json"))
 REPORT = Path(os.environ.get("E2E_REPORT", OUT_DIR / "browser_verification.json"))
 
@@ -138,6 +138,7 @@ async def run():
         await page.fill('input[type="password"]', env("E2E_OPERATOR_PASSWORD"))
         await page.click('button[type="submit"]')
         await page.wait_for_url(f"{FRONTEND}/", timeout=20000)
+        await page.wait_for_load_state("networkidle")  # let the post-login page settle before the next hard navigation
         await page.wait_for_load_state("networkidle")
         token = await page.evaluate("localStorage.getItem('captcha_token')")
         rec.check("operator logs in and reaches dashboard", bool(token) and page.url.rstrip("/") == FRONTEND)
@@ -217,6 +218,7 @@ async def run():
         await page.fill('input[type="password"]', env("E2E_ADMIN_PASSWORD"))
         await page.click('button[type="submit"]')
         await page.wait_for_url(f"{FRONTEND}/", timeout=20000)
+        await page.wait_for_load_state("networkidle")  # let the post-login page settle before the next hard navigation
         admin_token = await page.evaluate("localStorage.getItem('captcha_token')")
         admin = {"Authorization": f"Bearer {admin_token}"}
         await page.goto(f"{FRONTEND}/settings", wait_until="networkidle")

@@ -38,6 +38,19 @@
       }
     },
     {
+      "evidence_warning": {
+        "status": "OUTDATED_CLASSIFICATION - do not treat as verified current evidence",
+        "affected_fields": [
+          "inspection.detected_providers",
+          "inspection.captcha_provider",
+          "result_category",
+          "reason"
+        ],
+        "detail": "This 2026-11-07 run listed 'hcaptcha' next to 'cloudflare_turnstile'. The rendered-DOM evidence in inspection.detections shows ONLY Cloudflare Turnstile; 'hcaptcha' came from the legacy static detector matching the text 'hcaptcha.com' in the page source (no hCaptcha script, iframe, container or request was observed). The detector was fixed after this run (providers seen only as source text are now reported as 'unconfirmed_static_mentions' and are not detections; see tests/test_realworld_stage2_detection.py).",
+        "historical_values_preserved": true,
+        "regenerated": false,
+        "see": "docs/REAL_WEBSITE_VALIDATION_REPORT.md, docs/FINAL_REMAINING_RISKS.md"
+      },
       "company": "Breadtopia",
       "website": "https://breadtopia.com",
       "csv_contact_page": "https://breadtopia.com/contact/",

@@ -19,6 +19,7 @@ from app.services.browser_scanner import get_shared_browser, detect_captcha_in_h
 from app.services.security_guard import SecurityGuard
 from app.services.network_guard import NetworkGuard, new_guarded_context
 from app.services.captcha_detection import detect_on_page
+from app.services.robots_check import can_fetch_all
 
 logger = logging.getLogger(__name__)
 
@@ -459,7 +460,7 @@ class SmartCrawler:
                 # Robots.txt adherence
                 if rp:
                     try:
-                        can_fetch = rp.can_fetch(settings.CRAWLER_USER_AGENT, current_url)
+                        can_fetch = can_fetch_all(rp, settings.CRAWLER_USER_AGENT, current_url)
                         if not can_fetch:
                             logger.info(f"Skipping {current_url}: blocked by robots.txt")
                             continue

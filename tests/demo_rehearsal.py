@@ -17,7 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CREDS = ROOT / "demo_runtime" / "demo_credentials.txt"
-OUT = ROOT / "evidence" / "demo_rehearsal"
+OUT = (Path(__import__("os").environ["E2E_OUT_DIR"]) / "demo_rehearsal") if __import__("os").environ.get("E2E_OUT_DIR") else ROOT / "evidence" / "demo_rehearsal"  # E2E_OUT_DIR: write evidence elsewhere (keeps tracked evidence untouched)
 BACKEND, FRONTEND, SITE = "http://127.0.0.1:8000", "http://localhost:3000", "http://127.0.0.1:8090/"
 
 

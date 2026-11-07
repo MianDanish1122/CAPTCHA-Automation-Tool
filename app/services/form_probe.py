@@ -179,7 +179,7 @@ async def probe_and_fill(page, context, guard, fill: bool = True) -> dict[str, A
                                                  "type": field["type"], "reason": value})
                 continue
             try:
-                await page.fill(f'[data-qa-field="{field["key"]}"]', value, timeout=2000)
+                await page.fill(f'[data-qa-field="{field["key"]}"]', value, timeout=5000)
                 result["filled_fields"] += 1
                 result["filled_kinds"][kind] = result["filled_kinds"].get(kind, 0) + 1
             except Exception as exc:

@@ -45,4 +45,4 @@ The assignment document excludes contact-form automation; the employer message a
 1. Review the diff; approve (or not) a commit.
 2. Substitute sites for wilton.com and bigfrog.com, or accept them as not accessible.
 3. Whether to regenerate the Breadtopia live evidence (one more polite request).
-4. Align the batch user agent with the honest crawler agent before production.
+4. Decide the production user agent (the batch default is Chrome-like with no crawler token; the configured crawler agent is Chrome-like plus a `TechnologyBrainz-Crawler/2.0` token; neither is a plain self-identifying agent).

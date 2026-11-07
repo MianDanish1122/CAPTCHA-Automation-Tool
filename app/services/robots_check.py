@@ -8,9 +8,31 @@ Policy (the operator's rule: respect robots.txt and access controls, never work 
   5xx / network error   -> cannot tell: STOP (conservative, RFC 9309 treats server errors as "disallow")
 The fetch goes through the guarded browser context, so SSRF/DNS/TLS rules apply to it as well.
 """
+import re
 import urllib.robotparser
 from typing import Any, Optional
 from urllib.parse import urlparse
+
+# Browser-compatibility product tokens that identify nobody; the token that names US is what robots.txt files target.
+_GENERIC_TOKENS = {"mozilla", "applewebkit", "chrome", "safari", "gecko", "firefox", "edg", "version", "mobile"}
+
+
+def robots_agents(user_agent: str) -> list[str]:
+    """
+    Names to test against robots.txt: our own product token(s) first (e.g. 'TechnologyBrainz-Crawler' from
+    'Mozilla/5.0 ... Chrome/128 ... TechnologyBrainz-Crawler/2.0'), then the full string.
+    urllib's parser matches only the text before the first '/', so a Chrome-prefixed string is seen as
+    'Mozilla' and rules written for our crawler would otherwise be silently ignored.
+    """
+    tokens = [t for t in re.findall(r"([A-Za-z][A-Za-z0-9_.-]*)/[0-9][\w.]*", user_agent or "")
+              if t.lower() not in _GENERIC_TOKENS]
+    return list(dict.fromkeys(tokens + [user_agent or "*"]))
+
+
+def can_fetch_all(rp: urllib.robotparser.RobotFileParser, user_agent: str, url: str) -> bool:
+    """Allowed only if EVERY relevant agent name is allowed (most restrictive wins)."""
+    return all(rp.can_fetch(agent, url) for agent in robots_agents(user_agent))
+
 
 STOP_STATUSES = ("disallowed", "access_restricted", "blocked_by_challenge", "error")
 
@@ -38,7 +60,7 @@ def evaluate_robots(status: Optional[int], body: str, headers: dict[str, str], u
     path = urlparse(target_url).path or "/"
     if urlparse(target_url).query:
         path += "?" + urlparse(target_url).query
-    allowed = rp.can_fetch(user_agent, path)
+    allowed = can_fetch_all(rp, user_agent, path)
     return {"robots_status": "allowed" if allowed else "disallowed", "proceed": bool(allowed), "http_status": status,
             "reason": "robots.txt allows this path." if allowed else "robots.txt disallows this path for our user agent."}
 

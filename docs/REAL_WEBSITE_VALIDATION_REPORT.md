@@ -19,7 +19,8 @@ Stopped, not worked around: no retry, no header changes, no alternative route fo
 ## What this does and does not prove
 - 2 of 4 sites were eligible for scoring; 2/2 agree. **This is a demonstration, not an accuracy benchmark.** A rate over 2 sites says nothing statistical.
 - 50 % of the sample could not be inspected. That is a genuine finding about real-world access (bot protection), not a tool failure.
-- Big Frog was visited with the honest crawler user agent; it may be that agent being refused.
+- The live run sent the configured `CRAWLER_USER_AGENT`, whose default is a Chrome-style string ending in `TechnologyBrainz-Crawler/2.0`. It is browser-compatible, not a plain self-identifying agent, so it is unknown whether the Big Frog 403 reflects the agent, the IP, or the site's general bot protection.
+- Correction: an earlier draft of this report called that agent "honest"; that was an overstatement.
 
 ## Finding fixed after the run
 The Breadtopia result originally listed **hCaptcha as well as Turnstile**. Rendered-DOM evidence showed only Turnstile; the extra entry came from the older static detector matching the text "hcaptcha.com" in the page source. The shared detector now reports providers seen only as source text as `unconfirmed_static_mentions` instead of detections (two regression tests). The live evidence file was **not** regenerated (no further requests to the site); it still shows the pre-fix list.

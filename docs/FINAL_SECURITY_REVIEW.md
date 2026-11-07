@@ -18,6 +18,6 @@ Scope: changes made in this stage. The Phase 5–6B architecture (SSRF guard, al
 | Frontend | Downloads now use the bearer token via fetch+blob (plain links could not authenticate) | No token in URLs. |
 
 ## Not changed / still open
-- The batch scanner's default browser user agent is Chrome-like while robots rules are matched against the crawler agent; the live-site script sends the honest agent. Align before production use.
+- User agents: the batch scanner's default browser agent is Chrome-like with no crawler token; the live-site script and the URL crawler send `CRAWLER_USER_AGENT` (Chrome-like, ending in `TechnologyBrainz-Crawler/2.0`). robots.txt is now matched against the `TechnologyBrainz-Crawler` token and the full string, most restrictive wins (a post-commit audit found the earlier full-string match ignored rules written for our crawler). Align before production use.
 - `localStorage` JWT without a CSP, single-process job state and SQLite remain as documented in `KNOWN_LIMITATIONS.md`.
 - Third-party page URLs (including public keys such as a site's own maps key) can appear in saved blocked-request evidence; treat evidence files as sensitive.
