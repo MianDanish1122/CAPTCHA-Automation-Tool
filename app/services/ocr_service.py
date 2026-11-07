@@ -113,15 +113,19 @@ def preprocess_captcha_image(image_bytes: bytes) -> tuple[np.ndarray, bytes]:
 def run_ocr(clean_image: np.ndarray) -> dict[str, Any]:
     """Run Tesseract OCR on preprocessed image."""
     start_time = time.perf_counter()
-    custom_config = r'--oem 3 --psm 8 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    # Note: Omit tessedit_char_whitelist to avoid Tesseract 5 LSTM zero-confidence bug
+    custom_config = r'--oem 3 --psm 7'
 
     try:
         raw_text = pytesseract.image_to_string(clean_image, config=custom_config)
         cleaned_text = "".join(c for c in raw_text if c.isalnum()).upper()
 
         data = pytesseract.image_to_data(clean_image, config=custom_config, output_type=pytesseract.Output.DICT)
-        confs = [int(c) for c in data.get("conf", []) if str(c).isdigit() and int(c) >= 0]
-        avg_confidence = round(sum(confs) / len(confs), 1) if confs else 0.0
+        word_confs = [
+            float(c) for c, t in zip(data.get("conf", []), data.get("text", []))
+            if str(t).strip() and float(c) >= 0
+        ]
+        avg_confidence = round(sum(word_confs) / len(word_confs), 1) if word_confs else (50.0 if cleaned_text else 0.0)
 
         duration_ms = (time.perf_counter() - start_time) * 1000
 

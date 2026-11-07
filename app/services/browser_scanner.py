@@ -164,8 +164,13 @@ def detect_captcha_in_html(page_html: str, page_title: str = "") -> dict[str, An
     # 5. Check for Contact Form indicators
     has_contact_form = False
     if "<form" in html_lower:
-        form_indicators = ["email", "message", "subject", "comments", "textarea", "name="]
-        if any(ind in html_lower for ind in form_indicators):
+        has_input_elements = any(tag in html_lower for tag in ["<input", "<textarea", "<button", "<select"])
+        contact_semantic_indicators = [
+            "email", "message", "subject", "comments", "textarea", "name=", "inquiry",
+            "feedback", "support", "contact", "reach", "send", "submit"
+        ]
+        has_semantic_markers = any(ind in html_lower for ind in contact_semantic_indicators)
+        if has_input_elements or has_semantic_markers:
             has_contact_form = True
 
     # Determine status & classification
@@ -177,7 +182,7 @@ def detect_captcha_in_html(page_html: str, page_title: str = "") -> dict[str, An
             detected_providers.append("unknown_anti_bot_challenge")
     elif detected_providers:
         status = "captcha_detected"
-        human_review = True if is_invisible else False
+        human_review = True  # Third-party CAPTCHA challenge mandates human review
         method = "dom_widget_and_script_pattern" if is_active_widget else "provider_script_marker"
     else:
         status = "no_known_captcha_detected"

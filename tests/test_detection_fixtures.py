@@ -27,6 +27,8 @@ async def test_fixture_google_recaptcha():
     assert result["status"] == "captcha_detected"
     assert "google_recaptcha" in result["detected_providers"]
     assert result["is_active_challenge"] is True
+    assert result["contact_form_found"] is True
+    assert result["human_review_required"] is True
 
 
 @pytest.mark.anyio
@@ -37,6 +39,7 @@ async def test_fixture_invisible_recaptcha():
     assert result["success"] is True
     assert result["status"] == "captcha_detected"
     assert "google_recaptcha" in result["detected_providers"]
+    assert result["contact_form_found"] is True
     assert result["human_review_required"] is True
 
 
@@ -49,6 +52,8 @@ async def test_fixture_hcaptcha():
     assert result["status"] == "captcha_detected"
     assert "hcaptcha" in result["detected_providers"]
     assert result["is_active_challenge"] is True
+    assert result["contact_form_found"] is True
+    assert result["human_review_required"] is True
 
 
 @pytest.mark.anyio
@@ -60,6 +65,8 @@ async def test_fixture_cloudflare_turnstile():
     assert result["status"] == "captcha_detected"
     assert "cloudflare_turnstile" in result["detected_providers"]
     assert result["is_active_challenge"] is True
+    assert result["contact_form_found"] is True
+    assert result["human_review_required"] is True
 
 
 @pytest.mark.anyio
