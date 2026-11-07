@@ -21,7 +21,11 @@ from app.services.ocr_service import (
     preprocess_captcha_image,
     run_ocr,
 )
-from app.services.token_verifier import verify_recaptcha_token
+from app.services.token_verifier import PROVIDERS, verify_token
+from app.services.verification_store import record_verification
+from app.services.ocr_service import generate_synthetic_captcha
+from app.ocr.engines import recognize
+from app.ocr.metrics import char_accuracy
 
 logger = logging.getLogger(__name__)
 
@@ -254,9 +258,9 @@ def classify_captcha(
             "is_active_challenge": is_active,
             "detection_confidence": confidence,
             "detection_evidence": evidence,
-            "handling_strategy": "queue_for_human_review",
-            "human_review_required": True,
-            "processing_status": "pending_human_review",
+            "handling_strategy": "official_token_verify" if is_official_test else "queue_for_human_review",
+            "human_review_required": not is_official_test,
+            "processing_status": "official_test_ready" if is_official_test else "pending_human_review",
             "explanation": f"hCaptcha ({challenge_type}) detected. Third-party solving prohibited; requires human operator verification.",
         }
 
@@ -280,9 +284,9 @@ def classify_captcha(
             "is_active_challenge": is_active,
             "detection_confidence": confidence,
             "detection_evidence": evidence,
-            "handling_strategy": "queue_for_human_review",
-            "human_review_required": True,
-            "processing_status": "pending_human_review",
+            "handling_strategy": "official_token_verify" if is_official_test else "queue_for_human_review",
+            "human_review_required": not is_official_test,
+            "processing_status": "official_test_ready" if is_official_test else "pending_human_review",
             "explanation": f"Cloudflare Turnstile ({challenge_type}) detected. Automated bypass prohibited; queued for human review.",
         }
 
@@ -359,24 +363,37 @@ async def execute_handling_strategy(
 
         # Workflow Decision B: Synthetic Text CAPTCHA (OCR)
         elif strategy == "ocr_inference":
+            ground_truth = None
             if not image_bytes:
-                from app.services.ocr_service import generate_synthetic_captcha
-                image_bytes, _ = generate_synthetic_captcha(length=5)
+                # No image supplied: generate an owned synthetic CAPTCHA, so the true label is known
+                image_bytes, ground_truth = generate_synthetic_captcha(length=5)
 
-            clean_img, _ = preprocess_captcha_image(image_bytes)
-            ocr_res = run_ocr(clean_img)
+            engine_res = recognize(image_bytes, "hybrid")
+            ocr_res = {
+                "success": not engine_res["failed"],
+                "predicted_text": engine_res["pred"],
+                "confidence": engine_res["confidence"],
+                "ocr_duration_ms": engine_res["latency_ms"],
+                "ocr_engine": f"{engine_res['engine']} ({engine_res.get('route', 'n/a')})",
+                "ground_truth_known": ground_truth is not None,
+                "error": engine_res.get("error"),
+            }
 
-            ocr_eval = OcrEvaluationRecord(
-                ground_truth="SYNTHETIC",
-                predicted_text=ocr_res.get("predicted_text", ""),
-                exact_match=False,
-                character_accuracy=0.0,
-                confidence=ocr_res.get("confidence", 0.0),
-                duration_ms=ocr_res.get("ocr_duration_ms", 0.0),
-                ocr_engine=ocr_res.get("ocr_engine", "Tesseract OCR v5.5.0"),
-            )
-            db.add(ocr_eval)
-            db.commit()
+            # An accuracy record is stored ONLY when the true label is known. For an uploaded image
+            # there is no ground truth, so no accuracy is invented (previous versions stored
+            # ground_truth="SYNTHETIC" / exact_match=False / 0 % for such images).
+            if ground_truth is not None:
+                pred = engine_res["pred"]
+                db.add(OcrEvaluationRecord(
+                    ground_truth=ground_truth,
+                    predicted_text=pred,
+                    exact_match=(pred == ground_truth),
+                    character_accuracy=100.0 * char_accuracy(pred, ground_truth),
+                    confidence=engine_res["confidence"],
+                    duration_ms=engine_res["latency_ms"],
+                    ocr_engine=ocr_res["ocr_engine"],
+                ))
+                db.commit()
 
             return {
                 "success": True,
@@ -390,15 +407,26 @@ async def execute_handling_strategy(
 
         # Workflow Decision C: Official Token Verification
         elif strategy == "official_token_verify":
-            token_res = await verify_recaptcha_token(response_token or "VALID_TEST_RESPONSE")
+            verifier_provider = provider if provider in PROVIDERS else "google_recaptcha"
+            token_source = "client"
+            token = response_token
+            if not token:
+                # Official TEST mode only: use the provider's documented dummy token (labelled as such)
+                token = PROVIDERS[verifier_provider]["dummy_token"]
+                token_source = "dummy_test_token"
+            token_res = await verify_token(verifier_provider, token, token_source=token_source)
+            record_verification(db, token_res)
+            ok = bool(token_res.get("provider_verified"))
             return {
-                "success": True,
+                "success": ok,
                 "strategy_applied": "official_token_verify",
                 "classification": classification,
                 "human_review_required": False,
                 "token_verification": token_res,
-                "status": "token_verified" if token_res.get("success") else "verification_failed",
-                "message": "Verified against official provider test endpoint.",
+                "status": "token_verified" if ok else "verification_failed",
+                "message": (
+                    f"Provider verification mode: {token_res['verification_mode']} - {token_res['message']}"
+                ),
             }
 
         # Workflow Decision D: Third-Party CAPTCHA (Queue for Human Review)

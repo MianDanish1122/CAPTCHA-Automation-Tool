@@ -55,6 +55,9 @@ class Settings:
     # TLS: certificate validation is ON by default. Disabling is a development-only opt-in.
     SCAN_ALLOW_INVALID_CERTS: bool = get_bool_env("SCAN_ALLOW_INVALID_CERTS", False)
 
+    # Timeout for calls to CAPTCHA provider siteverify endpoints
+    VERIFY_TIMEOUT_SECONDS: float = float(os.getenv("VERIFY_TIMEOUT_SECONDS", "8"))
+
     # Upper bound for any single proxied response body during guarded browsing.
     GUARD_MAX_RESPONSE_BYTES: int = int(os.getenv("GUARD_MAX_RESPONSE_BYTES", str(10 * 1024 * 1024)))
 

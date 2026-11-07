@@ -207,11 +207,21 @@ async def inspect_local_demo(html: str) -> dict:
     Compatible with existing tests and endpoints.
     """
     start_time = time.perf_counter()
-    browser = await get_shared_browser()
     # Supplied HTML is untrusted: its scripts/subresources must never reach the network
     # (otherwise a demo page could probe internal services). All egress is blocked.
     guard = NetworkGuard(block_all_network=True, label="inspect-demo")
-    context = await new_guarded_context(browser, guard)
+    try:
+        browser = await get_shared_browser()
+        context = await new_guarded_context(browser, guard)
+    except Exception as launch_err:  # browser could not be started: report, do not crash the request
+        await guard.close()
+        return {
+            "success": False,
+            "status": "inspection_failed",
+            "error": f"Browser unavailable: {type(launch_err).__name__}",
+            "detected_providers": [],
+            "inspection_duration_ms": round((time.perf_counter() - start_time) * 1000, 2),
+        }
 
     try:
         page = await context.new_page()
@@ -285,15 +295,33 @@ async def inspect_website(
                 "inspection_duration_ms": round(duration_ms, 2),
             }
 
-    browser = await get_shared_browser()
     # Every navigation, redirect hop and subresource goes through the egress guard
     # (SSRF validation + DNS-pinned fetch). TLS certificate validation stays enabled.
     guard = NetworkGuard(allow_loopback=allow_loopback, label="batch-scan")
-    context = await new_guarded_context(
-        browser,
-        guard,
-        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-    )
+    try:
+        browser = await get_shared_browser()
+        context = await new_guarded_context(
+            browser,
+            guard,
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+        )
+    except Exception as launch_err:  # e.g. Chromium missing / crashed
+        await guard.close()
+        return {
+            "success": False,
+            "scan_status": "failed",
+            "error": f"Browser unavailable: {type(launch_err).__name__}",
+            "detected_providers": [],
+            "page_title": None,
+            "contact_page_url": None,
+            "contact_form_found": False,
+            "captcha_detected": False,
+            "captcha_provider": None,
+            "detection_method": "browser_unavailable",
+            "is_active_challenge": False,
+            "human_review_required": False,
+            "inspection_duration_ms": round((time.perf_counter() - start_time) * 1000, 2),
+        }
 
     try:
         page = await context.new_page()

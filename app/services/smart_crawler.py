@@ -327,6 +327,25 @@ class SmartCrawler:
             return None
 
     async def crawl(self, scan_id: str) -> dict[str, Any]:
+        """Run the crawl; if the task is cancelled at ANY point the scan is marked failed (never stuck)."""
+        try:
+            return await self._crawl_impl(scan_id)
+        except asyncio.CancelledError:
+            db = SessionLocal()
+            try:
+                scan = db.query(UrlScan).filter(UrlScan.id == scan_id).first()
+                if scan is not None and scan.status == "crawling":
+                    scan.status = "failed"
+                    scan.error_message = "Crawl cancelled before completion."
+                    scan.completed_at = datetime.now(timezone.utc)
+                    db.commit()
+            except Exception:
+                db.rollback()
+            finally:
+                db.close()
+            raise
+
+    async def _crawl_impl(self, scan_id: str) -> dict[str, Any]:
         """
         Execute the crawler workflow and persist results to DB.
         """
@@ -384,16 +403,35 @@ class SmartCrawler:
             CrawlCandidate(url=self.normalized_root_url, depth=0, anchor_text="Homepage", priority=100)
         ]
 
-        browser = await get_shared_browser()
         # All crawler egress (navigations, redirects, subresources) is routed through the
         # shared DNS-pinned SSRF guard. TLS certificate validation stays enabled.
         net_guard = NetworkGuard(allow_loopback=self.allow_loopback, label=f"crawl:{scan_id[:8]}")
-        context = await new_guarded_context(
-            browser,
-            net_guard,
-            user_agent=settings.CRAWLER_USER_AGENT,
-            viewport={"width": 1280, "height": 800},
-        )
+        try:
+            browser = await get_shared_browser()
+            context = await new_guarded_context(
+                browser,
+                net_guard,
+                user_agent=settings.CRAWLER_USER_AGENT,
+                viewport={"width": 1280, "height": 800},
+            )
+        except Exception as launch_err:
+            # Chromium missing/crashed: record a failed scan instead of leaving it "crawling" forever
+            await net_guard.close()
+            launch_msg = f"Browser could not be started: {type(launch_err).__name__}"
+            scan.status = "failed"
+            scan.error_message = launch_msg
+            scan.crawl_duration_ms = (time.perf_counter() - start_time) * 1000
+            scan.completed_at = datetime.now(timezone.utc)
+            db.commit()
+            db.close()
+            return {
+                "success": False,
+                "scan_id": scan_id,
+                "status": "failed",
+                "error": launch_msg,
+                "pages_crawled": 0,
+                "results": [],
+            }
 
         all_detected_providers: set[str] = set()
         contact_pages_count = 0
@@ -633,6 +671,18 @@ class SmartCrawler:
                 "crawl_duration_ms": round(total_duration_ms, 2),
                 "results": self.discovered_results,
             }
+
+        except asyncio.CancelledError:
+            # Job cancelled (shutdown / job manager): do not leave the scan stuck in "crawling"
+            scan.status = "failed"
+            scan.error_message = "Crawl cancelled before completion."
+            scan.crawl_duration_ms = (time.perf_counter() - start_time) * 1000
+            scan.completed_at = datetime.now(timezone.utc)
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+            raise
 
         except Exception as crawl_err:
             total_duration_ms = (time.perf_counter() - start_time) * 1000

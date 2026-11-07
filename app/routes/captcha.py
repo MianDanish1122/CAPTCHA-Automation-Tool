@@ -1,4 +1,5 @@
 import base64
+import json
 from datetime import datetime, timezone
 from typing import Optional, Any
 from fastapi import APIRouter, HTTPException, Depends, Query, Request
@@ -7,20 +8,21 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import get_db
-from app.models import HumanReviewRecord, CaptchaIntelligenceRecord, OcrEvaluationRecord, ReviewDecision, User
+from app.models import (
+    HumanReviewRecord, CaptchaIntelligenceRecord, OcrEvaluationRecord, OcrBenchmarkRun,
+    ReviewDecision, User, VerificationRecord,
+)
 from app.services.captcha_intelligence import (
     classify_captcha,
     execute_handling_strategy,
     validate_client_assertions,
 )
 from app.services.input_limits import decode_image_b64, max_b64_chars
-from app.services.ocr_service import (
-    generate_synthetic_captcha,
-    preprocess_captcha_image,
-    run_ocr,
-    benchmark_synthetic_ocr,
-)
-from app.services.token_verifier import verify_recaptcha_token
+from app.services.ocr_service import generate_synthetic_captcha, preprocess_captcha_image
+from app.ocr.engines import ENGINES, recognize
+from app.ocr.metrics import char_accuracy
+from app.services.token_verifier import PROVIDERS, SIMULATIONS, verify_token
+from app.services.verification_store import record_verification
 from app.services.auth_service import require_operator, log_audit_event
 from app.services.rate_limiter import rate_limit
 from app.services.client_ip import get_client_ip
@@ -42,16 +44,21 @@ compute_limit = rate_limit(max_requests=settings.RATE_LIMIT_COMPUTE_PER_MIN, win
 class OCRDemoRequest(BaseModel):
     custom_text: Optional[str] = Field(None, max_length=12, pattern=r"^[A-Za-z0-9]*$", description="Optional custom text for synthetic CAPTCHA")
     noise_level: Optional[str] = Field("medium", pattern=r"^(low|medium|high)$", description="Noise intensity: low, medium, high")
+    engine: str = Field("hybrid", pattern=r"^(tesseract_legacy|tesseract_tuned|custom_mlp|hybrid)$")
 
 
 class OCRBenchmarkRequest(BaseModel):
-    samples: int = Field(5, ge=1, le=20, description="Number of synthetic samples to benchmark")
+    samples: int = Field(20, ge=1, le=100, description="Number of labelled dataset samples to evaluate (first N, deterministic)")
+    engine: str = Field("hybrid", pattern=r"^(tesseract_legacy|tesseract_tuned|custom_mlp|hybrid)$")
+    split: str = Field("dev", pattern=r"^(dev|test)$", description="dataset split to evaluate")
 
 
 class TokenVerificationRequest(BaseModel):
+    provider: str = Field("google_recaptcha", pattern=r"^(google_recaptcha|hcaptcha|cloudflare_turnstile)$")
+    expected_hostname: Optional[str] = Field(None, max_length=255, description="Hostname the provider must report (real keys only)")
     token: Optional[str] = Field(None, max_length=4096, description="CAPTCHA response token from client")
     secret_key: Optional[str] = Field(None, max_length=256, description="Optional custom secret key (defaults to official test secret)")
-    simulate_status: Optional[str] = Field(None, pattern=r"^(valid|invalid|reused)$", description="Simulation mode: valid, invalid, reused")
+    simulate_status: Optional[str] = Field(None, pattern=r"^(invalid|expired|reused|provider_down|provider_malformed)$", description="Local SIMULATION of a failure scenario (no provider call; can never succeed)")
 
 
 class CaptchaClassificationRequest(BaseModel):
@@ -363,48 +370,54 @@ async def demonstrate_ocr(
     db: Session = Depends(get_db)
 ):
     """
-    Generate a synthetic distorted CAPTCHA, apply OpenCV preprocessing,
-    evaluate Tesseract OCR extraction, and persist the evaluation record.
+    Generate an OWNED synthetic CAPTCHA (true label known), recognise it with the selected engine,
+    and persist an evaluation record with the REAL label, exact-match flag and edit-distance accuracy.
     """
     img_bytes, ground_truth = generate_synthetic_captcha(text=request.custom_text)
-    clean_img, clean_bytes = preprocess_captcha_image(img_bytes)
-    result = run_ocr(clean_img)
+    clean_img, clean_bytes = preprocess_captcha_image(img_bytes)  # visualisation of the legacy cleaner
+    res = recognize(img_bytes, request.engine, expected_length=len(ground_truth))
 
-    pred = result.get("predicted_text", "")
+    pred = res["pred"]
     is_exact = (pred == ground_truth)
-    min_len = min(len(pred), len(ground_truth))
-    correct_chars = sum(1 for c1, c2 in zip(pred[:min_len], ground_truth[:min_len]) if c1 == c2)
-    char_acc = (correct_chars / max(len(pred), len(ground_truth)) * 100) if ground_truth else 0.0
+    char_acc = 100.0 * char_accuracy(pred, ground_truth)
 
-    # Persist evaluation record
     eval_rec = OcrEvaluationRecord(
         ground_truth=ground_truth,
         predicted_text=pred,
         exact_match=is_exact,
         character_accuracy=char_acc,
-        confidence=result.get("confidence", 0.0),
-        duration_ms=result.get("ocr_duration_ms", 0.0),
-        ocr_engine=result.get("ocr_engine", "Tesseract OCR v5.5.0"),
+        confidence=res["confidence"],
+        duration_ms=res["latency_ms"],
+        ocr_engine=f"{res['engine']} ({res.get('route', 'single')})",
     )
     db.add(eval_rec)
     db.commit()
 
     return {
-        "success": True,
+        "success": not res["failed"],
         "evaluation_id": eval_rec.id,
+        "engine": res["engine"],
+        "route": res.get("route"),
+        "fallback_reason": res.get("fallback_reason"),
         "ground_truth": ground_truth,
         "ocr_prediction": pred,
         "exact_match": is_exact,
         "character_accuracy": round(char_acc, 1),
-        "confidence": result.get("confidence", 0.0),
-        "execution_time_ms": result.get("ocr_duration_ms", 0.0),
-        "ocr_engine": result.get("ocr_engine"),
+        "confidence": res["confidence"],
+        "confidence_meaning": (
+            "mean per-glyph softmax probability of the custom model"
+            if res["engine"] in ("custom_mlp", "hybrid") and res.get("route") == "custom_mlp"
+            else "Tesseract mean word confidence"
+        ),
+        "execution_time_ms": res["latency_ms"],
+        "ocr_engine": eval_rec.ocr_engine,
+        "error": res.get("error"),
         "image_base64": base64.b64encode(img_bytes).decode("utf-8"),
         "preprocessed_base64": base64.b64encode(clean_bytes).decode("utf-8"),
         "methodology": {
-            "synthesis": "Pillow noise lines + character rotation + salt-pepper artifacts",
-            "preprocessing": "OpenCV Bilateral filter + Otsu thresholding + Morphological opening",
-            "recognition": "Tesseract PSM 7 LSTM inference",
+            "synthesis": "Deterministic-capable Pillow generator: rotated glyphs, noise lines, noise dots",
+            "preprocessing": "Dark-ink mask + connected-component noise filter (custom engine); legacy OpenCV cleaner shown above",
+            "recognition": "Segmentation + HOG/NumPy-MLP glyph classifier, Tesseract fallback (hybrid)",
         },
     }
 
@@ -415,41 +428,102 @@ async def demonstrate_ocr(
 )
 async def benchmark_ocr(
     request: OCRBenchmarkRequest,
-    current_user: User = Depends(require_operator)
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
 ):
     """
-    Evaluate OCR accuracy against a controlled synthetic dataset,
-    and output architectural limitation analysis.
-    Rate-limited to prevent CPU exhaustion.
+    Evaluate an engine on the committed, hash-verified labelled dataset (`datasets/ocr_synthetic_v1`).
+    The same samples are used on every call (deterministic), the run is persisted, and nothing is
+    randomly generated. For the full held-out evaluation use `python -m scripts.ocr_benchmark`.
     """
-    results = benchmark_synthetic_ocr(samples=request.samples)
-    total_samples = results.get("total_samples", request.samples)
-    exact_pct = results.get("exact_match_rate_pct", 0.0)
-    exact_count = round(total_samples * (exact_pct / 100.0))
-    sample_evals = results.get("sample_evaluations", [])
+    from app.ocr import dataset as ds
+    from app.ocr.metrics import summarize
 
-    results_list = []
-    for item in sample_evals:
-        results_list.append({
-            "sample_index": item.get("sample_index"),
-            "ground_truth": item.get("ground_truth"),
-            "predicted_text": item.get("predicted_text"),
-            "exact_match": item.get("exact_match"),
-            "character_accuracy": item.get("confidence", 0.0) if item.get("character_accuracy") is None else item.get("character_accuracy"),
-            "execution_time_ms": item.get("duration_ms", 0.0),
-            "noise_level": "standard",
-        })
+    dataset_dir = settings.BASE_DIR / "datasets" / "ocr_synthetic_v1"
+    try:
+        items = ds.load_split(dataset_dir, request.split)
+    except FileNotFoundError:
+        raise HTTPException(status_code=503, detail="OCR dataset is not materialised (run scripts.ocr_benchmark build-dataset).")
+    except ValueError as exc:
+        raise HTTPException(status_code=500, detail=f"Dataset integrity check failed: {exc}")
+    items = items[:request.samples]
+
+    rows = []
+    for idx, item in enumerate(items, 1):
+        res = recognize(item["png"], request.engine)
+        rows.append({"sample_index": idx, "file": item["file"], "truth": item["label"], "pred": res["pred"],
+                     "latency_ms": res["latency_ms"], "failed": res["failed"], "confidence": res["confidence"],
+                     "route": res.get("route")})
+    summary = summarize(rows)
+
+    run = OcrBenchmarkRun(
+        source="api", dataset="ocr_synthetic_v1", split=request.split, engine=request.engine,
+        samples=summary["samples"], exact_matches=summary["exact_matches"],
+        exact_match_pct=summary["exact_match_pct"], char_accuracy_pct=summary["char_accuracy_pct"],
+        latency_ms_mean=summary["latency_ms_mean"], latency_ms_p95=summary["latency_ms_p95"],
+        failures=summary["failures"], details=json.dumps({"summary": summary}), user_id=current_user.id,
+    )
+    db.add(run)
+    db.commit()
 
     return {
         "success": True,
-        **results,
-        "exact_matches": exact_count,
-        "exact_match_rate_percent": exact_pct,
-        "mean_character_accuracy": results.get("character_accuracy_pct", 0.0),
-        "mean_execution_time_ms": results.get("average_duration_ms", 0.0),
-        "results": results_list,
-        "technical_limitations_summary": results.get("limitations_analysis", ""),
+        "run_id": run.id,
+        "dataset": "ocr_synthetic_v1",
+        "split": request.split,
+        "engine": request.engine,
+        "total_samples": summary["samples"],
+        "exact_matches": summary["exact_matches"],
+        "exact_match_rate_percent": summary["exact_match_pct"],
+        "mean_character_accuracy": summary["char_accuracy_pct"],
+        "mean_execution_time_ms": summary["latency_ms_mean"],
+        "latency_ms_p95": summary["latency_ms_p95"],
+        "failures": summary["failures"],
+        "summary": summary,
+        "results": [{
+            "sample_index": r["sample_index"], "ground_truth": r["truth"], "predicted_text": r["pred"],
+            "exact_match": r["pred"] == r["truth"],
+            "character_accuracy": round(100.0 * char_accuracy(r["pred"], r["truth"]), 1),
+            "execution_time_ms": r["latency_ms"], "noise_level": "standard",
+        } for r in rows],
+        "sample_evaluations": [{  # legacy key kept for API compatibility
+            "sample_index": r["sample_index"], "ground_truth": r["truth"], "predicted_text": r["pred"],
+            "exact_match": r["pred"] == r["truth"], "confidence": r["confidence"], "duration_ms": r["latency_ms"],
+        } for r in rows],
+        "confusion_matrix_insights": _confusions(rows),
+        "limitations_analysis": (
+            "Results apply only to this project's own synthetic text CAPTCHAs; production CAPTCHAs are "
+            "detected and routed to human review, never solved."
+        ),
+        "technical_limitations_summary": (
+            "Results apply to this project's own synthetic text CAPTCHAs only. Production CAPTCHAs "
+            "(reCAPTCHA, hCaptcha, Turnstile) are not text-OCR problems; they are detected and routed to "
+            "human review, never solved."
+        ),
     }
+
+
+def _confusions(rows: list[dict]) -> list[str]:
+    """Most frequent aligned character confusions among wrong, equal-length predictions."""
+    from collections import Counter
+    pairs = Counter()
+    for r in rows:
+        if len(r["pred"]) == len(r["truth"]):
+            for a, b in zip(r["truth"], r["pred"]):
+                if a != b:
+                    pairs[(a, b)] += 1
+    return [f"'{a}' read as '{b}' x{n}" for (a, b), n in pairs.most_common(5)]
+
+
+@router.get("/ocr-benchmark/runs")
+async def list_benchmark_runs(
+    limit: int = Query(20, ge=1, le=100),
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
+):
+    """Persisted OCR evaluation runs (CLI held-out runs and API runs)."""
+    rows = db.query(OcrBenchmarkRun).order_by(OcrBenchmarkRun.created_at.desc()).limit(limit).all()
+    return {"success": True, "total": db.query(OcrBenchmarkRun).count(), "runs": [r.to_dict() for r in rows]}
 
 
 # -----------------------------
@@ -457,17 +531,47 @@ async def benchmark_ocr(
 # -----------------------------
 
 @router.post("/verify-token", dependencies=[Depends(compute_limit)])
-async def verify_token(
+async def verify_token_endpoint(
     request: TokenVerificationRequest,
-    current_user: User = Depends(require_operator)
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
 ):
     """
-    Verify a CAPTCHA response token using official Google reCAPTCHA test credentials.
-    Tests valid tokens, missing tokens, invalid tokens, and expired/reused tokens.
+    Server-side verification against the provider's official siteverify endpoint.
+    The response states `verification_mode` (provider_live | provider_test_keys | simulated |
+    local_validation); `success` is true ONLY if the provider itself confirmed the token.
+    The token is never stored or logged; each attempt is recorded for the evaluation dashboard.
     """
-    result = await verify_recaptcha_token(
+    result = await verify_token(
+        provider=request.provider,
         response_token=request.token,
         secret_key=request.secret_key,
-        simulate_status=request.simulate_status
+        simulate_status=request.simulate_status,
+        expected_hostname=request.expected_hostname,
     )
+    record_verification(db, result, current_user.id)
     return result
+
+
+@router.get("/verification/providers")
+async def list_verification_providers(current_user: User = Depends(require_operator)):
+    """Supported providers, their official endpoints and the kinds of scenarios available."""
+    return {
+        "success": True,
+        "providers": [
+            {"provider": k, "label": v["label"], "endpoint": v["url"],
+             "official_test_secrets": len(v["test_secrets"])}
+            for k, v in PROVIDERS.items()
+        ],
+        "simulation_scenarios": sorted(SIMULATIONS),
+    }
+
+
+@router.get("/verification/records")
+async def list_verification_records(
+    limit: int = Query(50, ge=1, le=200),
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
+):
+    rows = db.query(VerificationRecord).order_by(VerificationRecord.created_at.desc()).limit(limit).all()
+    return {"success": True, "total": db.query(VerificationRecord).count(), "records": [r.to_dict() for r in rows]}

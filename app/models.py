@@ -365,6 +365,76 @@ class OcrEvaluationRecord(Base):
         }
 
 
+class VerificationRecord(Base):
+    """One CAPTCHA token verification attempt. The token itself is NEVER stored."""
+    __tablename__ = "verification_records"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    created_at = Column(DateTime, default=utc_now, index=True)
+    provider = Column(String(32), nullable=False, index=True)
+    # provider_live | provider_test_keys | simulated | local_validation
+    verification_mode = Column(String(24), nullable=False, index=True)
+    scenario = Column(String(32), nullable=True)
+    outcome = Column(String(40), nullable=False, index=True)
+    success = Column(Boolean, default=False, nullable=False)
+    provider_called = Column(Boolean, default=False, nullable=False)
+    provider_verified = Column(Boolean, default=False, nullable=False)
+    http_status = Column(Integer, nullable=True)
+    error_codes = Column(String(255), nullable=True)
+    duration_ms = Column(Float, default=0.0)
+    token_source = Column(String(24), nullable=True)
+    user_id = Column(String(36), nullable=True)
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "provider": self.provider,
+            "verification_mode": self.verification_mode,
+            "scenario": self.scenario,
+            "outcome": self.outcome,
+            "success": self.success,
+            "provider_called": self.provider_called,
+            "provider_verified": self.provider_verified,
+            "http_status": self.http_status,
+            "error_codes": (self.error_codes or "").split(",") if self.error_codes else [],
+            "duration_ms": round(self.duration_ms or 0.0, 2),
+        }
+
+
+class OcrBenchmarkRun(Base):
+    """A measured OCR evaluation run over a labelled dataset split (CLI or API)."""
+    __tablename__ = "ocr_benchmark_runs"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    created_at = Column(DateTime, default=utc_now, index=True)
+    source = Column(String(24), nullable=False)  # cli_heldout | cli_dev | api
+    dataset = Column(String(64), nullable=False)
+    split = Column(String(16), nullable=False, index=True)
+    engine = Column(String(32), nullable=False, index=True)
+    samples = Column(Integer, nullable=False)
+    exact_matches = Column(Integer, nullable=False)
+    exact_match_pct = Column(Float, nullable=False)
+    char_accuracy_pct = Column(Float, nullable=False)
+    latency_ms_mean = Column(Float, default=0.0)
+    latency_ms_p95 = Column(Float, default=0.0)
+    failures = Column(Integer, default=0, nullable=False)
+    details = Column(Text, nullable=True)  # JSON: config, CI, environment
+    user_id = Column(String(36), nullable=True)
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "source": self.source, "dataset": self.dataset, "split": self.split, "engine": self.engine,
+            "samples": self.samples, "exact_matches": self.exact_matches,
+            "exact_match_pct": self.exact_match_pct, "char_accuracy_pct": self.char_accuracy_pct,
+            "latency_ms_mean": self.latency_ms_mean, "latency_ms_p95": self.latency_ms_p95,
+            "failures": self.failures,
+            "details": json.loads(self.details) if self.details else None,
+        }
+
+
 class UserRole:
     ADMIN = "admin"
     OPERATOR = "operator"

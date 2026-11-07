@@ -378,7 +378,7 @@ def test_audit_verify_cli_exit_semantics(cli_env):
 
 
 # =============================================================== B. Alembic migrations
-HEAD = "6b01phase6security"
+HEAD = "7a01phase7evaluation"
 BASELINE = "5eb94b849402"
 SCHEMA_SQL = (ROOT / "tests" / "fixtures" / "phase5_schema.sql").read_text(encoding="utf-8")
 

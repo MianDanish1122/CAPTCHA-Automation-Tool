@@ -4,6 +4,8 @@ import sys
 import asyncio
 from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, Request
+from fastapi.responses import JSONResponse
+from sqlalchemy.exc import SQLAlchemyError
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
@@ -13,6 +15,7 @@ from app.routes.auth import router as auth_router
 from app.routes.websites import router as websites_router
 from app.routes.captcha import router as captcha_router
 from app.routes.evidence import router as evidence_router
+from app.routes.stats import router as stats_router
 from app.services.audit import sanitize_request_id
 from app.services.auth_service import require_operator
 from app.services.browser_scanner import close_shared_browser
@@ -51,6 +54,21 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+@app.exception_handler(SQLAlchemyError)
+async def database_error_handler(request: Request, exc: SQLAlchemyError):
+    """Database failures never leak SQL, paths or stack traces to the client."""
+    logging.getLogger(__name__).error("Database error on %s %s: %s", request.method, request.url.path, type(exc).__name__)
+    return JSONResponse(status_code=503, content={"detail": "Database temporarily unavailable. Please retry."},
+                        headers={"Retry-After": "5"})
+
+
+@app.exception_handler(Exception)
+async def unhandled_error_handler(request: Request, exc: Exception):
+    """Last-resort handler: generic message, details only in the server log."""
+    logging.getLogger(__name__).exception("Unhandled error on %s %s", request.method, request.url.path)
+    return JSONResponse(status_code=500, content={"detail": "Internal server error."})
+
+
 # Request body size limits (JSON and multipart, including chunked uploads)
 app.add_middleware(BodySizeLimitMiddleware)
 
@@ -83,6 +101,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(websites_router)
 app.include_router(captcha_router)
+app.include_router(stats_router)
 app.include_router(evidence_router)  # authenticated; replaces the former public /evidence mount
 
 
