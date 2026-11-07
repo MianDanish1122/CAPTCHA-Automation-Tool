@@ -221,3 +221,107 @@ class DiscoveredPage(Base):
             "crawl_duration_ms": round(self.crawl_duration_ms, 2) if self.crawl_duration_ms else 0.0,
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
+
+
+class HumanReviewRecord(Base):
+    __tablename__ = "human_reviews"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    scan_id = Column(String(36), nullable=True, index=True)
+    page_url = Column(String(1024), nullable=False)
+    captcha_provider = Column(String(128), nullable=False)
+    challenge_type = Column(String(64), default="interactive_widget")
+    reason_for_review = Column(Text, nullable=False)
+    review_status = Column(String(32), default="pending", index=True)
+    # Statuses: pending, approved, rejected, manually_verified
+
+    operator_notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=utc_now)
+    resolved_at = Column(DateTime, nullable=True)
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "scan_id": self.scan_id,
+            "page_url": self.page_url,
+            "captcha_provider": self.captcha_provider,
+            "challenge_type": self.challenge_type,
+            "reason_for_review": self.reason_for_review,
+            "review_status": self.review_status,
+            "operator_notes": self.operator_notes,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+            "resolved_at": self.resolved_at.isoformat() if self.resolved_at else None,
+        }
+
+
+class CaptchaIntelligenceRecord(Base):
+    __tablename__ = "captcha_intelligence"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    scan_id = Column(String(36), nullable=True, index=True)
+    page_url = Column(String(1024), nullable=True)
+    classification = Column(String(64), nullable=False, index=True)
+    # Classifications: no_captcha, synthetic_text_captcha, google_recaptcha, hcaptcha, cloudflare_turnstile, unknown_challenge
+
+    provider = Column(String(64), nullable=False)
+    challenge_type = Column(String(64), nullable=True)
+    is_active_challenge = Column(Boolean, default=False)
+    detection_confidence = Column(Float, default=0.0)
+    detection_evidence = Column(Text, nullable=True)  # JSON-encoded signals
+    handling_strategy = Column(String(64), nullable=False)
+    # Strategies: mark_completed, ocr_inference, official_token_verify, queue_for_human_review, manual_investigation
+
+    human_review_required = Column(Boolean, default=False)
+    processing_status = Column(String(64), default="completed")
+    created_at = Column(DateTime, default=utc_now)
+
+    def to_dict(self) -> dict:
+        parsed_evidence = None
+        if self.detection_evidence:
+            try:
+                parsed_evidence = json.loads(self.detection_evidence)
+            except Exception:
+                parsed_evidence = self.detection_evidence
+
+        return {
+            "id": self.id,
+            "scan_id": self.scan_id,
+            "page_url": self.page_url,
+            "classification": self.classification,
+            "provider": self.provider,
+            "challenge_type": self.challenge_type,
+            "is_active_challenge": self.is_active_challenge,
+            "detection_confidence": round(self.detection_confidence, 2) if self.detection_confidence else 0.0,
+            "detection_evidence": parsed_evidence,
+            "handling_strategy": self.handling_strategy,
+            "human_review_required": self.human_review_required,
+            "processing_status": self.processing_status,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+class OcrEvaluationRecord(Base):
+    __tablename__ = "ocr_evaluations"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    ground_truth = Column(String(128), nullable=False)
+    predicted_text = Column(String(128), nullable=False)
+    exact_match = Column(Boolean, default=False)
+    character_accuracy = Column(Float, default=0.0)
+    confidence = Column(Float, default=0.0)
+    duration_ms = Column(Float, default=0.0)
+    ocr_engine = Column(String(128), default="Tesseract OCR v5.5.0")
+    created_at = Column(DateTime, default=utc_now)
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "ground_truth": self.ground_truth,
+            "predicted_text": self.predicted_text,
+            "exact_match": self.exact_match,
+            "character_accuracy": round(self.character_accuracy, 1) if self.character_accuracy else 0.0,
+            "confidence": round(self.confidence, 1) if self.confidence else 0.0,
+            "duration_ms": round(self.duration_ms, 2) if self.duration_ms else 0.0,
+            "ocr_engine": self.ocr_engine,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }

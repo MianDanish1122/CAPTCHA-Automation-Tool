@@ -529,6 +529,22 @@ class SmartCrawler:
                     db.add(discovered)
                     db.commit()
 
+                    # Phase 3 integration: Automatically enqueue HumanReviewRecord if CAPTCHA detected
+                    if has_captcha and captcha_res.get("human_review_required"):
+                        from app.models import HumanReviewRecord
+                        from app.services.captcha_intelligence import classify_captcha
+                        intel = classify_captcha(html=page_html, title=page_title)
+                        review_entry = HumanReviewRecord(
+                            scan_id=scan_id,
+                            page_url=final_url,
+                            captcha_provider=", ".join(providers) if providers else "unknown_challenge",
+                            challenge_type=intel.get("challenge_type", "interactive_widget"),
+                            reason_for_review=intel.get("explanation", "Third-party CAPTCHA challenge detected during crawl."),
+                            review_status="pending",
+                        )
+                        db.add(review_entry)
+                        db.commit()
+
                     self.discovered_results.append(discovered.to_dict())
 
                     # If depth allows, discover outgoing same-domain links
