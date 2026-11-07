@@ -414,6 +414,7 @@ class AuditLog(Base):
     seq = Column(Integer, nullable=True, index=True)
     prev_hash = Column(String(64), nullable=True)
     entry_hash = Column(String(64), nullable=True)
+    key_id = Column(String(16), nullable=True)  # which HMAC key sealed this entry (supports rotation)
     timestamp = Column(DateTime, default=utc_now, index=True)
     actor_id = Column(String(36), nullable=True, index=True)
     actor_username = Column(String(64), nullable=True)

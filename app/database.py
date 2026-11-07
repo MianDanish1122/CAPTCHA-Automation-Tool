@@ -28,6 +28,7 @@ _ADDITIVE_COLUMNS = {
         ("seq", "INTEGER"),
         ("prev_hash", "VARCHAR(64)"),
         ("entry_hash", "VARCHAR(64)"),
+        ("key_id", "VARCHAR(16)"),
     ],
     "human_reviews": [
         ("reviewed_by_id", "VARCHAR(36)"),
@@ -73,6 +74,8 @@ def _upgrade_schema() -> None:
             for name, ddl in columns:
                 if name not in present:
                     conn.execute(text(f"ALTER TABLE {table} ADD COLUMN {name} {ddl}"))
+        if "audit_logs" in existing_tables:
+            conn.execute(text("CREATE INDEX IF NOT EXISTS ix_audit_logs_seq ON audit_logs (seq)"))
         if engine.dialect.name == "sqlite":
             for trigger in _AUDIT_TRIGGERS:
                 conn.execute(text(trigger))

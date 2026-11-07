@@ -17,7 +17,10 @@ from app.models import Base
 config = context.config
 
 # Dynamically set sqlalchemy.url from app settings
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+# Use the application's database unless a URL was supplied programmatically
+# (e.g. `Config.set_main_option("sqlalchemy.url", ...)` in tests or tooling).
+if (config.get_main_option("sqlalchemy.url") or "").startswith("driver://"):
+    config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 # Interpret the config file for Python logging.
 if config.config_file_name is not None:
@@ -52,7 +55,7 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
-            render_as_batch=True if "sqlite" in settings.DATABASE_URL else False,
+            render_as_batch=connection.dialect.name == "sqlite",
         )
 
         with context.begin_transaction():
