@@ -1,84 +1,100 @@
-# CAPTCHA Inspection & Verification Tool
+# Technology Brainz — CAPTCHA Inspector
 
-A production-grade, asynchronous Python backend application built with **FastAPI**, **Playwright**, **SQLAlchemy**, **OpenCV**, and **Tesseract OCR**. Designed for bulk website inspection, contact page discovery, CAPTCHA provider identification, SSRF-safe scanning, synthetic OCR benchmarking, and CSV compliance reporting.
+A CAPTCHA **recognition, solving (owned/synthetic only) and verification** tool with a web dashboard, built for
+"Assignment 01 — CAPTCHA Solving & Verification Tool".
 
----
+What it does, honestly:
 
-## 🌟 Key Features
+| Capability | Status |
+| :--- | :--- |
+| Recognise & classify CAPTCHAs (reCAPTCHA v2/invisible, hCaptcha, Turnstile, anti-bot interstitials, synthetic text) | rule-based detection, tested on fixtures and a local site |
+| **Solve** synthetic text CAPTCHAs the project generates itself | custom NumPy glyph classifier + Tesseract fallback: **99.3 % exact match on 300 never-inspected held-out images** (same generator; see limits) |
+| Verify tokens server-side with the providers' **official** `siteverify` endpoints (reCAPTCHA, hCaptcha, Turnstile) | official **test keys** (live) + mocks + clearly labelled simulations; every result states how it was produced |
+| Third-party / production CAPTCHAs | **never solved or bypassed** — detected and routed to a human review queue |
+| Paid external solver API | **none integrated** |
+| Dashboard | Next.js: overview, evaluation metrics (with denominators), inspector, scans, results, human review, OCR lab, verification, batch, reports |
 
-- **Bulk CSV Ingestion & Validation**: Flexible header mapping, scheme and format validation, row-by-row error reporting.
-- **High-Precision CAPTCHA Detection**:
-  - Google reCAPTCHA v2 Checkbox
-  - Google reCAPTCHA Invisible
-  - hCaptcha Interactive Widget
-  - Cloudflare Turnstile
-  - Unknown / Anti-Bot Interstitials (Cloudflare "Just a Moment", Datadome, PerimeterX/HUMAN) classified for `human_review_required`.
-- **Active Challenge vs. Script Distinction**: Accurately distinguishes passive third-party scripts from active challenge widgets presented to the user.
-- **SSRF & Security Isolation**: DNS resolution filtering, private IP/loopback rejection, domain allowlisting, and configurable `ENABLE_LIVE_SCAN=false` default.
-- **Asynchronous Batch Execution**: Bounded concurrency (`asyncio.Semaphore`), pooled browser contexts, fault-tolerant execution across ~200 sites.
-- **Persistent Audit Logging**: SQLite database powered by SQLAlchemy 2.0 tracking batch metrics, timing, and per-site inspection results.
-- **Synthetic OCR & Verification Demonstration**:
-  - Image generation with distortions, noise lines, and salt-and-pepper artifacts.
-  - Image preprocessing using OpenCV (Gaussian blur, grayscale, Otsu thresholding).
-  - Tesseract OCR text recognition with benchmark accuracy reporting.
-  - Official Google reCAPTCHA server-side test token verification.
-- **Downloadable CSV Reports**: One-click download of itemized scan audits.
+Docs index: [requirements mapping](docs/REQUIREMENTS_MAPPING.md) · [architecture](docs/SYSTEM_ARCHITECTURE.md) ·
+[OCR evaluation](docs/PHASE_7_OCR_EVALUATION.md) · [verification matrix](docs/PHASE_7_VERIFICATION_MATRIX.md) ·
+[AI/API inventory](docs/PHASE_7_AI_API_INVENTORY.md) · [cost](docs/PHASE_7_COST_ANALYSIS.md) ·
+[reliability](docs/PHASE_7_RELIABILITY_REPORT.md) · [security summary](docs/SECURITY_SUMMARY.md) ·
+[API](docs/API_REFERENCE.md) · [user guide + demo checklist](docs/USER_GUIDE.md) · [deployment](docs/DEPLOYMENT_GUIDE.md) ·
+[test report](docs/TEST_REPORT.md) · [known limitations](docs/KNOWN_LIMITATIONS.md) · [final acceptance](docs/PHASE_7_FINAL_ACCEPTANCE.md)
 
----
+## Quick start (Windows, PowerShell)
 
-## 🏗️ Technology Stack
+Prerequisites: Python 3.12+, Node.js 20+, [Tesseract 5](https://github.com/UB-Mannheim/tesseract/wiki) (default path `C:\Program Files\Tesseract-OCR\tesseract.exe`).
 
-- **Framework**: FastAPI (Python 3.12)
-- **Browser Automation**: Playwright (Async Chromium)
-- **Computer Vision & OCR**: OpenCV (`cv2`), Pillow (`PIL`), Tesseract OCR (`pytesseract`)
-- **Database & Persistence**: SQLite, SQLAlchemy 2.0
-- **Testing & Verification**: Pytest, Asyncio, Playwright Test Harness
-
----
-
-## 🚀 Quick Start Guide (Windows)
-
-### 1. Prerequisites
-- Python 3.12+
-- Tesseract OCR installed (default path: `C:\Program Files\Tesseract-OCR\tesseract.exe`)
-- Virtual environment with dependencies installed.
-
-### 2. Activate Environment & Run Application
 ```powershell
-# Navigate to project directory
-cd C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool
+python -m venv venv
+.\venv\Scripts\python.exe -m pip install -r requirements.txt
+.\venv\Scripts\python.exe -m playwright install chromium
+Copy-Item .env.example .env            # then edit: set JWT_SECRET_KEY, AUDIT_HMAC_KEY (see below)
 
-# Start FastAPI server
+# database: development auto-creates tables; for a managed schema use Alembic
+.\venv\Scripts\python.exe -m alembic upgrade head
+
+# first administrator (prompts for a password; nothing is hard-coded)
+.\venv\Scripts\python.exe -m app.cli create-admin --username admin --email admin@example.test
+
+# backend (do not use --reload on Windows with Playwright)
 .\venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+# frontend (second terminal)
+cd frontend; npm install; npm run build; npm run start -- -p 3000
 ```
-> [!NOTE]
-> Do not use `--reload` on Windows when using Playwright to prevent event loop / subprocess termination conflicts.
 
-### 3. Access Swagger UI & Documentation
-- Interactive API Docs: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-- Health Check: [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)
+Open http://localhost:3000 and sign in. Swagger UI: http://127.0.0.1:8000/docs.
 
----
+## Required / important environment variables (`.env`)
 
-## 🧪 Running Tests & QA
+| Variable | Default | Notes |
+| :--- | :--- | :--- |
+| `APP_ENV` | `development` | `production`/`staging` enforce strong secrets, no dev loopback, no fixtures |
+| `JWT_SECRET_KEY` | dev placeholder | **required ≥ 32 chars in production** |
+| `AUDIT_HMAC_KEY` | derived (dev only) | **independent of the JWT secret; required in production** (`python -m app.cli generate-audit-key`) |
+| `DATABASE_URL` | SQLite `data/captcha_tool.db` | |
+| `ENABLE_LIVE_SCAN` | `false` | scanning external sites needs `true` **and** `ALLOWED_DOMAINS` |
+| `ALLOWED_DOMAINS` | `example.com,demo.com,localhost` | authorised scan targets only |
+| `TESSERACT_CMD` | Windows default path | |
+| `TRUSTED_PROXIES` | empty | forwarding headers ignored unless the peer is listed |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:3000,http://127.0.0.1:3000` | |
+| `RECAPTCHA_TEST_*`, `VERIFY_TIMEOUT_SECONDS` | Google public test keys, 8 | verification demo |
+| `INITIAL_ADMIN_SETUP_TOKEN` | empty | leave empty; use the CLI |
+
+Complete list with comments: `.env.example`.
+
+## Try the features
 
 ```powershell
-# Run full automated Pytest suite
-.\venv\Scripts\python.exe -m pytest tests/ -v
+# 1) OCR: reproduce the benchmark (deterministic dataset in datasets/ocr_synthetic_v1)
+.\venv\Scripts\python.exe -m scripts.ocr_benchmark verify-dataset
+.\venv\Scripts\python.exe -m scripts.ocr_benchmark evaluate --split test2 --out my_run.json
 
-# Run legacy regression scripts
-.\venv\Scripts\python.exe test_csv_importer.py
-.\venv\Scripts\python.exe test_browser_scanner.py
+# 2) Official test-key token acquisition + server-side verification (needs internet)
+.\venv\Scripts\python.exe -m scripts.token_acquisition_demo
+
+# 3) Tests
+.\venv\Scripts\python.exe -m pytest tests/ -q
 ```
 
----
+In the UI: **Evaluation** (metrics + report) → **URL Inspector** → **Scan History** → **CAPTCHA Results** → **OCR Laboratory** → **Verification** → **Human Review** → **Reports**. See [docs/USER_GUIDE.md](docs/USER_GUIDE.md).
 
-## 📖 Detailed Documentation
+## Repository layout
 
-- [System Architecture](docs/ARCHITECTURE.md)
-- [Implementation Roadmap](docs/IMPLEMENTATION_PLAN.md)
-- [Security & SSRF Policy](docs/SECURITY.md)
-- [Testing Strategy & Fixtures](docs/TESTING.md)
-- [Live Demonstration Guide (3-5 mins)](docs/DEMO_PLAN.md)
-- [Final QA Verification Report](docs/FINAL_QA_REPORT.md)
-- [Test Evidence & Verification Audit](evidence/TEST_EVIDENCE.md)
+```
+app/                FastAPI backend
+  routes/           auth, websites, captcha, evidence, stats
+  services/         crawler, browser scanner, SSRF/egress guard, classification, token verifier, audit, jobs
+  ocr/              dataset generator, preprocessing, segmentation, custom model, engines, metrics
+scripts/            ocr_benchmark.py, token_acquisition_demo.py
+datasets/           ocr_synthetic_v1 (hash-verified dev/test/test2 + manifest)
+alembic/            migrations (Phase 1-5 baseline, Phase 6 security, Phase 7 evaluation)
+frontend/           Next.js dashboard
+tests/              pytest suite + Playwright E2E scripts
+docs/               documentation and phase reports      evidence/  measured outputs and screenshots
+```
+
+## Safety & scope
+
+Only synthetic/owned challenges are solved. Production reCAPTCHA/hCaptcha/Turnstile challenges are detected and sent to human review; official **test** modes are used for demonstrations; no tokens are harvested or forged; scans are limited to authorised domains behind an SSRF/egress guard. See [docs/SECURITY_SUMMARY.md](docs/SECURITY_SUMMARY.md) and [docs/KNOWN_LIMITATIONS.md](docs/KNOWN_LIMITATIONS.md).
