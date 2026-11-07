@@ -13,12 +13,57 @@ import {
   OcrEvaluation,
   OcrBenchmarkResponse,
   CaptchaClassification,
+  UserProfile,
+  LoginResponse,
+  AuditLogItem,
 } from './types';
 
 // Default to backend on 127.0.0.1:8000
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://127.0.0.1:8000';
 
-class ApiError extends Error {
+export function getStoredToken(): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('captcha_token');
+}
+
+export function setStoredToken(token: string | null): void {
+  if (typeof window === 'undefined') return;
+  if (token) {
+    localStorage.setItem('captcha_token', token);
+  } else {
+    localStorage.removeItem('captcha_token');
+    localStorage.removeItem('captcha_user');
+  }
+}
+
+export function getStoredUser(): UserProfile | null {
+  if (typeof window === 'undefined') return null;
+  const raw = localStorage.getItem('captcha_user');
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+export function setStoredUser(user: UserProfile | null): void {
+  if (typeof window === 'undefined') return;
+  if (user) {
+    localStorage.setItem('captcha_user', JSON.stringify(user));
+  } else {
+    localStorage.removeItem('captcha_user');
+  }
+}
+
+function generateRequestId(): string {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+}
+
+export class ApiError extends Error {
   status: number;
   data: any;
 
@@ -38,12 +83,34 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
     headers.set('Content-Type', 'application/json');
   }
 
+  // Auto-inject JWT token if available
+  if (!headers.has('Authorization')) {
+    const token = getStoredToken();
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+  }
+
+  // Auto-inject correlation request ID for distributed tracing
+  if (!headers.has('X-Request-ID')) {
+    headers.set('X-Request-ID', generateRequestId());
+  }
+
   const response = await fetch(url, {
     ...options,
     headers,
   });
 
   if (!response.ok) {
+    if (response.status === 401 && !endpoint.includes('/api/auth/login')) {
+      // Clear token upon session invalidation
+      setStoredToken(null);
+      setStoredUser(null);
+      if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/login')) {
+        window.location.href = '/login?expired=1';
+      }
+    }
+
     let errorDetail = `Request failed with status ${response.status}`;
     let errorData = null;
     try {
@@ -277,6 +344,63 @@ export const api = {
     };
   }> {
     return request('/api/captcha/verify-token', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  // Authentication & Session Management
+  async login(payload: { username: string; password: string }): Promise<LoginResponse> {
+    const res = await request<LoginResponse>('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    if (res.access_token) {
+      setStoredToken(res.access_token);
+      setStoredUser(res.user);
+    }
+    return res;
+  },
+
+  async logout(): Promise<{ success: boolean }> {
+    try {
+      await request('/api/auth/logout', { method: 'POST' });
+    } catch {
+      // Ignore network errors on logout
+    } finally {
+      setStoredToken(null);
+      setStoredUser(null);
+    }
+    return { success: true };
+  },
+
+  async getMe(): Promise<{ success: boolean; user: UserProfile }> {
+    return request<{ success: boolean; user: UserProfile }>('/api/auth/me');
+  },
+
+  async listAuditLogs(params: {
+    limit?: number;
+    offset?: number;
+    action?: string;
+    actor_username?: string;
+  } = {}): Promise<{ success: boolean; total: number; logs: AuditLogItem[] }> {
+    const q = new URLSearchParams();
+    if (params.limit) q.set('limit', params.limit.toString());
+    if (params.offset) q.set('offset', params.offset.toString());
+    if (params.action) q.set('action', params.action);
+    if (params.actor_username) q.set('actor_username', params.actor_username);
+    return request<{ success: boolean; total: number; logs: AuditLogItem[] }>(
+      `/api/auth/audit-logs?${q.toString()}`
+    );
+  },
+
+  async createUser(payload: {
+    username: string;
+    email: string;
+    password: string;
+    role: 'admin' | 'operator';
+  }): Promise<{ success: boolean; user: UserProfile }> {
+    return request<{ success: boolean; user: UserProfile }>('/api/auth/users', {
       method: 'POST',
       body: JSON.stringify(payload),
     });

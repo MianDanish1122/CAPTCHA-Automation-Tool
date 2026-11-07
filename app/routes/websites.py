@@ -1,7 +1,7 @@
 import asyncio
 from typing import Optional
 from pathlib import Path
-from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Query
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Query, Request
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from sqlalchemy import func
@@ -16,6 +16,8 @@ from app.models import (
     DiscoveredPage,
     HumanReviewRecord,
     CaptchaIntelligenceRecord,
+    User,
+    UserRole,
     generate_uuid,
 )
 from app.services.csv_importer import import_websites
@@ -24,13 +26,15 @@ from app.services.batch_processor import create_batch
 from app.services.report_generator import generate_batch_csv_report
 from app.services.security_guard import SecurityGuard
 from app.services.smart_crawler import SmartCrawler
+from app.services.auth_service import require_operator, require_admin, log_audit_event
+from app.services.rate_limiter import rate_limit
 
 router = APIRouter(
     prefix="/api/websites",
     tags=["Website Inspection & Batches"]
 )
 
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 MB
+MAX_FILE_SIZE = settings.MAX_CSV_SIZE_BYTES
 
 
 # -----------------------------
@@ -64,17 +68,23 @@ class UrlInspectionRequest(BaseModel):
     max_pages: Optional[int] = Field(default=10, ge=1, le=20, description="Maximum pages to crawl for the domain")
     max_depth: Optional[int] = Field(default=2, ge=0, le=3, description="Maximum link crawl depth")
     background: Optional[bool] = Field(default=False, description="Run crawler asynchronously in background")
-    allow_loopback: Optional[bool] = Field(default=False, description="Allow local loopback for testing purposes")
+    allow_loopback: Optional[bool] = Field(default=False, description="Server-controlled: Ignored unless ALLOW_DEV_LOOPBACK is enabled on server")
 
 
 # -----------------------------
 # 1. CSV Import Endpoint
 # -----------------------------
 
-@router.post("/import")
+@router.post(
+    "/import",
+    dependencies=[Depends(rate_limit(max_requests=settings.RATE_LIMIT_BATCH_PER_MIN, window_seconds=60, scope="import_csv"))]
+)
 async def upload_csv(
     file: UploadFile = File(...),
-    auto_scan: bool = Query(False, description="Automatically trigger batch scan for valid records")
+    auto_scan: bool = Query(False, description="Automatically trigger batch scan for valid records"),
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
+    req: Request = None,
 ):
     if not file.filename or not file.filename.lower().endswith(".csv"):
         raise HTTPException(
@@ -87,7 +97,7 @@ async def upload_csv(
     if len(content) > MAX_FILE_SIZE:
         raise HTTPException(
             status_code=413,
-            detail="Maximum CSV size is 5 MB."
+            detail=f"Maximum CSV size is {MAX_FILE_SIZE // (1024 * 1024)} MB."
         )
 
     result = import_websites(content)
@@ -98,12 +108,20 @@ async def upload_csv(
             detail=result["message"]
         )
 
-    # Provide consistent alias counts for frontend and reports
     valid_websites = result.get("websites", [])
     invalid_rows = result.get("invalid_rows", len(result.get("errors", [])))
+    total_rows = len(valid_websites) + invalid_rows
+
+    # Enforce maximum row count protection
+    if total_rows > settings.MAX_CSV_ROWS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"CSV row count ({total_rows}) exceeds maximum permitted limit of {settings.MAX_CSV_ROWS} rows."
+        )
+
     result["valid_count"] = len(valid_websites)
     result["invalid_count"] = invalid_rows
-    result["total_rows"] = len(valid_websites) + invalid_rows
+    result["total_rows"] = total_rows
     result["message"] = f"CSV validated successfully ({len(valid_websites)} valid, {invalid_rows} invalid)."
 
     batch_id = None
@@ -111,6 +129,16 @@ async def upload_csv(
         batch_id = create_batch(result["websites"], start_background=True)
         result["batch_id"] = batch_id
         result["batch_status"] = "pending"
+
+    # Audit logging
+    log_audit_event(
+        db=db,
+        action="csv.import",
+        actor=current_user,
+        ip_address=req.client.host if req and req.client else "127.0.0.1",
+        request_id=req.headers.get("X-Request-ID") if req else None,
+        details={"filename": file.filename, "valid": len(valid_websites), "invalid": invalid_rows}
+    )
 
     return result
 
@@ -120,7 +148,10 @@ async def upload_csv(
 # -----------------------------
 
 @router.post("/inspect-demo")
-async def inspect_demo(request: DemoInspectionRequest):
+async def inspect_demo(
+    request: DemoInspectionRequest,
+    current_user: User = Depends(require_operator),
+):
     result = await inspect_local_demo(request.html)
     return result
 
@@ -130,7 +161,10 @@ async def inspect_demo(request: DemoInspectionRequest):
 # -----------------------------
 
 @router.post("/inspect-demo-batch")
-async def inspect_demo_batch(request: BatchInspectionRequest):
+async def inspect_demo_batch(
+    request: BatchInspectionRequest,
+    current_user: User = Depends(require_operator),
+):
     results = []
 
     for page_data in request.pages:
@@ -179,17 +213,40 @@ async def inspect_demo_batch(request: BatchInspectionRequest):
 # 4. Batch Scanning Endpoints
 # -----------------------------
 
-@router.post("/scan-batch")
+@router.post(
+    "/scan-batch",
+    dependencies=[Depends(rate_limit(max_requests=settings.RATE_LIMIT_BATCH_PER_MIN, window_seconds=60, scope="scan_batch"))]
+)
 async def scan_batch(
     request: ScanBatchRequest,
-    background: bool = Query(True, description="Process batch in background")
+    background: bool = Query(True, description="Process batch in background"),
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db),
+    req: Request = None,
 ):
     """
     Initiate an asynchronous batch scan for up to 300 website records.
     Controlled concurrency and SSRF security policies are applied.
     """
+    if len(request.websites) > settings.MAX_CSV_ROWS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Batch size exceeds maximum limit of {settings.MAX_CSV_ROWS} websites."
+        )
+
     items = [{"company_name": item.company_name, "website_url": item.website_url} for item in request.websites]
     batch_id = create_batch(items, start_background=background)
+
+    log_audit_event(
+        db=db,
+        action="batch.create",
+        actor=current_user,
+        resource_type="website_batch",
+        resource_id=batch_id,
+        ip_address=req.client.host if req and req.client else "127.0.0.1",
+        request_id=req.headers.get("X-Request-ID") if req else None,
+        details={"total_records": len(items)}
+    )
 
     return {
         "success": True,
@@ -201,7 +258,11 @@ async def scan_batch(
 
 
 @router.get("/batches/{batch_id}")
-async def get_batch_status(batch_id: str, db: Session = Depends(get_db)):
+async def get_batch_status(
+    batch_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """Retrieve execution status and summary counters for a batch job."""
     batch = db.query(BatchJob).filter(BatchJob.id == batch_id).first()
     if not batch:
@@ -214,7 +275,11 @@ async def get_batch_status(batch_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/batches/{batch_id}/results")
-async def get_batch_results(batch_id: str, db: Session = Depends(get_db)):
+async def get_batch_results(
+    batch_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """Retrieve itemized website inspection results for a batch job."""
     batch = db.query(BatchJob).filter(BatchJob.id == batch_id).first()
     if not batch:
@@ -233,7 +298,11 @@ async def get_batch_results(batch_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/batches/{batch_id}/report")
-async def download_batch_report(batch_id: str, db: Session = Depends(get_db)):
+async def download_batch_report(
+    batch_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """Generate and download a CSV compliance report for the specified batch."""
     batch = db.query(BatchJob).filter(BatchJob.id == batch_id).first()
     if not batch:
@@ -257,9 +326,14 @@ async def download_batch_report(batch_id: str, db: Session = Depends(get_db)):
 # 5. Smart Website Crawler Endpoints
 # -----------------------------
 
-@router.post("/inspect-url")
+@router.post(
+    "/inspect-url",
+    dependencies=[Depends(rate_limit(max_requests=settings.RATE_LIMIT_INSPECT_PER_MIN, window_seconds=60, scope="inspect_url"))]
+)
 async def inspect_url(
     request: UrlInspectionRequest,
+    req: Request,
+    current_user: User = Depends(require_operator),
     db: Session = Depends(get_db),
 ):
     """
@@ -267,10 +341,19 @@ async def inspect_url(
     Discovers contact & support pages, detects CAPTCHAs and forms,
     enforces SSRF and redirect security policies, and captures evidence.
     """
+    # Enforce that client cannot enable loopback unless server explicitly permits dev/test loopback
+    if request.allow_loopback and not settings.can_allow_loopback:
+        raise HTTPException(
+            status_code=400,
+            detail="Security restriction: Client-controlled loopback authorization is prohibited."
+        )
+
+    effective_loopback = bool(request.allow_loopback and settings.can_allow_loopback)
+
     allowed, reason = SecurityGuard.validate_target_url(
         request.url,
         enforce_live_scan=True,
-        allow_loopback=request.allow_loopback,
+        allow_loopback=effective_loopback,
     )
     if not allowed:
         raise HTTPException(
@@ -283,7 +366,18 @@ async def inspect_url(
         target_url=request.url,
         max_pages=request.max_pages,
         max_depth=request.max_depth,
-        allow_loopback=request.allow_loopback,
+        allow_loopback=effective_loopback,
+    )
+
+    log_audit_event(
+        db=db,
+        action="scan.create",
+        actor=current_user,
+        resource_type="url_scan",
+        resource_id=scan_id,
+        ip_address=req.client.host if req.client else "127.0.0.1",
+        request_id=req.headers.get("X-Request-ID"),
+        details={"url": request.url, "max_pages": request.max_pages, "background": request.background}
     )
 
     if request.background:
@@ -310,7 +404,11 @@ async def inspect_url(
 
 
 @router.get("/scans/{scan_id}")
-async def get_scan_status(scan_id: str, db: Session = Depends(get_db)):
+async def get_scan_status(
+    scan_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """Retrieve status and summary information for a website crawl scan."""
     scan = db.query(UrlScan).filter(UrlScan.id == scan_id).first()
     if not scan:
@@ -323,7 +421,11 @@ async def get_scan_status(scan_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/scans/{scan_id}/results")
-async def get_scan_results(scan_id: str, db: Session = Depends(get_db)):
+async def get_scan_results(
+    scan_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """Retrieve detailed discovered pages, classifications, evidence, and CAPTCHA results."""
     scan = db.query(UrlScan).filter(UrlScan.id == scan_id).first()
     if not scan:
@@ -347,7 +449,10 @@ async def get_scan_results(scan_id: str, db: Session = Depends(get_db)):
 
 
 @router.get("/overview-stats")
-async def get_overview_stats(db: Session = Depends(get_db)):
+async def get_overview_stats(
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """Summary metrics and provider distribution for the overview dashboard."""
     total_scans = db.query(UrlScan).count()
     total_pages = db.query(DiscoveredPage).count()
@@ -384,6 +489,7 @@ async def list_scans(
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
     status: Optional[str] = Query(None),
+    current_user: User = Depends(require_operator),
     db: Session = Depends(get_db)
 ):
     """List URL crawl scans with optional status filter and pagination."""
@@ -404,6 +510,7 @@ async def list_batches(
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
     status: Optional[str] = Query(None),
+    current_user: User = Depends(require_operator),
     db: Session = Depends(get_db)
 ):
     """List batch jobs with optional status filter and pagination."""
@@ -425,6 +532,7 @@ async def list_discovered_pages(
     offset: int = Query(0, ge=0),
     captcha_only: bool = Query(False),
     provider: Optional[str] = Query(None),
+    current_user: User = Depends(require_operator),
     db: Session = Depends(get_db)
 ):
     """List discovered pages across scans with CAPTCHA and provider filters."""
@@ -443,7 +551,7 @@ async def list_discovered_pages(
 
 
 @router.get("/settings")
-async def get_system_settings():
+async def get_system_settings(current_user: User = Depends(require_operator)):
     """Diagnostic system settings and environment configuration."""
     import os
     tesseract_exists = os.path.exists(settings.TESSERACT_CMD)
@@ -455,6 +563,7 @@ async def get_system_settings():
         "host": settings.HOST,
         "port": settings.PORT,
         "enable_live_scan": settings.ENABLE_LIVE_SCAN,
+        "allow_dev_loopback": settings.can_allow_loopback,
         "allowed_domains": settings.ALLOWED_DOMAINS,
         "request_timeout_ms": settings.REQUEST_TIMEOUT_MS,
         "max_concurrent_pages": settings.MAX_CONCURRENT_PAGES,
@@ -466,4 +575,5 @@ async def get_system_settings():
         "tesseract_installed": tesseract_exists,
         "reports_dir": str(settings.REPORTS_DIR),
         "evidence_dir": str(settings.EVIDENCE_DIR),
+        "current_user_role": current_user.role,
     }

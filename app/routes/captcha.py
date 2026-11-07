@@ -1,12 +1,13 @@
 import base64
 from datetime import datetime, timezone
 from typing import Optional, Any
-from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi import APIRouter, HTTPException, Depends, Query, Request
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.database import get_db
-from app.models import HumanReviewRecord, CaptchaIntelligenceRecord, OcrEvaluationRecord
+from app.models import HumanReviewRecord, CaptchaIntelligenceRecord, OcrEvaluationRecord, User
 from app.services.captcha_intelligence import classify_captcha, execute_handling_strategy
 from app.services.ocr_service import (
     generate_synthetic_captcha,
@@ -15,6 +16,8 @@ from app.services.ocr_service import (
     benchmark_synthetic_ocr,
 )
 from app.services.token_verifier import verify_recaptcha_token
+from app.services.auth_service import require_operator, log_audit_event
+from app.services.rate_limiter import rate_limit
 
 router = APIRouter(
     prefix="/api/captcha",
@@ -61,31 +64,26 @@ class EvaluateHandlingRequest(BaseModel):
 
 
 class UpdateReviewRequest(BaseModel):
-    review_status: str = Field(..., description="Target status: approved, rejected, manually_verified")
-    operator_notes: Optional[str] = Field(None, description="Auditable operator decision notes")
+    review_status: str = Field(..., description="Decision: approved, rejected, manually_verified")
+    operator_notes: Optional[str] = Field(None, description="Operator audit notes justifying the decision")
 
 
 # -----------------------------
-# 1. CAPTCHA Classification
+# 1. CAPTCHA Classification & Intelligence
 # -----------------------------
 
 @router.post("/classify")
-async def classify_captcha_endpoint(request: CaptchaClassificationRequest):
+async def classify_page(
+    request: CaptchaClassificationRequest,
+    current_user: User = Depends(require_operator)
+):
     """
-    Classify CAPTCHA presence and determine provider, challenge type, confidence,
-    and recommended handling strategy.
+    Classify page HTML/DOM markers into recognized CAPTCHA providers,
+    distinguishing active widgets, passive scripts, invisible tokens, and unknown interstitials.
     """
-    image_bytes = None
-    if request.image_base64:
-        try:
-            image_bytes = base64.b64decode(request.image_base64)
-        except Exception:
-            raise HTTPException(status_code=400, detail="Invalid base64-encoded image data.")
-
     result = classify_captcha(
         html=request.html,
         title=request.title,
-        image_bytes=image_bytes,
         is_synthetic=request.is_synthetic,
         is_official_test=request.is_official_test,
     )
@@ -95,41 +93,36 @@ async def classify_captcha_endpoint(request: CaptchaClassificationRequest):
     }
 
 
-# -----------------------------
-# 2. Decision & Handling Workflow
-# -----------------------------
-
 @router.post("/evaluate-handling")
-async def evaluate_handling_endpoint(
+async def evaluate_page_handling(
     request: EvaluateHandlingRequest,
+    current_user: User = Depends(require_operator),
     db: Session = Depends(get_db)
 ):
     """
-    Execute decision and handling workflow based on CAPTCHA classification:
-      - No CAPTCHA -> Mark completed
-      - Synthetic CAPTCHA -> Run OCR service on owned image
+    Classify discovered CAPTCHA and execute appropriate handling workflow:
+      - No CAPTCHA -> mark completed
+      - Synthetic text -> run OCR inference and evaluate character accuracy
       - Official test CAPTCHA -> Run server-side token verification
-      - Third-party CAPTCHA -> Queue for human review (no automated bypass)
-      - Unknown challenge -> Queue for manual investigation
+      - Production third-party CAPTCHA -> Record evidence, route to Human Review Queue
     """
+    classification_result = classify_captcha(
+        html=request.html,
+        title=request.title,
+        is_synthetic=request.is_synthetic,
+        is_official_test=request.is_official_test,
+    )
+
     image_bytes = None
     if request.image_base64:
         try:
             image_bytes = base64.b64decode(request.image_base64)
         except Exception:
-            raise HTTPException(status_code=400, detail="Invalid base64-encoded image data.")
-
-    classification = classify_captcha(
-        html=request.html,
-        title=request.title,
-        image_bytes=image_bytes,
-        is_synthetic=request.is_synthetic,
-        is_official_test=request.is_official_test,
-    )
+            image_bytes = None
 
     handling_result = await execute_handling_strategy(
-        classification_result=classification,
-        page_url=request.page_url or "http://localhost/demo",
+        classification_result=classification_result,
+        page_url=request.page_url,
         scan_id=request.scan_id,
         image_bytes=image_bytes,
         response_token=request.response_token,
@@ -138,13 +131,46 @@ async def evaluate_handling_endpoint(
 
     return {
         "success": True,
-        "classification": classification,
+        **handling_result,
         "handling": handling_result,
+        "classification": classification_result,
     }
 
 
 # -----------------------------
-# 3. Human Review Workflow
+# 2. CAPTCHA Results Reporting
+# -----------------------------
+
+@router.get("/results")
+async def get_captcha_results(
+    provider: Optional[str] = Query(None),
+    challenge_only: bool = Query(False),
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
+    """
+    Retrieve classified CAPTCHA records across scans.
+    """
+    query = db.query(CaptchaIntelligenceRecord)
+    if provider and provider != "all":
+        query = query.filter(CaptchaIntelligenceRecord.provider == provider)
+    if challenge_only:
+        query = query.filter(CaptchaIntelligenceRecord.is_active_challenge == True)
+
+    total = query.count()
+    records = query.order_by(CaptchaIntelligenceRecord.created_at.desc()).offset(offset).limit(limit).all()
+
+    return {
+        "success": True,
+        "total": total,
+        "results": [r.to_dict() for r in records],
+    }
+
+
+# -----------------------------
+# 3. Human Review Queue & Decisions
 # -----------------------------
 
 @router.get("/reviews")
@@ -152,6 +178,7 @@ async def list_reviews(
     status: Optional[str] = Query(None, description="Filter by status: pending, approved, rejected, manually_verified"),
     limit: int = Query(50, ge=1, le=100),
     offset: int = Query(0, ge=0),
+    current_user: User = Depends(require_operator),
     db: Session = Depends(get_db)
 ):
     """
@@ -184,7 +211,11 @@ async def list_reviews(
 
 
 @router.get("/reviews/{review_id}")
-async def get_review_detail(review_id: str, db: Session = Depends(get_db)):
+async def get_review_detail(
+    review_id: str,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """Retrieve details for a single human review record."""
     review = db.query(HumanReviewRecord).filter(HumanReviewRecord.id == review_id).first()
     if not review:
@@ -196,15 +227,21 @@ async def get_review_detail(review_id: str, db: Session = Depends(get_db)):
     }
 
 
-@router.patch("/reviews/{review_id}")
+@router.patch(
+    "/reviews/{review_id}",
+    dependencies=[Depends(rate_limit(max_requests=settings.RATE_LIMIT_REVIEWS_PER_MIN, window_seconds=60, scope="review_update"))]
+)
 async def update_review_status(
     review_id: str,
     request: UpdateReviewRequest,
+    req: Request,
+    current_user: User = Depends(require_operator),
     db: Session = Depends(get_db)
 ):
     """
     Update human review status as an operator decision.
     Valid target statuses: approved, rejected, manually_verified.
+    Only authorized operators and administrators may update review records.
     """
     valid_statuses = ("approved", "rejected", "manually_verified")
     if request.review_status not in valid_statuses:
@@ -218,10 +255,21 @@ async def update_review_status(
         raise HTTPException(status_code=404, detail=f"Review record '{review_id}' not found.")
 
     review.review_status = request.review_status
-    if request.operator_notes:
+    if request.operator_notes is not None:
         review.operator_notes = request.operator_notes
     review.resolved_at = datetime.now(timezone.utc)
     db.commit()
+
+    log_audit_event(
+        db=db,
+        action="review.update",
+        actor=current_user,
+        resource_type="human_review",
+        resource_id=review_id,
+        ip_address=req.client.host if req.client else "127.0.0.1",
+        request_id=req.headers.get("X-Request-ID"),
+        details={"new_status": request.review_status, "notes": request.operator_notes}
+    )
 
     return {
         "success": True,
@@ -235,7 +283,11 @@ async def update_review_status(
 # -----------------------------
 
 @router.post("/ocr-demo")
-async def demonstrate_ocr(request: OCRDemoRequest, db: Session = Depends(get_db)):
+async def demonstrate_ocr(
+    request: OCRDemoRequest,
+    current_user: User = Depends(require_operator),
+    db: Session = Depends(get_db)
+):
     """
     Generate a synthetic distorted CAPTCHA, apply OpenCV preprocessing,
     evaluate Tesseract OCR extraction, and persist the evaluation record.
@@ -283,11 +335,18 @@ async def demonstrate_ocr(request: OCRDemoRequest, db: Session = Depends(get_db)
     }
 
 
-@router.post("/ocr-benchmark")
-async def benchmark_ocr(request: OCRBenchmarkRequest):
+@router.post(
+    "/ocr-benchmark",
+    dependencies=[Depends(rate_limit(max_requests=settings.RATE_LIMIT_BENCHMARK_PER_MIN, window_seconds=60, scope="ocr_benchmark"))]
+)
+async def benchmark_ocr(
+    request: OCRBenchmarkRequest,
+    current_user: User = Depends(require_operator)
+):
     """
     Evaluate OCR accuracy against a controlled synthetic dataset,
     and output architectural limitation analysis.
+    Rate-limited to prevent CPU exhaustion.
     """
     results = benchmark_synthetic_ocr(samples=request.samples)
     total_samples = results.get("total_samples", request.samples)
@@ -295,7 +354,6 @@ async def benchmark_ocr(request: OCRBenchmarkRequest):
     exact_count = round(total_samples * (exact_pct / 100.0))
     sample_evals = results.get("sample_evaluations", [])
 
-    # Format items for both schemas
     results_list = []
     for item in sample_evals:
         results_list.append({
@@ -325,7 +383,10 @@ async def benchmark_ocr(request: OCRBenchmarkRequest):
 # -----------------------------
 
 @router.post("/verify-token")
-async def verify_token(request: TokenVerificationRequest):
+async def verify_token(
+    request: TokenVerificationRequest,
+    current_user: User = Depends(require_operator)
+):
     """
     Verify a CAPTCHA response token using official Google reCAPTCHA test credentials.
     Tests valid tokens, missing tokens, invalid tokens, and expired/reused tokens.

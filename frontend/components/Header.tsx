@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { api } from '@/lib/api';
 import { HealthResponse } from '@/lib/types';
+import { useAuth } from '@/lib/auth-context';
 import {
   Activity,
   Plus,
@@ -13,10 +14,15 @@ import {
   RefreshCw,
   Search,
   CheckCircle2,
+  User,
+  LogOut,
+  Shield,
 } from 'lucide-react';
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, isAuthenticated, logout } = useAuth();
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [isOnline, setIsOnline] = useState<boolean | null>(null);
   const [checking, setChecking] = useState<boolean>(false);
@@ -33,6 +39,11 @@ export function Header() {
     } finally {
       setChecking(false);
     }
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = '/login';
   };
 
   useEffect(() => {
@@ -109,6 +120,40 @@ export function Header() {
           <Plus className="w-3.5 h-3.5" />
           <span>New Inspection</span>
         </Link>
+
+        {/* User Profile & Session Controls */}
+        {isAuthenticated && user ? (
+          <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+            <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-100/80 border border-slate-200">
+              <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-slate-700 to-slate-900 text-white flex items-center justify-center text-[11px] font-bold">
+                {user.username.charAt(0).toUpperCase()}
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-xs font-semibold text-slate-800 leading-none">
+                  {user.username}
+                </span>
+                <span className="text-[10px] uppercase font-mono tracking-wider font-semibold text-blue-600 mt-0.5">
+                  {user.role}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition"
+              title="Sign Out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
+        ) : (
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition"
+          >
+            <User className="w-3.5 h-3.5" />
+            <span>Sign In</span>
+          </Link>
+        )}
       </div>
     </header>
   );

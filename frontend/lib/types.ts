@@ -237,3 +237,36 @@ export interface CaptchaClassification {
   human_review_required: boolean;
   processing_status: string;
 }
+
+export type UserRole = 'admin' | 'operator';
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  email: string;
+  role: UserRole;
+  is_active: boolean;
+  created_at: string;
+  last_login_at?: string | null;
+}
+
+export interface LoginResponse {
+  access_token: string;
+  token_type: string;
+  expires_in_minutes: number;
+  user: UserProfile;
+}
+
+export interface AuditLogItem {
+  id: number;
+  timestamp: string;
+  actor_id?: string | null;
+  actor_username?: string | null;
+  actor_role?: string | null;
+  action: string;
+  resource_type: string;
+  resource_id?: string | null;
+  ip_address?: string | null;
+  request_id?: string | null;
+  details?: Record<string, any> | null;
+}

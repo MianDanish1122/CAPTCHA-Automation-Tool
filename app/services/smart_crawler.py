@@ -306,7 +306,7 @@ class SmartCrawler:
         else:
             self.max_depth = settings.CRAWLER_MAX_DEPTH
 
-        self.allow_loopback = allow_loopback
+        self.allow_loopback = allow_loopback and settings.can_allow_loopback
 
         self.visited_urls: set[str] = set()
         self.discovered_results: list[dict[str, Any]] = []
@@ -396,6 +396,51 @@ class SmartCrawler:
         try:
             page = await context.new_page()
             page.set_default_navigation_timeout(settings.CRAWLER_PAGE_TIMEOUT_MS)
+
+            # Pre-request SSRF & Redirect Interceptor
+            async def intercept_route(route):
+                req = route.request
+                target_url = req.url
+
+                try:
+                    parsed_target = urlparse(target_url)
+                    if parsed_target.scheme.lower() not in ("http", "https"):
+                        logger.warning(f"SSRF Interceptor: Aborting non-http request {target_url}")
+                        await route.abort("blockedbyclient")
+                        return
+
+                    # Pre-request validation before Chromium issues network request
+                    allowed, reason = SecurityGuard.validate_target_url(
+                        target_url,
+                        enforce_live_scan=False,
+                        allow_loopback=self.allow_loopback,
+                    )
+                    if not allowed:
+                        logger.warning(f"SSRF Interceptor: Blocked pre-request to {target_url}: {reason}")
+                        await route.abort("blockedbyclient")
+                        return
+
+                    # Redirect inspection: If this request is an HTTP redirect
+                    if req.redirected_from:
+                        from_url = req.redirected_from.url
+                        redir_allowed, redir_reason = SecurityGuard.validate_redirect_url(
+                            target_url,
+                            from_url,
+                            enforce_live_scan=False,
+                            allow_loopback=self.allow_loopback,
+                            require_same_domain=True,
+                        )
+                        if not redir_allowed:
+                            logger.warning(f"SSRF Interceptor: Blocked redirect from {from_url} to {target_url}: {redir_reason}")
+                            await route.abort("blockedbyclient")
+                            return
+
+                    await route.continue_()
+                except Exception as ex:
+                    logger.error(f"Error in SSRF request interceptor for {target_url}: {ex}")
+                    await route.abort("blockedbyclient")
+
+            await page.route("**/*", intercept_route)
 
             while queue and len(self.visited_urls) < self.max_pages:
                 # Sort queue so highest priority candidate runs next

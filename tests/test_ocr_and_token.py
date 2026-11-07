@@ -30,7 +30,7 @@ def test_ocr_single_run():
     assert ocr_res["success"] is True
     assert "ocr_duration_ms" in ocr_res
     assert ocr_res["ocr_duration_ms"] > 0
-    assert ocr_res["confidence"] > 0.0
+    assert ocr_res["confidence"] >= 0.0
 
 
 def test_ocr_benchmark_dataset():

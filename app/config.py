@@ -19,19 +19,52 @@ def get_bool_env(key: str, default: bool = False) -> bool:
 class Settings:
     BASE_DIR: Path = BASE_DIR
     APP_NAME: str = os.getenv("APP_NAME", "CAPTCHA Automation Tool")
-    APP_ENV: str = os.getenv("APP_ENV", "development")
-    DEBUG: bool = get_bool_env("DEBUG", True)
+    APP_ENV: str = os.getenv("APP_ENV", "development").strip().lower()
+    
+    # DEBUG defaults to False in production/staging; True only in development
+    _default_debug = True if APP_ENV == "development" else False
+    DEBUG: bool = get_bool_env("DEBUG", _default_debug)
 
     HOST: str = os.getenv("HOST", "127.0.0.1")
     PORT: int = int(os.getenv("PORT", "8000"))
 
-    # Security controls
+    # Security controls: Server-controlled loopback testing
+    # Default is False. ONLY effective when APP_ENV in ("development", "test").
+    ALLOW_DEV_LOOPBACK: bool = get_bool_env("ALLOW_DEV_LOOPBACK", False)
+
+    @property
+    def can_allow_loopback(self) -> bool:
+        """Returns True ONLY if explicitly enabled AND running in dev/test."""
+        return self.ALLOW_DEV_LOOPBACK and (self.APP_ENV in ("development", "test"))
+
     ENABLE_LIVE_SCAN: bool = get_bool_env("ENABLE_LIVE_SCAN", False)
     _allowed = os.getenv("ALLOWED_DOMAINS", "example.com,demo.com,localhost")
     ALLOWED_DOMAINS: list[str] = [d.strip().lower() for d in _allowed.split(",") if d.strip()]
 
+    # CORS Settings
+    _cors_origins = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000")
+    CORS_ALLOWED_ORIGINS: list[str] = [o.strip() for o in _cors_origins.split(",") if o.strip()]
+
+    # Authentication & JWT
+    JWT_SECRET_KEY: str = os.getenv(
+        "JWT_SECRET_KEY", "dev-insecure-secret-key-change-in-production-min32"
+    )
+    JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
+
+    # Rate Limiting (Requests per minute per IP / Actor)
+    RATE_LIMIT_LOGIN_PER_MIN: int = int(os.getenv("RATE_LIMIT_LOGIN_PER_MIN", "5"))
+    RATE_LIMIT_INSPECT_PER_MIN: int = int(os.getenv("RATE_LIMIT_INSPECT_PER_MIN", "10"))
+    RATE_LIMIT_BATCH_PER_MIN: int = int(os.getenv("RATE_LIMIT_BATCH_PER_MIN", "10"))
+    RATE_LIMIT_BENCHMARK_PER_MIN: int = int(os.getenv("RATE_LIMIT_BENCHMARK_PER_MIN", "5"))
+    RATE_LIMIT_REVIEWS_PER_MIN: int = int(os.getenv("RATE_LIMIT_REVIEWS_PER_MIN", "30"))
+    RATE_LIMIT_DEFAULT_PER_MIN: int = int(os.getenv("RATE_LIMIT_DEFAULT_PER_MIN", "120"))
+
+    # Resource Protection Limits
     REQUEST_TIMEOUT_MS: int = int(os.getenv("REQUEST_TIMEOUT_MS", "15000"))
     MAX_CONCURRENT_PAGES: int = int(os.getenv("MAX_CONCURRENT_PAGES", "3"))
+    MAX_CSV_ROWS: int = int(os.getenv("MAX_CSV_ROWS", "300"))
+    MAX_CSV_SIZE_BYTES: int = int(os.getenv("MAX_CSV_SIZE_BYTES", str(5 * 1024 * 1024)))
 
     # Database
     DATABASE_URL: str = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'data' / 'captcha_tool.db'}")
@@ -63,6 +96,23 @@ class Settings:
         "CRAWLER_USER_AGENT",
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 TechnologyBrainz-Crawler/2.0"
     )
+
+    def validate_production_config(self) -> None:
+        """Validate critical configuration constraints for production safety."""
+        if self.APP_ENV in ("production", "staging"):
+            if self.DEBUG:
+                raise ValueError("DEBUG must be False in production/staging.")
+            if self.ALLOW_DEV_LOOPBACK:
+                raise ValueError("ALLOW_DEV_LOOPBACK cannot be enabled in production/staging.")
+            if (
+                self.JWT_SECRET_KEY.startswith("dev-")
+                or len(self.JWT_SECRET_KEY) < 32
+            ):
+                raise ValueError(
+                    "Production requires a cryptographically strong JWT_SECRET_KEY of at least 32 characters."
+                )
+            if "*" in self.CORS_ALLOWED_ORIGINS:
+                raise ValueError("Wildcard '*' is prohibited in CORS_ALLOWED_ORIGINS in production/staging.")
 
 
 settings = Settings()

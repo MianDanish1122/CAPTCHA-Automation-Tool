@@ -326,3 +326,69 @@ class OcrEvaluationRecord(Base):
             "ocr_engine": self.ocr_engine,
             "created_at": self.created_at.isoformat() if self.created_at else None,
         }
+
+
+class UserRole:
+    ADMIN = "admin"
+    OPERATOR = "operator"
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    username = Column(String(64), unique=True, index=True, nullable=False)
+    email = Column(String(255), unique=True, index=True, nullable=False)
+    hashed_password = Column(String(255), nullable=False)
+    role = Column(String(32), default=UserRole.OPERATOR, nullable=False)
+    is_active = Column(Boolean, default=True, nullable=False)
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "role": self.role,
+            "is_active": self.is_active,
+            "created_at": self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    timestamp = Column(DateTime, default=utc_now, index=True)
+    actor_id = Column(String(36), nullable=True, index=True)
+    actor_username = Column(String(64), nullable=True)
+    actor_role = Column(String(32), nullable=True)
+    action = Column(String(64), nullable=False, index=True)
+    resource_type = Column(String(64), nullable=True)
+    resource_id = Column(String(64), nullable=True)
+    ip_address = Column(String(64), nullable=True)
+    request_id = Column(String(64), nullable=True, index=True)
+    details = Column(Text, nullable=True)
+
+    def to_dict(self) -> dict:
+        parsed_details = None
+        if self.details:
+            try:
+                parsed_details = json.loads(self.details)
+            except Exception:
+                parsed_details = self.details
+
+        return {
+            "id": self.id,
+            "timestamp": self.timestamp.isoformat() if self.timestamp else None,
+            "actor_id": self.actor_id,
+            "actor_username": self.actor_username,
+            "actor_role": self.actor_role,
+            "action": self.action,
+            "resource_type": self.resource_type,
+            "resource_id": self.resource_id,
+            "ip_address": self.ip_address,
+            "request_id": self.request_id,
+            "details": parsed_details,
+        }
