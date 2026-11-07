@@ -1,0 +1,7 @@
+﻿Company Name,Website URL,Website Status,Contact Page Found,CAPTCHA Detected,CAPTCHA Provider,Inspection Status,Human Review Required,Error Details,Scan Timestamp,Processing Duration (ms)
+Acme Global,fixture://normal_contact_form.html,failed,No,No,None,failed,No,Unexpected processing error: 'Settings' object has no attribute 'BASE_DIR',2026-11-07 06:20:48 UTC,0.00
+Nexus Security,fixture://google_recaptcha.html,failed,No,No,None,failed,No,Unexpected processing error: 'Settings' object has no attribute 'BASE_DIR',2026-11-07 06:20:48 UTC,0.00
+Apex Privacy,fixture://invisible_recaptcha.html,failed,No,No,None,failed,No,Unexpected processing error: 'Settings' object has no attribute 'BASE_DIR',2026-11-07 06:20:48 UTC,0.00
+Shield Corp,fixture://hcaptcha.html,failed,No,No,None,failed,No,Unexpected processing error: 'Settings' object has no attribute 'BASE_DIR',2026-11-07 06:20:48 UTC,0.00
+Vanguard Edge,fixture://cloudflare_turnstile.html,failed,No,No,None,failed,No,Unexpected processing error: 'Settings' object has no attribute 'BASE_DIR',2026-11-07 06:20:48 UTC,0.00
+Fortress Systems,fixture://unknown_challenge.html,failed,No,No,None,failed,No,Unexpected processing error: 'Settings' object has no attribute 'BASE_DIR',2026-11-07 06:20:48 UTC,0.00

@@ -1,0 +1,44 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Hp\OneDrive\Desktop\captcha-automation-tool
+plugins: anyio-4.16.0
+collecting ... collected 35 items
+
+tests/test_api_endpoints.py::test_home_endpoint PASSED                   [  2%]
+tests/test_api_endpoints.py::test_health_endpoint PASSED                 [  5%]
+tests/test_api_endpoints.py::test_api_import_valid_csv PASSED            [  8%]
+tests/test_api_endpoints.py::test_api_import_invalid_file_extension PASSED [ 11%]
+tests/test_api_endpoints.py::test_api_inspect_demo PASSED                [ 14%]
+tests/test_api_endpoints.py::test_api_inspect_demo_batch PASSED          [ 17%]
+tests/test_api_endpoints.py::test_api_scan_batch_and_report_lifecycle PASSED [ 20%]
+tests/test_api_endpoints.py::test_api_ocr_demo PASSED                    [ 22%]
+tests/test_api_endpoints.py::test_api_token_verification PASSED          [ 25%]
+tests/test_csv_importer.py::test_import_valid_csv PASSED                 [ 28%]
+tests/test_csv_importer.py::test_import_header_aliases PASSED            [ 31%]
+tests/test_csv_importer.py::test_import_missing_required_headers PASSED  [ 34%]
+tests/test_csv_importer.py::test_import_invalid_rows PASSED              [ 37%]
+tests/test_csv_importer.py::test_import_empty_file PASSED                [ 40%]
+tests/test_detection_fixtures.py::test_fixture_normal_contact_form[asyncio] PASSED [ 42%]
+tests/test_detection_fixtures.py::test_fixture_google_recaptcha[asyncio] PASSED [ 45%]
+tests/test_detection_fixtures.py::test_fixture_invisible_recaptcha[asyncio] PASSED [ 48%]
+tests/test_detection_fixtures.py::test_fixture_hcaptcha[asyncio] PASSED  [ 51%]
+tests/test_detection_fixtures.py::test_fixture_cloudflare_turnstile[asyncio] PASSED [ 54%]
+tests/test_detection_fixtures.py::test_fixture_unknown_challenge[asyncio] PASSED [ 57%]
+tests/test_ocr_and_token.py::test_synthetic_captcha_generation PASSED    [ 60%]
+tests/test_ocr_and_token.py::test_opencv_preprocessing PASSED            [ 62%]
+tests/test_ocr_and_token.py::test_ocr_single_run PASSED                  [ 65%]
+tests/test_ocr_and_token.py::test_ocr_benchmark_dataset PASSED           [ 68%]
+tests/test_ocr_and_token.py::test_token_verification_missing_token[asyncio] PASSED [ 71%]
+tests/test_ocr_and_token.py::test_token_verification_invalid_token[asyncio] PASSED [ 74%]
+tests/test_ocr_and_token.py::test_token_verification_reused_token[asyncio] PASSED [ 77%]
+tests/test_ocr_and_token.py::test_token_verification_official_test_approved[asyncio] PASSED [ 80%]
+tests/test_security.py::test_ip_allowed_public_ips PASSED                [ 82%]
+tests/test_security.py::test_ip_rejected_private_ips PASSED              [ 85%]
+tests/test_security.py::test_ip_rejected_loopback PASSED                 [ 88%]
+tests/test_security.py::test_ip_rejected_cloud_metadata PASSED           [ 91%]
+tests/test_security.py::test_validate_target_url_invalid_scheme PASSED   [ 94%]
+tests/test_security.py::test_validate_target_url_credentials PASSED      [ 97%]
+tests/test_security.py::test_validate_target_url_live_scan_disabled PASSED [100%]
+
+============================= 35 passed in 41.87s =============================

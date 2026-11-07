@@ -1,0 +1,7 @@
+﻿Company Name,Website URL,Website Status,Contact Page Found,CAPTCHA Detected,CAPTCHA Provider,Inspection Status,Human Review Required,Error Details,Scan Timestamp,Processing Duration (ms)
+Acme Global,fixture://normal_contact_form.html,no_known_captcha_detected,Yes,No,None,no_known_captcha_detected,No,,2026-11-07 06:22:28 UTC,465.40
+Nexus Security,fixture://google_recaptcha.html,captcha_detected,Yes,Yes,google_recaptcha,captcha_detected,No,,2026-11-07 06:22:28 UTC,359.78
+Apex Privacy,fixture://invisible_recaptcha.html,captcha_detected,Yes,Yes,google_recaptcha,captcha_detected,Yes,,2026-11-07 06:22:28 UTC,528.62
+Shield Corp,fixture://hcaptcha.html,captcha_detected,Yes,Yes,hcaptcha,captcha_detected,No,,2026-11-07 06:22:28 UTC,292.44
+Vanguard Edge,fixture://cloudflare_turnstile.html,captcha_detected,Yes,Yes,cloudflare_turnstile,captcha_detected,No,,2026-11-07 06:22:28 UTC,835.67
+Fortress Systems,fixture://unknown_challenge.html,unsupported_challenge,No,Yes,unknown_anti_bot_challenge,unsupported_challenge,Yes,,2026-11-07 06:22:28 UTC,1018.60

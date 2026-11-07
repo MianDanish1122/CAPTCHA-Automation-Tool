@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Portal - Cloudflare Turnstile Protected</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body>
+    <h1>Reach Our Team</h1>
+    <form id="contact-turnstile" action="/submit" method="POST">
+        <label for="contact-email">Email:</label>
+        <input type="email" id="contact-email" name="email" required><br><br>
+        <label for="message">Your Inquiry:</label><br>
+        <textarea id="message" name="message" required></textarea><br><br>
+        
+        <!-- Cloudflare Turnstile Widget -->
+        <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA"></div>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

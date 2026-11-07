@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Form - hCaptcha Protected</title>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+</head>
+<body>
+    <h1>Submit Website Feedback</h1>
+    <form id="feedback-form" action="/feedback" method="POST">
+        <label for="comments">Your Feedback:</label><br>
+        <textarea id="comments" name="comments" rows="4" cols="50" required></textarea><br><br>
+        
+        <!-- hCaptcha Widget Container -->
+        <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001"></div>
+        <br>
+        <button type="submit">Send Feedback</button>
+    </form>
+</body>
+</html>

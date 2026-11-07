@@ -1,0 +1,2 @@
+﻿Company Name,Website URL,Website Status,Contact Page Found,CAPTCHA Detected,CAPTCHA Provider,Inspection Status,Human Review Required,Error Details,Scan Timestamp,Processing Duration (ms)
+Test Co,fixture://normal_contact_form.html,pending,No,No,None,pending,No,,2026-11-07 06:33:00 UTC,0.00
