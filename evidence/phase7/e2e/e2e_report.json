@@ -1,0 +1,160 @@
+{
+  "passed": 30,
+  "total": 30,
+  "checks": [
+    {
+      "check": "operator can sign in",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "workflow lists all 8 evaluator steps",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "dashboard starts with zero scans/pages (no placeholder values)",
+      "passed": true,
+      "detail": "{\"denominator\": \"discovered pages created in range\", \"pages_inspected\": 0, \"pages_with_captcha\": 0, \"pages_with_captcha_pct\": null}"
+    },
+    {
+      "check": "empty-state message shown",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "website inspection completes",
+      "passed": true,
+      "detail": "{\"success\": true, \"scan_id\": \"cad806d4-b25d-4ca2-8ebb-1ea258b2c122\", \"status\": \"completed\", \"submitted_url\": \"http://127.0.0.1:65205/\", \"domain\": \"127.0.0.1\", \"pages_crawled\": 2, \"contact_pages_found\""
+    },
+    {
+      "check": "discovered pages listed for the scan",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "protected screenshot evidence renders",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "results page shows the detected reCAPTCHA",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "production reCAPTCHA is queued for human review (not solved)",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "OCR benchmark run was executed and persisted",
+      "passed": true,
+      "detail": "{\"id\": \"580c467d-9fc7-40b6-9971-09ff37b319cb\", \"created_at\": \"2026-11-07T12:49:13.976651\", \"source\": \"api\", \"dataset\": \"ocr_synthetic_v1\", \"split\": \"dev\", \"engine\": \"hybrid\", \"samples\": 20, \"exact_mat"
+    },
+    {
+      "check": "official test keys: real provider called and confirmed",
+      "passed": true,
+      "detail": "PROVIDER \u2013 OFFICIAL TEST KEYS\nCONFIRMED BY PROVIDER\nverified\n\nThe real provider endpoint answered, but test keys accept/reject any token by design. This shows t"
+    },
+    {
+      "check": "simulated scenario is labelled simulated, no provider call, not verified",
+      "passed": true,
+      "detail": "SIMULATED \u2013 NO PROVIDER CALL\nNOT VERIFIED\nrejected_timeout_or_duplicate\n\nGenerated locally to demonstrate error handling. A simulation can never succeed.\n\nProvider called: false\nHTTP status: \u2013\nDuratio"
+    },
+    {
+      "check": "missing token rejected by local validation",
+      "passed": true,
+      "detail": "LOCAL VALIDATION \u2013 REJECTED BEFORE PROVIDER\nNOT VERIFIED\nrejected_missing_token\n\nThe request was rejected by the server without contacting the provider.\n\nProvid"
+    },
+    {
+      "check": "Turnstile 'token already spent' is a genuine provider response",
+      "passed": true,
+      "detail": "PROVIDER \u2013 OFFICIAL TEST KEYS\nNOT VERIFIED\nrejected_timeout_or_duplicate\n\nThe real provider endpoint answered, but test keys accept/reject any token by design. This shows the integration works; it is "
+    },
+    {
+      "check": "verification attempts are persisted (4 run in the UI)",
+      "passed": true,
+      "detail": "4"
+    },
+    {
+      "check": "no token is stored in verification records",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "dashboard shows scans/pages from stored data",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "dashboard shows verification attempt count matching the API",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "dashboard reports simulated attempts separately from provider-confirmed",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "held-out OCR results come from the stored benchmark (4 engines)",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "held-out numbers on screen equal the stored measurements",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "every metric block states a denominator",
+      "passed": true,
+      "detail": "16"
+    },
+    {
+      "check": "time range is stated",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "time-range filter changes the stated range",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "report endpoint answered 200",
+      "passed": true,
+      "detail": "200"
+    },
+    {
+      "check": "report downloads and contains denominators + held-out engines",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no uncaught page errors",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no failed network requests",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no HTTP >= 400 responses to dashboard requests",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no console errors",
+      "passed": true,
+      "detail": "[]"
+    }
+  ],
+  "console": [],
+  "pageerrors": [],
+  "failed": [],
+  "http_errors": []
+}

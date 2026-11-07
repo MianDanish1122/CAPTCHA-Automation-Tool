@@ -1,0 +1,172 @@
+{
+  "backend": "http://127.0.0.1:8000",
+  "frontend": "http://localhost:3000",
+  "passed": 32,
+  "total": 32,
+  "checks": [
+    {
+      "check": "login page has no quick-fill credential panel",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "operator logs in and reaches dashboard",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "dashboard renders authenticated content",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "protected screenshot renders in the dashboard",
+      "passed": true,
+      "detail": "naturalWidth=640"
+    },
+    {
+      "check": "screenshot is loaded via blob (not a public URL)",
+      "passed": true,
+      "detail": "blob:http://localhost:3000/e1288c61-8717-4da8-bc4e-0970d4c9acdb"
+    },
+    {
+      "check": "evidence request carried a bearer token",
+      "passed": true,
+      "detail": "1 request(s)"
+    },
+    {
+      "check": "evidence without token -> 401",
+      "passed": true,
+      "detail": "401"
+    },
+    {
+      "check": "legacy public /evidence path -> 404",
+      "passed": true,
+      "detail": "404"
+    },
+    {
+      "check": "evidence with garbage token -> 401",
+      "passed": true,
+      "detail": "401"
+    },
+    {
+      "check": "evidence with operator token -> 200 image/png",
+      "passed": true,
+      "detail": "200"
+    },
+    {
+      "check": "evidence traversal/out-of-scope /api/evidence/../.env -> 404",
+      "passed": true,
+      "detail": "404"
+    },
+    {
+      "check": "evidence traversal/out-of-scope /api/evidence/TEST_EVIDENCE.md -> 404",
+      "passed": true,
+      "detail": "404"
+    },
+    {
+      "check": "evidence traversal/out-of-scope /api/evidence/scans/x/../../.env -> 404",
+      "passed": true,
+      "detail": "404"
+    },
+    {
+      "check": "/health body is exactly liveness",
+      "passed": true,
+      "detail": "{\"status\":\"healthy\"}"
+    },
+    {
+      "check": "/health contains no sensitive keys",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "/api/health/details requires auth",
+      "passed": true,
+      "detail": "401"
+    },
+    {
+      "check": "operator cannot read audit logs (403)",
+      "passed": true,
+      "detail": "403"
+    },
+    {
+      "check": "operator cannot create users (403/422 never 200)",
+      "passed": true,
+      "detail": "403"
+    },
+    {
+      "check": "operator sees no audit-trail section in Settings",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "logout redirects to login and clears storage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "old token is rejected after logout (revoked)",
+      "passed": true,
+      "detail": "401"
+    },
+    {
+      "check": "old token cannot fetch evidence after logout",
+      "passed": true,
+      "detail": "401"
+    },
+    {
+      "check": "protected page redirects to login when signed out",
+      "passed": true,
+      "detail": "http://localhost:3000/login"
+    },
+    {
+      "check": "admin sees audit trail section in Settings",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "admin can read audit logs (200)",
+      "passed": true,
+      "detail": "200"
+    },
+    {
+      "check": "admin audit chain verification is valid",
+      "passed": true,
+      "detail": "{'success': True, 'valid': True, 'checked_entries': 3, 'legacy_unchained_entries': 0, 'head_hash': '9f736a90690290dbc1611c3c50b3402d61ed6ce7c7701738895ffb8c04568ead', 'head_seq': 3}"
+    },
+    {
+      "check": "admin can read health details",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "audit trail contains no credentials or attempted-username leakage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no uncaught page errors",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no failed network requests",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no HTTP >= 400 responses to application requests",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "check": "no console errors",
+      "passed": true,
+      "detail": "[]"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "failed_requests": [],
+  "http_errors_seen_by_page": []
+}

@@ -621,7 +621,7 @@ def _declared_requirements():
 def test_requirements_declare_every_third_party_import():
     declared = _declared_requirements()
     stdlib = set(sys.stdlib_module_names)
-    local = {"app", "tests"}
+    local = {"app", "tests", "scripts"}
     missing = set()
     scan_dirs = [ROOT / "app", ROOT / "tests", ROOT / "alembic"]
     files = [p for d in scan_dirs for p in d.rglob("*.py") if "__pycache__" not in p.parts]

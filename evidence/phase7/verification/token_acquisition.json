@@ -1,0 +1,45 @@
+{
+  "note": "official TEST keys on an owned page; tokens not stored",
+  "results": [
+    {
+      "provider": "google_recaptcha",
+      "test_site_key_used": "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+      "token_acquired_from_widget": true,
+      "token_length": 1764,
+      "verification": {
+        "verification_mode": "provider_test_keys",
+        "outcome": "verified",
+        "success": true,
+        "provider_called": true,
+        "provider_verified": true,
+        "http_status": 200,
+        "error_codes": [],
+        "hostname": "testkey.google.com",
+        "token_source": "widget_test_key"
+      }
+    },
+    {
+      "provider": "hcaptcha",
+      "test_site_key_used": "10000000-ffff-ffff-ffff-000000000001",
+      "token_acquired_from_widget": false,
+      "error": "TimeoutError: Locator.click: Timeout 20000ms exceeded.\nCall log:\n  - waiting for locator(\"#hc iframe[title*='checkbox']\").content_frame.locator(\"#checkbox\")\n"
+    },
+    {
+      "provider": "cloudflare_turnstile",
+      "test_site_key_used": "1x00000000000000000000AA",
+      "token_acquired_from_widget": true,
+      "token_length": 21,
+      "verification": {
+        "verification_mode": "provider_test_keys",
+        "outcome": "verified",
+        "success": true,
+        "provider_called": true,
+        "provider_verified": true,
+        "http_status": 200,
+        "error_codes": [],
+        "hostname": "example.com",
+        "token_source": "widget_test_key"
+      }
+    }
+  ]
+}
