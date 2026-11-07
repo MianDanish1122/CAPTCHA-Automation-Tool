@@ -12,7 +12,8 @@ from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.database import get_db
-from app.models import User, UserRole, AuditLog, generate_uuid, utc_now
+from app.models import User, UserRole, RevokedToken, generate_uuid, utc_now
+from app.services.audit import log_audit_event  # noqa: F401  (re-exported for routes)
 
 logger = logging.getLogger(__name__)
 
@@ -38,11 +39,25 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         return False
 
 
+# Valid bcrypt hash of a random value: lets login do equal work for unknown usernames
+# (prevents username enumeration through response timing).
+_DUMMY_HASH = bcrypt.hashpw(b"timing-equalisation-placeholder", bcrypt.gensalt(rounds=12)).decode("utf-8")
+
+
+def verify_password_or_dummy(plain_password: str, hashed_password: Optional[str]) -> bool:
+    """Constant-work password check; `hashed_password=None` burns the same time as a real check."""
+    if hashed_password is None:
+        verify_password(plain_password, _DUMMY_HASH)
+        return False
+    return verify_password(plain_password, hashed_password)
+
+
 def create_access_token(
     user_id: str,
     username: str,
     role: str,
-    expires_delta: Optional[timedelta] = None
+    expires_delta: Optional[timedelta] = None,
+    token_version: int = 0,
 ) -> str:
     """Create a signed JWT access token with role and expiration."""
     now = datetime.now(timezone.utc)
@@ -58,6 +73,7 @@ def create_access_token(
         "iat": int(now.timestamp()),
         "exp": int(expire.timestamp()),
         "jti": generate_uuid(),
+        "ver": int(token_version or 0),
     }
 
     encoded_jwt = jwt.encode(
@@ -91,7 +107,29 @@ def decode_access_token(token: str) -> dict:
         )
 
 
+def revoke_token(db: Session, payload: dict, reason: str = "logout") -> None:
+    """Add a token's jti to the denylist until it would have expired anyway."""
+    jti = payload.get("jti")
+    if not jti:
+        return
+    exp = datetime.fromtimestamp(int(payload.get("exp", 0)), tz=timezone.utc).replace(tzinfo=None)
+    now = utc_now().replace(tzinfo=None)
+    # Opportunistic cleanup of denylist rows that can no longer matter
+    db.query(RevokedToken).filter(RevokedToken.expires_at < now).delete(synchronize_session=False)
+    if not db.query(RevokedToken).filter(RevokedToken.jti == jti).first():
+        db.add(RevokedToken(jti=jti, user_id=payload.get("sub", ""), expires_at=exp, reason=reason))
+    db.commit()
+
+
+def revoke_all_user_sessions(db: Session, user: User) -> int:
+    """Invalidate every token ever issued to `user` (bumps token_version). Returns the new version."""
+    user.token_version = (user.token_version or 0) + 1
+    db.commit()
+    return user.token_version
+
+
 async def get_current_user(
+    request: Request,
     token: Optional[str] = Depends(oauth2_scheme),
     db: Session = Depends(get_db)
 ) -> User:
@@ -120,6 +158,22 @@ async def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
+    # Session invalidation: individually revoked token, or token issued before a global revoke.
+    jti = payload.get("jti")
+    if jti and db.query(RevokedToken).filter(RevokedToken.jti == jti).first():
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Session has been revoked. Please log in again.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    if int(payload.get("ver", 0)) != int(user.token_version or 0):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Session has been invalidated. Please log in again.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    request.state.token_payload = payload
     return user
 
 
@@ -138,50 +192,3 @@ def require_role(allowed_roles: list[str]):
 # Convenient role dependencies
 require_admin = require_role([UserRole.ADMIN])
 require_operator = require_role([UserRole.ADMIN, UserRole.OPERATOR])
-
-
-def log_audit_event(
-    db: Session,
-    action: str,
-    actor: Optional[User] = None,
-    actor_id: Optional[str] = None,
-    actor_username: Optional[str] = None,
-    actor_role: Optional[str] = None,
-    resource_type: Optional[str] = None,
-    resource_id: Optional[str] = None,
-    ip_address: Optional[str] = None,
-    request_id: Optional[str] = None,
-    details: Optional[dict] = None
-) -> None:
-    """Record an immutable audit log entry."""
-    try:
-        sanitized_details = None
-        if details:
-            # Strip sensitive fields
-            sanitized = dict(details)
-            for sensitive_key in ("password", "token", "access_token", "secret", "authorization"):
-                if sensitive_key in sanitized:
-                    sanitized[sensitive_key] = "[REDACTED]"
-            sanitized_details = json.dumps(sanitized)
-
-        entry = AuditLog(
-            id=generate_uuid(),
-            timestamp=utc_now(),
-            actor_id=actor.id if actor else actor_id,
-            actor_username=actor.username if actor else actor_username,
-            actor_role=actor.role if actor else actor_role,
-            action=action,
-            resource_type=resource_type,
-            resource_id=resource_id,
-            ip_address=ip_address,
-            request_id=request_id,
-            details=sanitized_details,
-        )
-        db.add(entry)
-        db.commit()
-    except Exception as e:
-        logger.error(f"Failed to record audit log event '{action}': {e}")
-        try:
-            db.rollback()
-        except Exception:
-            pass

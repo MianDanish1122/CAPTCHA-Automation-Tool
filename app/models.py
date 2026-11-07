@@ -239,6 +239,10 @@ class HumanReviewRecord(Base):
     operator_notes = Column(Text, nullable=True)
     created_at = Column(DateTime, default=utc_now)
     resolved_at = Column(DateTime, nullable=True)
+    # Identity of the most recent decision-maker (full history in ReviewDecision)
+    reviewed_by_id = Column(String(36), nullable=True)
+    reviewed_by_username = Column(String(64), nullable=True)
+    decision_count = Column(Integer, default=0, nullable=False, server_default="0")
 
     def to_dict(self) -> dict:
         return {
@@ -252,6 +256,39 @@ class HumanReviewRecord(Base):
             "operator_notes": self.operator_notes,
             "created_at": self.created_at.isoformat() if self.created_at else None,
             "resolved_at": self.resolved_at.isoformat() if self.resolved_at else None,
+            "reviewed_by": self.reviewed_by_username,
+            "decision_count": self.decision_count or 0,
+        }
+
+
+class ReviewDecision(Base):
+    """Append-only history of every decision made on a human review record."""
+    __tablename__ = "review_decisions"
+
+    id = Column(String(36), primary_key=True, default=generate_uuid)
+    review_id = Column(String(36), ForeignKey("human_reviews.id"), nullable=False, index=True)
+    decided_at = Column(DateTime, default=utc_now, nullable=False)
+    decided_by_id = Column(String(36), nullable=False)
+    decided_by_username = Column(String(64), nullable=False)
+    decided_by_role = Column(String(32), nullable=True)
+    previous_status = Column(String(32), nullable=False)
+    new_status = Column(String(32), nullable=False)
+    notes = Column(Text, nullable=True)
+    ip_address = Column(String(64), nullable=True)
+    request_id = Column(String(64), nullable=True)
+
+    def to_dict(self) -> dict:
+        return {
+            "id": self.id,
+            "review_id": self.review_id,
+            "decided_at": self.decided_at.isoformat() if self.decided_at else None,
+            "decided_by": self.decided_by_username,
+            "decided_by_id": self.decided_by_id,
+            "decided_by_role": self.decided_by_role,
+            "previous_status": self.previous_status,
+            "new_status": self.new_status,
+            "notes": self.notes,
+            "request_id": self.request_id,
         }
 
 
@@ -342,6 +379,8 @@ class User(Base):
     hashed_password = Column(String(255), nullable=False)
     role = Column(String(32), default=UserRole.OPERATOR, nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
+    # Incremented to invalidate every token previously issued to this user.
+    token_version = Column(Integer, default=0, nullable=False, server_default="0")
     created_at = Column(DateTime, default=utc_now)
     updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
 
@@ -356,10 +395,25 @@ class User(Base):
         }
 
 
+class RevokedToken(Base):
+    """Denylist of individually revoked JWTs (by jti) until their natural expiry."""
+    __tablename__ = "revoked_tokens"
+
+    jti = Column(String(64), primary_key=True)
+    user_id = Column(String(36), nullable=False, index=True)
+    revoked_at = Column(DateTime, default=utc_now, nullable=False)
+    expires_at = Column(DateTime, nullable=False, index=True)
+    reason = Column(String(64), nullable=True)
+
+
 class AuditLog(Base):
     __tablename__ = "audit_logs"
 
     id = Column(String(36), primary_key=True, default=generate_uuid)
+    # Tamper-evidence: strictly increasing sequence + HMAC hash chain (see app/services/audit.py)
+    seq = Column(Integer, nullable=True, index=True)
+    prev_hash = Column(String(64), nullable=True)
+    entry_hash = Column(String(64), nullable=True)
     timestamp = Column(DateTime, default=utc_now, index=True)
     actor_id = Column(String(36), nullable=True, index=True)
     actor_username = Column(String(64), nullable=True)
@@ -391,4 +445,6 @@ class AuditLog(Base):
             "ip_address": self.ip_address,
             "request_id": self.request_id,
             "details": parsed_details,
+            "seq": self.seq,
+            "entry_hash": self.entry_hash,
         }

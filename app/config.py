@@ -58,6 +58,29 @@ class Settings:
     # Upper bound for any single proxied response body during guarded browsing.
     GUARD_MAX_RESPONSE_BYTES: int = int(os.getenv("GUARD_MAX_RESPONSE_BYTES", str(10 * 1024 * 1024)))
 
+    # --- Phase 6B ---
+    # One-time bootstrap: POST /api/auth/setup-initial-admin is DISABLED unless this secret is
+    # configured (>= 24 chars) and presented in the X-Setup-Token header. Prefer the CLI.
+    INITIAL_ADMIN_SETUP_TOKEN: str = os.getenv("INITIAL_ADMIN_SETUP_TOKEN", "")
+    # HMAC key for the tamper-evident audit chain (defaults to a key derived from JWT_SECRET_KEY).
+    AUDIT_HMAC_KEY: str = os.getenv("AUDIT_HMAC_KEY", "")
+
+    # Request / input limits
+    MAX_JSON_BODY_BYTES: int = int(os.getenv("MAX_JSON_BODY_BYTES", str(2 * 1024 * 1024)))
+    MAX_HTML_CHARS: int = int(os.getenv("MAX_HTML_CHARS", "200000"))
+    MAX_IMAGE_BYTES: int = int(os.getenv("MAX_IMAGE_BYTES", str(1024 * 1024)))
+    MAX_IMAGE_PIXELS: int = int(os.getenv("MAX_IMAGE_PIXELS", str(4_000_000)))
+
+    # Additional rate limits (per minute per client)
+    RATE_LIMIT_COMPUTE_PER_MIN: int = int(os.getenv("RATE_LIMIT_COMPUTE_PER_MIN", "30"))
+    RATE_LIMIT_ADMIN_PER_MIN: int = int(os.getenv("RATE_LIMIT_ADMIN_PER_MIN", "20"))
+    RATE_LIMIT_SETUP_PER_MIN: int = int(os.getenv("RATE_LIMIT_SETUP_PER_MIN", "3"))
+
+    # Background job limits
+    MAX_CONCURRENT_CRAWLS: int = int(os.getenv("MAX_CONCURRENT_CRAWLS", "2"))
+    MAX_CONCURRENT_BATCH_JOBS: int = int(os.getenv("MAX_CONCURRENT_BATCH_JOBS", "1"))
+    MAX_ACTIVE_JOBS_PER_USER: int = int(os.getenv("MAX_ACTIVE_JOBS_PER_USER", "2"))
+
     ENABLE_LIVE_SCAN: bool = get_bool_env("ENABLE_LIVE_SCAN", False)
     _allowed = os.getenv("ALLOWED_DOMAINS", "example.com,demo.com,localhost")
     ALLOWED_DOMAINS: list[str] = [d.strip().lower() for d in _allowed.split(",") if d.strip()]
@@ -132,6 +155,8 @@ class Settings:
                 raise ValueError(
                     "Production requires a cryptographically strong JWT_SECRET_KEY of at least 32 characters."
                 )
+            if self.INITIAL_ADMIN_SETUP_TOKEN and len(self.INITIAL_ADMIN_SETUP_TOKEN) < 24:
+                raise ValueError("INITIAL_ADMIN_SETUP_TOKEN must be at least 24 characters when set.")
             if self.SCAN_ALLOW_INVALID_CERTS:
                 raise ValueError("SCAN_ALLOW_INVALID_CERTS cannot be enabled in production/staging.")
             if "*" in self.CORS_ALLOWED_ORIGINS:
