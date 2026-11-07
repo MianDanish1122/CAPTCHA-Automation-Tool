@@ -1,4 +1,7 @@
+import os
 import sys
+import getpass
+import secrets
 import argparse
 import shutil
 from datetime import datetime, timezone
@@ -8,6 +11,30 @@ from app.database import SessionLocal, init_db
 from app.models import User, UserRole
 from app.services.auth_service import hash_password
 from app.config import settings
+
+
+MIN_PASSWORD_LENGTH = 12
+
+
+def obtain_password(args) -> tuple[str, bool]:
+    """
+    Resolve a password WITHOUT embedding it in source or (preferably) the command line.
+    Order: --generate-password, ADMIN_PASSWORD env var, --password (warned), interactive prompt.
+    Returns (password, was_generated).
+    """
+    if getattr(args, "generate_password", False):
+        return secrets.token_urlsafe(24), True
+    env_pw = os.environ.get("ADMIN_PASSWORD")
+    if env_pw:
+        return env_pw, False
+    if getattr(args, "password", None):
+        print("[WARN] --password exposes the secret in shell history and process listings.")
+        return args.password, False
+    first = getpass.getpass("Password: ")
+    if first != getpass.getpass("Confirm password: "):
+        print("[ERROR] Passwords do not match.")
+        sys.exit(1)
+    return first, False
 
 
 def create_user_command(username, email, password, role=UserRole.ADMIN):
@@ -79,13 +106,23 @@ def main():
     p_admin = subparsers.add_parser("create-admin", help="Create an administrator account")
     p_admin.add_argument("--username", required=True, help="Administrator username")
     p_admin.add_argument("--email", required=True, help="Administrator email")
-    p_admin.add_argument("--password", required=True, help="Strong password (min 8 chars)")
+    p_admin.add_argument(
+        "--password",
+        help="NOT RECOMMENDED (visible in shell history/process list). "
+             "Omit to be prompted securely, or use --generate-password / ADMIN_PASSWORD env var.",
+    )
+    p_admin.add_argument(
+        "--generate-password",
+        action="store_true",
+        help="Generate a strong random password and print it ONCE.",
+    )
 
     # create-user
     p_user = subparsers.add_parser("create-user", help="Create a standard operator account")
     p_user.add_argument("--username", required=True, help="Operator username")
     p_user.add_argument("--email", required=True, help="Operator email")
-    p_user.add_argument("--password", required=True, help="Password")
+    p_user.add_argument("--password", help="NOT RECOMMENDED; omit to be prompted or use --generate-password.")
+    p_user.add_argument("--generate-password", action="store_true", help="Generate a random password and print it once.")
     p_user.add_argument("--role", default=UserRole.OPERATOR, choices=[UserRole.OPERATOR, UserRole.ADMIN])
 
     # list-users
@@ -97,13 +134,22 @@ def main():
     args = parser.parse_args()
 
     if args.command == "create-admin":
-        if len(args.password) < 8:
-            print("[ERROR] Password must be at least 8 characters long.")
+        password, generated = obtain_password(args)
+        if len(password) < MIN_PASSWORD_LENGTH:
+            print(f"[ERROR] Password must be at least {MIN_PASSWORD_LENGTH} characters long.")
             sys.exit(1)
-        create_user_command(args.username, args.email, args.password, role=UserRole.ADMIN)
+        if create_user_command(args.username, args.email, password, role=UserRole.ADMIN) and generated:
+            print("\nGenerated administrator password (shown ONCE, store it in a password manager):")
+            print(f"  {password}")
 
     elif args.command == "create-user":
-        create_user_command(args.username, args.email, args.password, role=args.role)
+        password, generated = obtain_password(args)
+        if len(password) < MIN_PASSWORD_LENGTH:
+            print(f"[ERROR] Password must be at least {MIN_PASSWORD_LENGTH} characters long.")
+            sys.exit(1)
+        if create_user_command(args.username, args.email, password, role=args.role) and generated:
+            print("\nGenerated password (shown ONCE, store it in a password manager):")
+            print(f"  {password}")
 
     elif args.command == "list-users":
         list_users_command()

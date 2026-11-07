@@ -1,4 +1,5 @@
 import os
+import secrets
 import pytest
 from starlette.testclient import TestClient
 
@@ -23,7 +24,7 @@ def setup_test_database():
                 id="test-operator-id",
                 username="test_operator",
                 email="operator@test.internal",
-                hashed_password=hash_password("OperatorPass123!"),
+                hashed_password=hash_password(secrets.token_urlsafe(24)),  # random; tests use tokens
                 role=UserRole.OPERATOR,
                 is_active=True,
             )
@@ -35,7 +36,7 @@ def setup_test_database():
                 id="test-admin-id",
                 username="test_admin",
                 email="admin@test.internal",
-                hashed_password=hash_password("AdminPass123!"),
+                hashed_password=hash_password(secrets.token_urlsafe(24)),  # random; tests use tokens
                 role=UserRole.ADMIN,
                 is_active=True,
             )

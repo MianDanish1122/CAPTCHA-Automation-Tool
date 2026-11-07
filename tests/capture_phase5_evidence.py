@@ -8,6 +8,14 @@ from pathlib import Path
 import httpx
 from playwright.async_api import async_playwright
 
+
+def _env(name: str) -> str:
+    """Credentials for evidence capture come from the environment, never from source."""
+    value = os.environ.get(name)
+    if not value:
+        sys.exit(f"Set {name} (provision accounts with `python -m app.cli create-admin`).")
+    return value
+
 EVIDENCE_DIR = Path("evidence/phase5")
 EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -94,8 +102,8 @@ async def main():
 
             # --- Authenticate as Operator ---
             print("Signing in as Operator...")
-            await page.fill('input[type="text"]', "operator")
-            await page.fill('input[type="password"]', "OperatorPass123!")
+            await page.fill('input[type="text"]', _env("E2E_OPERATOR_USER"))
+            await page.fill('input[type="password"]', _env("E2E_OPERATOR_PASSWORD"))
             await page.click('button[type="submit"]')
             
             # Wait for header and overview dashboard
@@ -127,8 +135,8 @@ async def main():
 
             # Fill Admin Credentials
             await page.wait_for_selector('input[type="text"]', timeout=15000)
-            await page.fill('input[type="text"]', "admin")
-            await page.fill('input[type="password"]', "AdminSecure2026!")
+            await page.fill('input[type="text"]', _env("E2E_ADMIN_USER"))
+            await page.fill('input[type="password"]', _env("E2E_ADMIN_PASSWORD"))
             await page.click('button[type="submit"]')
             
             await page.wait_for_selector("header", timeout=15000)

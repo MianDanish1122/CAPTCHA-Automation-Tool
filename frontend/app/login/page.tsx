@@ -45,12 +45,6 @@ function LoginForm() {
     }
   };
 
-  const handleQuickLogin = (user: string, pass: string) => {
-    setUsername(user);
-    setPassword(pass);
-    setError(null);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col justify-center items-center px-4 py-12">
       <div className="max-w-md w-full space-y-8">
@@ -145,37 +139,9 @@ function LoginForm() {
             </button>
           </form>
 
-          {/* Quick Demo Credentials */}
-          <div className="mt-8 pt-6 border-t border-slate-800/80">
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block mb-3 text-center">
-              Quick Test Credentials (Pre-Configured)
-            </span>
-            <div className="grid grid-cols-2 gap-2.5">
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('operator', 'OperatorPass123!')}
-                className="p-2.5 rounded-xl bg-slate-950/80 hover:bg-slate-800 border border-slate-800 text-left transition text-xs group cursor-pointer"
-              >
-                <div className="flex items-center justify-between text-blue-400 font-semibold mb-0.5">
-                  <span>Operator</span>
-                  <span className="text-[10px] text-slate-500 group-hover:text-slate-300">Click to fill</span>
-                </div>
-                <p className="text-[10px] text-slate-400 font-mono truncate">operator / OperatorPass123!</p>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickLogin('admin', 'AdminSecure2026!')}
-                className="p-2.5 rounded-xl bg-slate-950/80 hover:bg-slate-800 border border-slate-800 text-left transition text-xs group cursor-pointer"
-              >
-                <div className="flex items-center justify-between text-indigo-400 font-semibold mb-0.5">
-                  <span>Administrator</span>
-                  <span className="text-[10px] text-slate-500 group-hover:text-slate-300">Click to fill</span>
-                </div>
-                <p className="text-[10px] text-slate-400 font-mono truncate">admin / AdminSecure2026!</p>
-              </button>
-            </div>
-          </div>
+          <p className="mt-6 pt-4 border-t border-slate-800/80 text-center text-[11px] text-slate-500">
+            Accounts are provisioned by your administrator. No default credentials exist.
+          </p>
         </div>
 
         {/* Security Disclaimers */}
