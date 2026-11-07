@@ -1,3 +1,4 @@
+import logging
 import os
 import sys
 import asyncio
@@ -27,6 +28,11 @@ if sys.platform == "win32":
 async def lifespan(app: FastAPI):
     # Startup: Validate production configuration constraints
     settings.validate_production_config()
+    if not settings.AUDIT_HMAC_KEY:
+        logging.getLogger(__name__).warning(
+            "AUDIT_HMAC_KEY is not set: the audit chain key is derived from JWT_SECRET_KEY. "
+            "Set an independent AUDIT_HMAC_KEY (python -m app.cli generate-audit-key)."
+        )
     # Initialize Database
     init_db()
     yield

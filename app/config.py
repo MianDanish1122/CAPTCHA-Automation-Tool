@@ -64,6 +64,15 @@ class Settings:
     INITIAL_ADMIN_SETUP_TOKEN: str = os.getenv("INITIAL_ADMIN_SETUP_TOKEN", "")
     # HMAC key for the tamper-evident audit chain (defaults to a key derived from JWT_SECRET_KEY).
     AUDIT_HMAC_KEY: str = os.getenv("AUDIT_HMAC_KEY", "")
+    # Comma-separated PREVIOUS audit keys, kept only so entries sealed before a rotation still verify.
+    AUDIT_HMAC_KEYS_PREVIOUS: list[str] = [
+        k.strip() for k in os.getenv("AUDIT_HMAC_KEYS_PREVIOUS", "").split(",") if k.strip()
+    ]
+    # Verify pre-key-id entries with the legacy JWT-derived key. Disable once no such entries remain.
+    AUDIT_ALLOW_LEGACY_DERIVED_KEY: bool = get_bool_env("AUDIT_ALLOW_LEGACY_DERIVED_KEY", True)
+    # Tokens issued before Phase 6B carry no `ver` claim. Reject them (forces one re-login after the
+    # upgrade). Set false ONLY temporarily to let pre-upgrade sessions expire naturally.
+    JWT_REQUIRE_VER_CLAIM: bool = get_bool_env("JWT_REQUIRE_VER_CLAIM", True)
 
     # Request / input limits
     MAX_JSON_BODY_BYTES: int = int(os.getenv("MAX_JSON_BODY_BYTES", str(2 * 1024 * 1024)))
@@ -155,6 +164,10 @@ class Settings:
                 raise ValueError(
                     "Production requires a cryptographically strong JWT_SECRET_KEY of at least 32 characters."
                 )
+            if len(self.AUDIT_HMAC_KEY) < 32:
+                raise ValueError("Production requires AUDIT_HMAC_KEY of at least 32 characters.")
+            if self.AUDIT_HMAC_KEY == self.JWT_SECRET_KEY:
+                raise ValueError("AUDIT_HMAC_KEY must be different from JWT_SECRET_KEY.")
             if self.INITIAL_ADMIN_SETUP_TOKEN and len(self.INITIAL_ADMIN_SETUP_TOKEN) < 24:
                 raise ValueError("INITIAL_ADMIN_SETUP_TOKEN must be at least 24 characters when set.")
             if self.SCAN_ALLOW_INVALID_CERTS:

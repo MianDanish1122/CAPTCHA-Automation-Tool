@@ -90,7 +90,8 @@ def decode_access_token(token: str) -> dict:
         payload = jwt.decode(
             token,
             settings.JWT_SECRET_KEY,
-            algorithms=[settings.JWT_ALGORITHM]
+            algorithms=[settings.JWT_ALGORITHM],  # fixed allow-list: "alg":"none" / algorithm confusion rejected
+            options={"require": ["exp", "iat", "sub", "jti"]},  # tokens without an expiry are never accepted
         )
         return payload
     except jwt.ExpiredSignatureError:
@@ -166,7 +167,18 @@ async def get_current_user(
             detail="Session has been revoked. Please log in again.",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    if int(payload.get("ver", 0)) != int(user.token_version or 0):
+    ver_claim = payload.get("ver")
+    if ver_claim is None:
+        # Issued before Phase 6B (no version claim): cannot be bulk-invalidated, so by default
+        # they are rejected once (controlled migration -> one re-login after the upgrade).
+        if settings.JWT_REQUIRE_VER_CLAIM:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Session predates a security upgrade. Please log in again.",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        ver_claim = 0
+    if int(ver_claim) != int(user.token_version or 0):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Session has been invalidated. Please log in again.",
