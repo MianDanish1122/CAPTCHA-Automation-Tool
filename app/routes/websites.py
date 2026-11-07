@@ -28,6 +28,7 @@ from app.services.security_guard import SecurityGuard
 from app.services.smart_crawler import SmartCrawler
 from app.services.auth_service import require_operator, require_admin, log_audit_event
 from app.services.rate_limiter import rate_limit
+from app.services.client_ip import get_client_ip
 
 router = APIRouter(
     prefix="/api/websites",
@@ -135,7 +136,7 @@ async def upload_csv(
         db=db,
         action="csv.import",
         actor=current_user,
-        ip_address=req.client.host if req and req.client else "127.0.0.1",
+        ip_address=get_client_ip(req),
         request_id=req.headers.get("X-Request-ID") if req else None,
         details={"filename": file.filename, "valid": len(valid_websites), "invalid": invalid_rows}
     )
@@ -243,7 +244,7 @@ async def scan_batch(
         actor=current_user,
         resource_type="website_batch",
         resource_id=batch_id,
-        ip_address=req.client.host if req and req.client else "127.0.0.1",
+        ip_address=get_client_ip(req),
         request_id=req.headers.get("X-Request-ID") if req else None,
         details={"total_records": len(items)}
     )
@@ -375,7 +376,7 @@ async def inspect_url(
         actor=current_user,
         resource_type="url_scan",
         resource_id=scan_id,
-        ip_address=req.client.host if req.client else "127.0.0.1",
+        ip_address=get_client_ip(req),
         request_id=req.headers.get("X-Request-ID"),
         details={"url": request.url, "max_pages": request.max_pages, "background": request.background}
     )

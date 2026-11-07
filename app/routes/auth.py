@@ -14,6 +14,7 @@ from app.services.auth_service import (
     log_audit_event,
 )
 from app.services.rate_limiter import rate_limit
+from app.services.client_ip import get_client_ip
 from app.config import settings
 
 router = APIRouter(prefix="/api/auth", tags=["Authentication & Access Control"])
@@ -50,7 +51,7 @@ async def login(
     Authenticate user credentials and issue signed JWT access token.
     Rate-limited to prevent brute-force credential stuffing.
     """
-    client_ip = req.client.host if req.client else "127.0.0.1"
+    client_ip = get_client_ip(req)
     request_id = req.headers.get("X-Request-ID")
 
     user = db.query(User).filter(User.username == request_data.username).first()
@@ -115,7 +116,7 @@ async def logout(
     db: Session = Depends(get_db)
 ):
     """Log out authenticated user session and record audit trail."""
-    client_ip = req.client.host if req.client else "127.0.0.1"
+    client_ip = get_client_ip(req)
     log_audit_event(
         db=db,
         action="auth.logout",
@@ -167,7 +168,7 @@ async def setup_initial_admin(
         db=db,
         action="auth.initial_admin_setup",
         actor=admin_user,
-        ip_address=req.client.host if req.client else "127.0.0.1",
+        ip_address=get_client_ip(req),
         details={"username": admin_user.username, "email": admin_user.email}
     )
 
@@ -215,7 +216,7 @@ async def create_user(
         actor=current_admin,
         resource_type="user",
         resource_id=new_user.id,
-        ip_address=req.client.host if req.client else "127.0.0.1",
+        ip_address=get_client_ip(req),
         details={"new_username": new_user.username, "assigned_role": new_user.role}
     )
 

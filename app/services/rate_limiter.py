@@ -3,6 +3,7 @@ import threading
 from typing import Optional
 from fastapi import Request, HTTPException, status
 from app.config import settings
+from app.services.client_ip import get_client_ip
 
 
 class InMemoryRateLimiter:
@@ -64,12 +65,8 @@ def rate_limit(max_requests: int, window_seconds: int = 60, scope: str = "genera
     Enforces sliding-window rate limit based on client IP or authenticated user.
     """
     async def rate_limit_dependency(request: Request):
-        client_ip = request.client.host if request.client else "127.0.0.1"
-        
-        # Check if forwarded header is present from trusted proxy
-        forwarded = request.headers.get("X-Forwarded-For")
-        if forwarded:
-            client_ip = forwarded.split(",")[0].strip()
+        # Forwarding headers are honored ONLY from configured trusted proxies.
+        client_ip = get_client_ip(request)
 
         key = f"{scope}:{client_ip}"
         allowed, retry_after, remaining = limiter.check_rate_limit(

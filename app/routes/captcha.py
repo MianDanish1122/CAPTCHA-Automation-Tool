@@ -18,6 +18,7 @@ from app.services.ocr_service import (
 from app.services.token_verifier import verify_recaptcha_token
 from app.services.auth_service import require_operator, log_audit_event
 from app.services.rate_limiter import rate_limit
+from app.services.client_ip import get_client_ip
 
 router = APIRouter(
     prefix="/api/captcha",
@@ -266,7 +267,7 @@ async def update_review_status(
         actor=current_user,
         resource_type="human_review",
         resource_id=review_id,
-        ip_address=req.client.host if req.client else "127.0.0.1",
+        ip_address=get_client_ip(req),
         request_id=req.headers.get("X-Request-ID"),
         details={"new_status": request.review_status, "notes": request.operator_notes}
     )
