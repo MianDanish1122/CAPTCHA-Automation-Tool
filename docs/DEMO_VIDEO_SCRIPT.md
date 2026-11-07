@@ -43,4 +43,4 @@ Machine time for the whole sequence in the rehearsal was 69–86 s; the rest is 
 - Do not say the system "solves reCAPTCHA/hCaptcha/Turnstile", "bypasses", "defeats" or "automates" them. Say "detects and routes to a human".
 - Do not say 99.3% "accuracy" without "on the project's own synthetic generator".
 - Do not describe test-key results as "real verification".
-- Do not open **Settings** (it prints local file-system paths — see `DEMO_RECORDING_CHECKLIST.md`), the credentials file, `.env`, a terminal showing your Windows profile path, or the browser's saved-password list.
+- Do not open the credentials file, `.env`, a terminal showing your Windows profile path, or the browser's saved-password list.

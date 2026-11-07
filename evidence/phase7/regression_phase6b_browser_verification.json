@@ -27,7 +27,7 @@
     {
       "check": "screenshot is loaded via blob (not a public URL)",
       "passed": true,
-      "detail": "blob:http://localhost:3000/e1288c61-8717-4da8-bc4e-0970d4c9acdb"
+      "detail": "blob:http://localhost:3000/d540995f-4aee-463c-a1d1-f5ede81d61ce"
     },
     {
       "check": "evidence request carried a bearer token",
@@ -132,7 +132,7 @@
     {
       "check": "admin audit chain verification is valid",
       "passed": true,
-      "detail": "{'success': True, 'valid': True, 'checked_entries': 3, 'legacy_unchained_entries': 0, 'head_hash': '9f736a90690290dbc1611c3c50b3402d61ed6ce7c7701738895ffb8c04568ead', 'head_seq': 3}"
+      "detail": "{'success': True, 'valid': True, 'checked_entries': 3, 'legacy_unchained_entries': 0, 'head_hash': 'ec520afe63f89bfde5a6c64f8a9576534292a9cefbe20e759ece8ab099d490f2', 'head_seq': 3}"
     },
     {
       "check": "admin can read health details",

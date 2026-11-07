@@ -26,3 +26,6 @@ Detail lives in the phase documents (`PHASE_5_*`, `PHASE_6A_*`, `PHASE_6B_*`, `P
 
 ## Residual risks
 See `docs/KNOWN_LIMITATIONS.md` (single-process state, SQLite, `localStorage` JWT without CSP, externally anchored audit head, in-memory rate limiter).
+
+## Addendum — information disclosure via diagnostics (fixed)
+`GET /api/websites/settings` (authenticated) used to return absolute local paths (`evidence_dir`, `reports_dir`, `tesseract_cmd`), revealing the OS user-profile name. It now returns `evidence/`, `reports/` and `tesseract`; internal configuration is unchanged. `/api/health/details` and `/health` were checked and contain no paths. Covered by `tests/test_settings_privacy.py`.

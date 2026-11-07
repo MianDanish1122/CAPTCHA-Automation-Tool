@@ -25,7 +25,7 @@
     {
       "check": "website inspection completes",
       "passed": true,
-      "detail": "{\"success\": true, \"scan_id\": \"cad806d4-b25d-4ca2-8ebb-1ea258b2c122\", \"status\": \"completed\", \"submitted_url\": \"http://127.0.0.1:65205/\", \"domain\": \"127.0.0.1\", \"pages_crawled\": 2, \"contact_pages_found\""
+      "detail": "{\"success\": true, \"scan_id\": \"c7c560ed-8ca7-4cfa-9881-f55a62ad4a10\", \"status\": \"completed\", \"submitted_url\": \"http://127.0.0.1:57572/\", \"domain\": \"127.0.0.1\", \"pages_crawled\": 2, \"contact_pages_found\""
     },
     {
       "check": "discovered pages listed for the scan",
@@ -50,7 +50,7 @@
     {
       "check": "OCR benchmark run was executed and persisted",
       "passed": true,
-      "detail": "{\"id\": \"580c467d-9fc7-40b6-9971-09ff37b319cb\", \"created_at\": \"2026-11-07T12:49:13.976651\", \"source\": \"api\", \"dataset\": \"ocr_synthetic_v1\", \"split\": \"dev\", \"engine\": \"hybrid\", \"samples\": 20, \"exact_mat"
+      "detail": "{\"id\": \"6ddbafa8-309a-4a02-9c0a-2d685a1d7e81\", \"created_at\": \"2026-11-07T14:01:53.816380\", \"source\": \"api\", \"dataset\": \"ocr_synthetic_v1\", \"split\": \"dev\", \"engine\": \"hybrid\", \"samples\": 20, \"exact_mat"
     },
     {
       "check": "official test keys: real provider called and confirmed",

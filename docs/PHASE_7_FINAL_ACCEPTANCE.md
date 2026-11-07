@@ -56,3 +56,6 @@ No change to the Phase 5–6B architecture except: provider verification can no 
 ## 7. Completion statement
 
 Implementation and measured evidence exist for all six weighted criteria. Phase 7 is **ready for your review** — it should not be called complete until you have accepted the limitations above and the demonstration video (a human deliverable) has been recorded.
+
+## Addendum — settings privacy fix
+Found during the demo rehearsal and fixed in a minimal change to `app/routes/websites.py` (+ tests, docs). Verification after the fix: backend 445 passed / 1 skipped; frontend build 15/15; Phase 7 E2E 30/30; Phase 6B E2E 32/32; demo rehearsal 19/19 with no leaks. No other behaviour changed.

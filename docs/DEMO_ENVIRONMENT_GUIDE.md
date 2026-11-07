@@ -59,7 +59,7 @@ The rehearsal performs every scene in a real browser, times it, checks the expec
 ```powershell
 .\venv\Scripts\python.exe tests\demo_rehearsal.py
 ```
-Last run on this machine: **18/18 steps passed, 0 leak findings, 0 console errors, 0 failed requests**, machine time ≈ 80 s (report + screenshots: `evidence/demo_rehearsal/`).
+Last run on this machine: **19/19 steps passed, 0 leak findings, 0 console errors, 0 failed requests**, machine time ≈ 80 s (report + screenshots: `evidence/demo_rehearsal/`).
 
 **The rehearsal writes demo data (a scan, a review decision, OCR and verification records). The recording needs the *empty* starting state, so afterwards:**
 1. Stop the backend (Ctrl+C in Window 1).
@@ -97,7 +97,7 @@ Create extra accounts only with `python -m app.cli create-user` (prompted passwo
 
 | # | Finding | Severity | Status |
 | :-: | :--- | :-: | :--- |
-| 1 | **Settings page prints local absolute paths** (`evidence_dir` such as `C:\Users\<you>\OneDrive\…`, and the Tesseract install path) — exposes your Windows profile name. | Medium (privacy) | **Not changed.** Avoid the page in the video. Minimal fix: return relative/base names from `/api/websites/settings` (`evidence_dir: "evidence/"`, `tesseract_cmd: "tesseract"`), or display only the base name in `settings/page.tsx` (≈ 3 lines). |
+| 1 | **Settings page/API printed local absolute paths** (`evidence_dir`, `reports_dir`, the Tesseract install path) — exposed the Windows profile name. | Medium (privacy) | **Fixed** (`app/routes/websites.py`): the API now returns `evidence/`, `reports/` and `tesseract`; the real configuration is used internally unchanged. 8 tests in `tests/test_settings_privacy.py`; rehearsal step S9b. The Settings page can now be shown. |
 | 2 | OCR page showed the custom model's confidence as **"9998%"** (value ×100 on a value already in percent) | Medium (misleading number) | **Fixed** (display `99.98% (engine-reported)`) |
 | 3 | OCR page labelled every engine's output **"TESSERACT OCR PREDICTION"** even when the custom model produced it | Medium (misleading attribution) | **Fixed** → "OCR Prediction"; page header now mentions the custom glyph model |
 | 4 | The 99.3 % scope limit was only in documents, **not on screen** | High for requirement 7 | **Fixed:** scope note added to the OCR benchmark card and above the held-out table on the Evaluation page |

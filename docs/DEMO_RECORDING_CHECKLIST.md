@@ -5,7 +5,7 @@ Use together with `DEMO_VIDEO_SCRIPT.md` (what to do/say) and `DEMO_ENVIRONMENT_
 ## A. Environment (≈ 10 min)
 - [ ] Demo database freshly reset **after** the rehearsal (`python -m scripts.demo_env setup --reset`) and the backend restarted
 - [ ] Backend (8000), dashboard (3000) and demo website (8090) running; `http://127.0.0.1:8000/health` returns `{"status":"healthy"}`
-- [ ] Rehearsal passed on this machine today (`python tests\demo_rehearsal.py` → 18/18, 0 leak findings) — then reset again
+- [ ] Rehearsal passed on this machine today (`python tests\demo_rehearsal.py` → 19/19, 0 leak findings) — then reset again
 - [ ] Internet works (verification scenes call the providers' **test** endpoints) — or you are prepared to show the honest `provider_unavailable` result
 - [ ] First OCR run already warmed (model loaded) — do it during the practice run
 - [ ] Credentials file open **privately** on another monitor/window; never visible in the capture
@@ -16,7 +16,7 @@ Use together with `DEMO_VIDEO_SCRIPT.md` (what to do/say) and `DEMO_ENVIRONMENT_
 - [ ] Address bar shows only `localhost:3000` / `127.0.0.1` URLs
 - [ ] OS notifications off (Focus Assist / Do Not Disturb), OneDrive/Teams/Slack/mail closed, taskbar auto-hidden or cropped out
 - [ ] No terminal in frame. If a terminal must show, use a fresh window with a short prompt (`function prompt { '> ' }`), not your profile path
-- [ ] **Never open:** the Settings page (prints local file-system paths), `.env`, `demo_runtime\demo_credentials.txt`, the Docs/Swagger link, the browser dev-tools/Network tab (shows bearer tokens), File Explorer
+- [ ] **Never open:** `.env`, `demo_runtime\demo_credentials.txt`, the Docs/Swagger link, the browser dev-tools/Network tab (shows bearer tokens), File Explorer
 - [ ] The password is typed/pasted into the masked field only; pasting from a window that is outside the capture
 - [ ] Only demo identities appear (`demo_operator`, `demo_operator@demo.invalid`); no real name/e-mail
 - [ ] No real company names or third-party URLs in the Inspector (use `http://127.0.0.1:8090/`; the two refusal examples are an internal IP and `example.com`)

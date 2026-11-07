@@ -243,6 +243,20 @@ async def main() -> int:
                and s["verification"]["simulated_attempts"] == 1 and "custom_mlp" in report and "Denominator" in report,
                json.dumps({"scans": s["inspections"]["url_scans_total"], "verif": s["verification"]["attempts"]}))
 
+        # S9b Settings page is now safe to show: no local paths, only safe values ----------------------------------
+        t = time.perf_counter()
+        await page.goto(f"{FRONTEND}/settings", wait_until="networkidle")
+        await page.wait_for_timeout(1500)
+        stxt = await page.inner_text("body")
+        await seen("14_settings_page")
+        s_api = await api("/api/websites/settings", token)
+        api_text = json.dumps(s_api)
+        no_paths = not (re.search(r"[A-Za-z]:", api_text) or "\\\\" in api_text or "AppData" in api_text
+                        or "OneDrive" in api_text or "Users" in api_text)
+        R.step("S9b Settings page + API expose no local paths (evidence/, tesseract only)", t,
+               no_paths and s_api["evidence_dir"] == "evidence/" and s_api["tesseract_cmd"] == "tesseract"
+               and "evidence/" in stxt, json.dumps({k: s_api[k] for k in ("evidence_dir", "tesseract_cmd", "reports_dir")}))
+
         # S10 logout ----------------------------------------------------------------------------------------------------------
         await page.click("button[title='Sign Out']")
         await page.wait_for_url(f"{FRONTEND}/login", timeout=15000)

@@ -4,7 +4,7 @@ Environment: Windows 10, Python 3.12, pytest, Playwright Chromium, Next.js 16.4.
 
 ## Backend suite — `pytest tests/`
 
-**437 passed, 1 skipped, 0 failed** (312 s). 438 collected = 333 (Phases 1–6B, all still passing) + **105 new Phase 7 tests**.
+**445 passed, 1 skipped, 0 failed** (357 s). 446 collected = 333 (Phases 1–6B, all still passing) + 105 Phase 7 tests + **8 settings-privacy tests** (added after the demo rehearsal; see `PHASE_7_FINAL_ACCEPTANCE.md` addendum).
 
 | File | Tests | Scope |
 | :--- | :---: | :--- |
@@ -39,3 +39,6 @@ The Phase 7 E2E drove: sign-in; empty-state dashboard with the 8 workflow steps;
 
 ## Not run / not covered
 Lint; fresh-virtualenv reinstall after Phase 7 (no new third-party dependency was added: the custom model uses NumPy/OpenCV/Pillow already declared); the older `run_acceptance_tests.py` / `verify_frontend_e2e.py`; load/performance testing; multi-process behaviour; Firefox/WebKit; real production CAPTCHA keys.
+
+## Addendum — settings privacy fix (after the demo rehearsal)
+`/api/websites/settings` no longer returns local absolute paths: `evidence_dir` → `evidence/`, `reports_dir` → `reports/`, `tesseract_cmd` → `tesseract` (the real configured values are used internally and unchanged). `tests/test_settings_privacy.py` (8 tests) asserts the safe values, the absence of drive/UNC/POSIX paths, profile-name segments, secrets and database location, frontend field compatibility, unchanged internal configuration with Tesseract still running through it, and unchanged 401/200 access control; 3 of them fail against the previous code. Re-run after the fix: backend **445 passed, 1 skipped**; frontend build 15/15; Phase 7 browser E2E **30/30**; Phase 6B browser regression **32/32**; demo rehearsal on a freshly reset isolated database **19/19** (new step S9b visits Settings), 0 leak findings, 0 console errors, 0 failed requests.

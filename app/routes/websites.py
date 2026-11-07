@@ -594,9 +594,11 @@ async def get_system_settings(current_user: User = Depends(require_operator)):
         "crawler_max_depth": settings.CRAWLER_MAX_DEPTH,
         "crawler_page_timeout_ms": settings.CRAWLER_PAGE_TIMEOUT_MS,
         "crawler_total_timeout_sec": settings.CRAWLER_TOTAL_TIMEOUT_SEC,
-        "tesseract_cmd": settings.TESSERACT_CMD,
+        # Privacy: never expose local absolute paths (they contain the OS user profile name). The real
+        # configured values (settings.TESSERACT_CMD / REPORTS_DIR / EVIDENCE_DIR) are used internally unchanged.
+        "tesseract_cmd": "tesseract",
         "tesseract_installed": tesseract_exists,
-        "reports_dir": str(settings.REPORTS_DIR),
-        "evidence_dir": str(settings.EVIDENCE_DIR),
+        "reports_dir": "reports/",
+        "evidence_dir": "evidence/",
         "current_user_role": current_user.role,
     }
