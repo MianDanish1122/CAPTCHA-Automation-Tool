@@ -438,6 +438,7 @@ class SmartCrawler:
 
         all_detected_providers: set[str] = set()
         contact_pages_count = 0
+        page_errors: list[dict[str, str]] = []   # pages that could not be read (timeout, navigation error, ...)
 
         try:
             page = await context.new_page()
@@ -649,11 +650,44 @@ class SmartCrawler:
 
                 except Exception as page_err:
                     logger.warning(f"Error crawling {current_url}: {str(page_err)}")
+                    first_line = (str(page_err).strip().splitlines() or [""])[0][:200]
+                    timed_out = "timeout" in type(page_err).__name__.lower() or "timeout" in first_line.lower()
+                    page_errors.append({"url": current_url, "reason": "timed out" if timed_out else type(page_err).__name__,
+                                        "detail": first_line})
                     # Continue crawling remaining pages
+
+            # Nothing readable + at least one page error => the scan FAILED (never "Completed, no CAPTCHA")
+            if page_errors and not self.discovered_results:
+                total_duration_ms = (time.perf_counter() - start_time) * 1000
+                first = page_errors[0]
+                msg = (f"No page could be inspected: {first['url']} {first['reason']}"
+                       + (f" ({first['detail']})" if first["reason"] != "timed out" else "")
+                       + ". This is NOT evidence that the site has no CAPTCHA. "
+                       + ("Try again or raise CRAWLER_PAGE_TIMEOUT_MS." if first["reason"] == "timed out" else ""))
+                scan.status = "failed"
+                scan.error_message = msg.strip()
+                scan.pages_crawled = 0
+                scan.crawl_duration_ms = total_duration_ms
+                scan.completed_at = datetime.now(timezone.utc)
+                db.commit()
+                return {
+                    "success": False,
+                    "scan_id": scan_id,
+                    "status": "failed",
+                    "submitted_url": self.raw_target_url,
+                    "domain": self.base_domain,
+                    "error": scan.error_message,
+                    "page_errors": page_errors,
+                    "pages_crawled": 0,
+                    "crawl_duration_ms": round(total_duration_ms, 2),
+                    "results": [],
+                }
 
             # Mark scan complete
             total_duration_ms = (time.perf_counter() - start_time) * 1000
             scan.status = "completed"
+            if page_errors:
+                scan.error_message = f"{len(page_errors)} page(s) could not be read (e.g. {page_errors[0]['url']}: {page_errors[0]['reason']})."
             scan.pages_crawled = len(self.visited_urls)
             scan.contact_pages_found = contact_pages_count
             scan.captcha_detected = len(all_detected_providers) > 0
@@ -673,6 +707,7 @@ class SmartCrawler:
                 "captcha_detected": len(all_detected_providers) > 0,
                 "captcha_providers": sorted(list(all_detected_providers)),
                 "crawl_duration_ms": round(total_duration_ms, 2),
+                "page_errors": page_errors,
                 "results": self.discovered_results,
             }
 

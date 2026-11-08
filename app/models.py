@@ -1,5 +1,6 @@
 import uuid
 import json
+from urllib.parse import urlparse
 from datetime import datetime, timezone
 from sqlalchemy import (
     Column,
@@ -268,6 +269,16 @@ class DiscoveredPage(Base):
             "http_status": self.http_status,
             "crawl_duration_ms": round(self.crawl_duration_ms, 2) if self.crawl_duration_ms else 0.0,
             "created_at": self.created_at.isoformat() if self.created_at else None,
+            # Aliases for the field names the Results / Inspector screens read (additive; originals unchanged)
+            "path": (urlparse(self.url or "").path or "/"),
+            "title": self.page_title,
+            "status_code": self.http_status,
+            "is_contact_page": self.classification == "contact_page",
+            "contact_confidence": round(self.confidence_score, 2) if self.confidence_score else 0.0,
+            "forms_found_count": self.forms_count or 0,
+            "captcha_confidence": None,   # not measured per page; the screen shows "-" instead of an invented number
+            "handling_strategy": ("human_review" if self.captcha_detected and self.human_review_required
+                                  else ("no_challenge" if not self.captcha_detected else None)),
         }
 
 
@@ -308,6 +319,13 @@ class HumanReviewRecord(Base):
             "resolved_at": self.resolved_at.isoformat() if self.resolved_at else None,
             "reviewed_by": self.reviewed_by_username,
             "decision_count": self.decision_count or 0,
+            # Aliases for the field names the Human Review screen reads (additive; originals unchanged)
+            "target_url": self.page_url,
+            "provider": self.captcha_provider,
+            "confidence_score": None,      # not stored for review records; the screen shows "-" instead of NaN%
+            "handling_strategy": "human_review",
+            "reviewer_notes": self.operator_notes,
+            "evidence": {"reason_for_review": self.reason_for_review},
         }
 
 

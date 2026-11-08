@@ -229,7 +229,7 @@ export default function ReviewsPage() {
                       {rev.challenge_type}
                     </td>
                     <td className="py-3 px-2 font-mono font-medium">
-                      {Math.round(rev.confidence_score * 100)}%
+                      {typeof rev.confidence_score === 'number' ? `${Math.round(rev.confidence_score * 100)}%` : '-'}
                     </td>
                     <td className="py-3 px-2">
                       <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px] font-mono">
@@ -386,7 +386,7 @@ export default function ReviewsPage() {
               pageUrl={selectedReview.target_url}
               screenshotPath={selectedReview.evidence?.screenshot_path || null}
               provider={selectedReview.provider}
-              confidence={selectedReview.confidence_score}
+              confidence={typeof selectedReview.confidence_score === 'number' ? selectedReview.confidence_score : undefined}
               evidence={selectedReview.evidence}
               handlingStrategy={selectedReview.handling_strategy}
             />

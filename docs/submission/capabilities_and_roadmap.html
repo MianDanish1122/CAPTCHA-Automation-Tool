@@ -1,0 +1,74 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+@page{size:A4;margin:16mm}
+body{font-family:Segoe UI,Arial,sans-serif;font-size:10.5pt;line-height:1.45;color:#111}
+h1{font-size:21pt;color:#1f4e79;margin:0 0 2px}
+h2{font-size:14pt;color:#1f4e79;border-bottom:2px solid #1f4e79;padding-bottom:3px;margin-top:20px}
+.sub{color:#555;margin-bottom:10px}
+table{border-collapse:collapse;width:100%;margin:6px 0}
+td,th{border:1px solid #999;padding:4px 7px;vertical-align:top;font-size:9.5pt}
+th{background:#e8eef5;text-align:left}
+.ok{background:#e6f5ea;font-weight:600;white-space:nowrap}
+.part{background:#fff3da;font-weight:600;white-space:nowrap}
+.no{background:#fde8e8;font-weight:600;white-space:nowrap}
+.box{border:1px solid #1f4e79;background:#f3f7fb;padding:8px 12px;margin:8px 0}
+code{background:#f1f1f1;padding:0 3px;font-family:Consolas,monospace}
+</style></head><body>
+<h1>CAPTCHA Inspector - Capabilities, Requirement Coverage and Roadmap</h1>
+<div class='sub'>Technology Brainz assignment &middot; status of the current build</div>
+
+<h2>1. What the tool does today</h2>
+<table>
+<tr><th style='width:28%'>Capability</th><th>Current behaviour</th></tr>
+<tr><td>Import the CSV</td><td>Reads the 200-row CSV, validates it, keeps every column, reports bad rows with their row number, normalises the expected CAPTCHA label.</td></tr>
+<tr><td>Open Contact Us pages</td><td>Real headless Chromium (Playwright); waits for the page to settle; reads the rendered page, scripts and iframes.</td></tr>
+<tr><td>Identify CAPTCHAs</td><td>Google reCAPTCHA (v2 / invisible), hCaptcha, Cloudflare Turnstile, and other anti-bot challenges; records the type and widget state; ignores mentions that appear only in static code.</td></tr>
+<tr><td>Keep the workflow moving</td><td>A CAPTCHA never blocks the batch: it is recorded with a screenshot, queued in Human Review, and the scan continues with the next site.</td></tr>
+<tr><td>Compare with the CSV</td><td>Expected vs Detected: Match, Mismatch, Not detected, Not accessible, Not verified. Percentages use only inspected rows and state the sample size.</td></tr>
+<tr><td>Inspect forms safely</td><td>Counts forms and fields; never clicks CAPTCHAs, never submits forms, never collects tokens.</td></tr>
+<tr><td>Solve text CAPTCHAs</td><td>OCR pipeline for our own synthetic text CAPTCHAs (about 99.3% on our own generator).</td></tr>
+<tr><td>Verify tokens</td><td>Calls the providers' official verification service with their published test keys and records the real answer.</td></tr>
+<tr><td>Reports</td><td>Audit report and Expected-vs-Detected report (CSV / Markdown), safe against spreadsheet formula injection.</td></tr>
+<tr><td>Safety and audit</td><td>Domain allow-list, SSRF protection, robots.txt respected, request pacing per host, role-based login, tamper-evident audit trail.</td></tr>
+</table>
+
+<h2>2. Requirement coverage</h2>
+<table>
+<tr><th style='width:30%'>Requirement (from the assignment message)</th><th style='width:12%'>Status</th><th>Notes</th></tr>
+<tr><td>Import the 200-row CSV</td><td class='ok'>Met</td><td>Tested with the assignment's column layout.</td></tr>
+<tr><td>Use Playwright</td><td class='ok'>Met</td><td>All page inspection runs through Playwright Chromium.</td></tr>
+<tr><td>Work with Contact Us forms</td><td class='ok'>Met</td><td>Uses the CSV's Contact Page value; discovers contact pages from a home page when asked.</td></tr>
+<tr><td>Identify the CAPTCHA challenge</td><td class='ok'>Met</td><td>Provider, type and state; checked on fixtures and on real sites.</td></tr>
+<tr><td>CAPTCHA must not prevent the workflow from proceeding</td><td class='ok'>Met</td><td>Recorded, queued for a person, batch continues. Unreachable sites are reported, not fatal.</td></tr>
+<tr><td>Handle different CAPTCHA types</td><td class='part'>Partly</td><td>All major types are <b>identified and handled by routing to a human</b>. Automated solving exists only for our own text CAPTCHAs.</td></tr>
+<tr><td>Solve third-party CAPTCHAs (reCAPTCHA, hCaptcha, Turnstile)</td><td class='no'>Not done, by design</td><td>Bypassing them would breach the providers' terms and the websites' access controls. Not implemented.</td></tr>
+<tr><td>Work on all 200 websites</td><td class='part'>Partly</td><td>Every row gets a result. Sites that block automated browsers, forbid crawling in robots.txt, or time out are reported as "Not accessible" with the reason. A full 200-site run has not been completed yet; the live sample so far is small (4 sites: 2 inspected and matching, 2 not accessible).</td></tr>
+<tr><td>Real-time use</td><td class='part'>Partly</td><td>Works locally and can be hosted; a live deployment and allow-list for the 200 domains still have to be set up.</td></tr>
+</table>
+
+<div class='box'><b>Overall.</b> The detection, evidence, reporting and non-blocking workflow parts are complete and tested (backend suite: 630 passed, 1 skipped, 0 failed; browser suites 30/30, 32/32, 19/19, 16/16 at the last full run). The one requirement that is not met is automated solving of third-party CAPTCHAs, and the share of the 200 sites that can be inspected depends on how many allow automated access.</div>
+
+<h2>3. Known limits</h2>
+<table>
+<tr><th style='width:32%'>Limit</th><th>Why</th></tr>
+<tr><td>Some sites show "Not accessible"</td><td>Bot walls, 403/429 responses, robots.txt disallow, timeouts. The tool stops rather than evading them.</td></tr>
+<tr><td>No automatic solving of reCAPTCHA / hCaptcha / Turnstile</td><td>Legal and terms-of-service reasons; a person reviews each one.</td></tr>
+<tr><td>Confidence per page is not shown</td><td>It is not measured, so the screens show "-" instead of an invented number.</td></tr>
+<tr><td>Small live sample</td><td>The real-site results so far are not a statistical accuracy claim.</td></tr>
+<tr><td>Local-only until hosted</td><td>No public link exists yet.</td></tr>
+</table>
+
+<h2>4. Possible future additions</h2>
+<table>
+<tr><th style='width:34%'>Feature</th><th>Value</th></tr>
+<tr><td>Run and publish the full 200-site scan</td><td>Real coverage numbers (inspected / not accessible / matched) for the employer.</td></tr>
+<tr><td>Hosted deployment (Docker, PostgreSQL)</td><td>Live link for reviewers; allow-list preconfigured for the CSV domains.</td></tr>
+<tr><td>Retry and resume for batches</td><td>Retry transient failures and continue an interrupted 200-site run.</td></tr>
+<tr><td>Permission-based CAPTCHA handling</td><td>For sites the client owns or has written permission to test: use the providers' test or allow-list mechanisms, or a legally reviewed, provider-sanctioned integration. Needs client sign-off first.</td></tr>
+<tr><td>Reviewer workflow tools</td><td>Assign review items, SLA timers, bulk approve/reject, comments.</td></tr>
+<tr><td>Notifications</td><td>Email or chat alert when a batch finishes or a new CAPTCHA type appears.</td></tr>
+<tr><td>Scheduled re-scans and trends</td><td>Detect when a site adds, removes or changes its CAPTCHA over time.</td></tr>
+<tr><td>Larger accuracy benchmark</td><td>Labelled sample of real pages to measure detection precision and recall.</td></tr>
+<tr><td>Export to PDF/Excel dashboards</td><td>One-click executive report from the Reports screen.</td></tr>
+<tr><td>Stronger accounts</td><td>Password policy, per-user API keys, single sign-on, expiry for reviewer accounts.</td></tr>
+</table>
+</body></html>

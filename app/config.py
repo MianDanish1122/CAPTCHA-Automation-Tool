@@ -153,7 +153,7 @@ class Settings:
     # Crawler configuration
     CRAWLER_MAX_PAGES: int = int(os.getenv("CRAWLER_MAX_PAGES", "10"))
     CRAWLER_MAX_DEPTH: int = int(os.getenv("CRAWLER_MAX_DEPTH", "2"))
-    CRAWLER_PAGE_TIMEOUT_MS: int = int(os.getenv("CRAWLER_PAGE_TIMEOUT_MS", "10000"))
+    CRAWLER_PAGE_TIMEOUT_MS: int = int(os.getenv("CRAWLER_PAGE_TIMEOUT_MS", "30000"))
     CRAWLER_TOTAL_TIMEOUT_SEC: int = int(os.getenv("CRAWLER_TOTAL_TIMEOUT_SEC", "60"))
     CRAWLER_USER_AGENT: str = os.getenv(
         "CRAWLER_USER_AGENT",

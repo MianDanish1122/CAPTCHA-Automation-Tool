@@ -1,0 +1,64 @@
+<!doctype html><html><head><meta charset='utf-8'><style>
+@page{size:A4;margin:16mm}
+body{font-family:Segoe UI,Arial,sans-serif;font-size:10.5pt;line-height:1.45;color:#111}
+h1{font-size:21pt;color:#1f4e79;margin:0 0 2px}
+h2{font-size:14pt;color:#1f4e79;border-bottom:2px solid #1f4e79;padding-bottom:3px;margin-top:18px}
+.sub{color:#555;margin-bottom:10px}
+table{border-collapse:collapse;width:100%;margin:6px 0}
+td,th{border:1px solid #999;padding:4px 7px;vertical-align:top;font-size:9.5pt}
+th{background:#e8eef5;text-align:left}
+pre{background:#f1f1f1;padding:8px;font:9pt Consolas,monospace;white-space:pre}
+code{background:#f1f1f1;padding:0 3px;font-family:Consolas,monospace}
+.box{border:1px solid #1f4e79;background:#f3f7fb;padding:8px 12px;margin:8px 0}
+</style></head><body>
+<h1>Architecture and Cost Breakdown</h1>
+<div class='sub'>CAPTCHA Solving &amp; Verification Tool &middot; short explanation for reviewers</div>
+
+<h2>1. Architecture</h2>
+<pre>
+ Browser (Next.js dashboard)  --JWT-->  FastAPI backend (/api/...)
+                                           |
+        +----------------+-----------------+------------------+---------------------+
+        |                |                 |                  |                     |
+   OCR solver      Token verifier     Detection engine   Batch / CSV pipeline   Audit + auth
+ (custom glyph    (provider            (Playwright       (robots, pacing,       (roles, hash-chained
+  model +          siteverify,          Chromium, DOM,    expected-vs-detected,  audit log, rate
+  Tesseract        test keys)           scripts, iframes) reports)               limits)
+  fallback)
+        \________________ SQLite / PostgreSQL via SQLAlchemy + Alembic ________________/
+</pre>
+<table>
+<tr><th style='width:24%'>Part</th><th>What it does</th></tr>
+<tr><td>Recognition</td><td>Classifies a challenge as synthetic text, or as Google reCAPTCHA / hCaptcha / Cloudflare Turnstile (subtype and widget state); anything else is reported as <b>unsupported</b> and sent to human review.</td></tr>
+<tr><td>Solving engine (custom)</td><td>Our own synthetic text CAPTCHAs are solved by segmentation plus a NumPy glyph classifier. <b>Hybrid</b> routing falls back to tuned Tesseract when the custom model is unsure. Each result has the prediction, a confidence value, the engine route and the time taken. Held-out accuracy: <b>99.3% exact match on 300 images</b> (same generator; see limits).</td></tr>
+<tr><td>Fallback</td><td>Custom model first, Tesseract second (hybrid). A fallback reason is returned in the response.</td></tr>
+<tr><td>Token verification</td><td>Server-side POST to each provider's official <code>siteverify</code> endpoint with the providers' published test keys (reCAPTCHA, hCaptcha, Turnstile). Handles invalid, expired, reused and missing tokens, wrong secret, provider down and malformed replies. Returns a structured response; tokens and secrets are never logged or stored.</td></tr>
+<tr><td>Reusable API</td><td><code>POST /api/captcha/ocr-demo</code>, <code>/ocr-benchmark</code>, <code>/verify-token</code>, <code>/classify</code> (JWT required; Swagger at <code>/docs</code>).</td></tr>
+<tr><td>Web interface</td><td>OCR Laboratory, Verification, URL Inspector, Scan History, CAPTCHA Results, Human Review, CSV Batch Manager, Reports, Evaluation (attempts, successes, failures, processing time, challenge type, method).</td></tr>
+<tr><td>Reliability and safety</td><td>Timeouts on every external call, per-host pacing, robots.txt respected, domain allow-list, SSRF guard, rate limits, role-based access, tamper-evident audit trail.</td></tr>
+</table>
+
+<h2>2. Cost breakdown</h2>
+<table>
+<tr><th style='width:34%'>Item</th><th>Cost</th></tr>
+<tr><td>Third-party CAPTCHA-solving API</td><td><b>None used - $0.</b> No paid solver is integrated, so there is no per-challenge fee, pricing table or monthly cap to document.</td></tr>
+<tr><td>Custom OCR, per challenge</td><td>Local CPU only. Measured mean latency: hybrid <b>5.7 ms</b> (p95 8.3 ms), custom model 4.5 ms, tuned Tesseract 246.7 ms. Cost per challenge = (latency in ms / 3,600,000) &times; the price of one CPU-core-hour of your machine; no hourly price is assumed here.</td></tr>
+<tr><td>Provider verification calls</td><td>Demo uses the providers' free published <b>test</b> keys: no charge. With real production keys, each provider's own terms and pricing would apply; that was not researched or assumed.</td></tr>
+<tr><td>Training (one-off)</td><td>About 55 s of CPU for 60 epochs on about 14,900 glyphs.</td></tr>
+<tr><td>Software licences</td><td>All dependencies are open source (for example Tesseract is Apache-2.0).</td></tr>
+<tr><td>Hosting</td><td>None performed, so no hosting cost is claimed.</td></tr>
+</table>
+
+<h2>3. Operational limits and error handling</h2>
+<table>
+<tr><th style='width:34%'>Limit</th><th>Behaviour</th></tr>
+<tr><td>Provider timeout</td><td>8 s per verification call (<code>VERIFY_TIMEOUT_SECONDS</code>); no automatic retries, so an outage cannot multiply calls.</td></tr>
+<tr><td>Rate limits</td><td>Per-user limits on compute, benchmark, login and admin routes (configurable); HTTP 429 with Retry-After.</td></tr>
+<tr><td>Input limits</td><td>Maximum image size and pixels, JSON body size and CSV size are enforced.</td></tr>
+<tr><td>Scope of solving</td><td>Only our own synthetic text CAPTCHAs are solved. Production reCAPTCHA, hCaptcha and Turnstile challenges are identified and routed to a human; they are not bypassed.</td></tr>
+<tr><td>Accuracy claim</td><td>The 99.3% figure applies to our own generator's images and is not a claim about real-world CAPTCHAs.</td></tr>
+</table>
+
+<h2>4. Setup (summary)</h2>
+<div class='box'>Python 3.12+, Node 20+, Tesseract 5. Create a venv, install <code>requirements.txt</code>, run <code>playwright install chromium</code>, copy <code>.env.example</code> to <code>.env</code> (set <code>JWT_SECRET_KEY</code> and <code>AUDIT_HMAC_KEY</code>), run <code>alembic upgrade head</code>, create the first admin with <code>python -m app.cli create-admin</code>, start the backend with uvicorn and the frontend with <code>npm run build &amp;&amp; npm run start</code>. Full steps and the environment variable table are in the repository README.</div>
+</body></html>

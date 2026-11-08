@@ -59,7 +59,10 @@ function InspectorContent() {
           if (res.status === 'completed' || res.status === 'failed') {
             setScanResult(res);
             setScanning(false);
-            setCurrentStep('done');
+            setCurrentStep(res.status === 'failed' ? 'failed' : 'done');
+            if (res.status === 'failed') {
+              setError((res as any).error_message || 'The scan failed; no page could be inspected.');
+            }
             if (interval) clearInterval(interval);
           } else {
             setCurrentStep('crawling');
@@ -95,7 +98,8 @@ function InspectorContent() {
       });
 
       if (!response.success) {
-        throw new Error(response.message || 'Inspection failed');
+        // a failed crawl returns its reason in `error` (e.g. "No page could be inspected: ... timed out")
+        throw new Error((response as any).error || response.message || 'Inspection failed');
       }
 
       setScanId(response.scan_id);
